@@ -1,5 +1,6 @@
 {
   "importFile": "Importer un fichier",
   "fileMaxSize": "Taille maximale: {maxFileSize} Mo",
-  "carbonFootprintReduction": "Réduction de l'empreinte carbone"
+  "carbonFootprintReduction": "Réduction de l'empreinte carbone",
+  "availableDocuments": "Documents disponibles"
 }

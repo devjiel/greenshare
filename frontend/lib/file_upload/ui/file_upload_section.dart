@@ -17,18 +17,31 @@ class FileUploadSection extends StatelessWidget {
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.3,
             height: double.infinity,
-            child: const GreenShareCard(
+            child: GreenShareCard(
               child: Padding(
-                padding: EdgeInsets.all(kDefaultPadding),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      FileWidget(),
-                      FileWidget(),
-                      FileWidget(),
-                      FileWidget(),
-                    ],
-                  ),
+                padding: const EdgeInsets.all(kDefaultPadding),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.localization.availableDocuments,
+                      style: context.bodyLarge,
+                    ),
+                    const SizedBox(height: 12.0),
+                    const Padding(
+                      padding: EdgeInsets.all(kSmallPadding),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            FileWidget(),
+                            FileWidget(),
+                            FileWidget(),
+                            FileWidget(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
