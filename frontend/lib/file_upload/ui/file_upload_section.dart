@@ -29,6 +29,11 @@ class FileUploadSection extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    IconButton(
+                      icon: const Icon(Icons.cloud_upload),
+                      iconSize: 48,
+                      onPressed: () {},
+                    ),
                     Text(
                       context.localization.importFile,
                       style: context.bodyLarge,

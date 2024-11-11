@@ -30,6 +30,7 @@ final kTheme = ThemeData(
       ),
     ),
   ),
+  iconTheme: const IconThemeData(color: kLightGreen),
   colorScheme: ColorScheme.fromSwatch().copyWith(primary: kLightGreen, secondary: kDarkGreen),
   useMaterial3: true,
 );
