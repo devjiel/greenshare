@@ -9,6 +9,8 @@ const kMaxPadding = 48.0;
 const kDefaultPadding = 24.0;
 const kSmallPadding = 8.0;
 
+const kBorderRadius = 16.0;
+
 final kTheme = ThemeData(
   brightness: Brightness.light,
   fontFamily: "Poppins",
@@ -24,7 +26,7 @@ final kTheme = ThemeData(
     elevation: 0,
     margin: const EdgeInsets.all(0),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(kBorderRadius),
       side: const BorderSide(
         color: kLightGreen,
         width: 1,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greenshare/ecological_data/ui/widgets/carbon_footprint_reduction_widget.dart';
 import 'package:greenshare/file_upload/ui/widgets/file_widget.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
@@ -18,7 +19,7 @@ class EcologicalDataSection extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.3,
             height: double.infinity,
             child: const GreenShareCard(
-              child: Text("A"),
+              child: CarbonFootprintReductionWidget(),
             ),
           ),
           const SizedBox(width: kMaxPadding),
@@ -26,7 +27,7 @@ class EcologicalDataSection extends StatelessWidget {
             child: SizedBox(
               height: double.infinity,
               child: GreenShareCard(
-                child: Center(child: Text("A")),
+                child: Center(child: Placeholder()),
               ),
             ),
           ),
