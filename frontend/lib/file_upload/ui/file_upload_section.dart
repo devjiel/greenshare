@@ -35,6 +35,7 @@ class FileUploadSection extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: BlocBuilder<AvailableFilesCubit, AvailableFilesState>(
                           builder: (context, state) {
+                            // TODO split widget to tests differents states
                             if (state is AvailableFilesLoading) {
                               return const SizedBox(
                                 width: kDefaultPadding,
@@ -42,10 +43,13 @@ class FileUploadSection extends StatelessWidget {
                                 child: CircularProgressIndicator(),
                               );
                             } else if (state is AvailableFilesError) {
-                              return Text('Error: ${state.message}');
+                              return Text(
+                                'Error: ${state.message}',
+                                style: context.bodySmall?.copyWith(color: kRed),
+                              );
                             } else if (state is AvailableFilesLoaded) {
                               if (state.files.isEmpty) {
-                                return Text("context.localization.noAvailableDocuments", style: context.bodySmall);
+                                return Text(context.localization.noAvailableDocuments, style: context.bodySmall);
                               } else {
                                 return Column(
                                   children: state.files.map((file) => FileWidget(file: file)).toList(),

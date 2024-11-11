@@ -4,6 +4,7 @@ const kLightGreen = Color(0xFFD8E4D6);
 const kDarkGreen = Color(0xFF5A6558);
 const kBlack = Color(0xFF141514);
 const kWhite = Color(0xFFFFFFFF);
+const kRed = Color(0xFF842229);
 
 const kMaxPadding = 48.0;
 const kDefaultPadding = 24.0;
