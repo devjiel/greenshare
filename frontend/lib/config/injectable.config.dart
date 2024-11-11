@@ -13,6 +13,8 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:greenshare/config/firebase/firebase_injectable_module.dart'
     as _i173;
 import 'package:greenshare/config/specific_config.dart' as _i398;
+import 'package:greenshare/file_upload/ui/blocs/available_files_cubit.dart'
+    as _i325;
 import 'package:injectable/injectable.dart' as _i526;
 
 const String _dev = 'dev';
@@ -31,6 +33,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final firebaseInjectableModule = _$FirebaseInjectableModule();
+    gh.singleton<_i325.AvailableFilesCubit>(() => _i325.AvailableFilesCubit());
     gh.factory<_i398.IConfig>(
       () => _i398.DevConfig(),
       registerFor: {_dev},

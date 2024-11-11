@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files_cubit.dart';
+import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
 
 class FileWidget extends StatelessWidget {
-  const FileWidget({super.key});
+  const FileWidget({super.key, required this.file});
+
+  final FileState file;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +23,14 @@ class FileWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "document.pdf",
+                file.name,
                 style: context.labelLarge,
               ),
               const SizedBox(height: 2.0),
               Row(
                 children: [
                   Text(
-                    "7.4 Mo",
+                    context.localization.fileSize(file.size),
                     style: context.labelSmall,
                   ),
                   Text(
@@ -34,7 +38,8 @@ class FileWidget extends StatelessWidget {
                     style: context.labelSmall,
                   ),
                   Text(
-                    "2024-11-20 11:54",
+                    // How to have only one parameter?
+                    context.localization.fileExpirationDate(file.expirationDate, file.expirationDate),
                     style: context.labelSmall,
                   ),
                 ],

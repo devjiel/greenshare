@@ -2,5 +2,20 @@
   "importFile": "Importer un fichier",
   "fileMaxSize": "Taille maximale: {maxFileSize} Mo",
   "carbonFootprintReduction": "Réduction de l'empreinte carbone",
-  "availableDocuments": "Documents disponibles"
+  "availableDocuments": "Documents disponibles",
+  "noAvailableDocuments": "Aucun document disponible",
+  "fileSize": "{size} Mo",
+  "fileExpirationDate": "{date} {hour}",
+  "@fileExpirationDate": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      },
+      "hour": {
+        "type": "DateTime",
+        "format": "Hms"
+      }
+    }
+  }
 }
