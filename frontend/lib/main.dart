@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:greenshare/config/injectable.dart';
+import 'package:greenshare/ecological_data/ui/ecological_data_section.dart';
 import 'package:greenshare/file_upload/ui/file_upload_section.dart';
 import 'package:greenshare/theme.dart';
 import 'package:greenshare/ui/footer.dart';
@@ -62,8 +63,13 @@ class MyHomePage extends StatelessWidget {
                 child: Header(),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: MediaQuery.of(context).size.height * 0.5,
                 child: const FileUploadSection(),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: const EcologicalDataSection(),
               ),
               const Expanded(
                 child: Footer(),
