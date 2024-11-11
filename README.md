@@ -14,3 +14,13 @@ dart run build_runner build --delete-conflicting-outputs && flutter pub get
 ```
 
 Note: `flutter pub get` is here to refresh `arb` file in flutter project.
+
+## Run Tests
+```bash
+flutter test
+```
+
+## Update Golden Tests
+```bash
+flutter test --update-goldens --tags=golden
+```
