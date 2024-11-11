@@ -12,9 +12,11 @@ class FileUploadSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.3,
+            height: double.infinity,
             child: const GreenShareCard(
               child: Padding(
                 padding: EdgeInsets.all(kDefaultPadding),
