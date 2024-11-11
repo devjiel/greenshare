@@ -1,6 +1,5 @@
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:greenshare/theme.dart';
+import 'package:greenshare/ui/widgets/card.dart';
 
 class FileUploadPage extends StatelessWidget {
   const FileUploadPage({super.key});
@@ -8,14 +7,23 @@ class FileUploadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
+      child: Row(
         children: [
           Expanded(
-            child: DottedBorder(
-              color: kLightGreen,
-              dashPattern: const [6, 6],
-              borderType: BorderType.RRect,
-              radius: const Radius.circular(16),
+            child: GreenShareCard(
+              child:
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Click me', style: TextStyle(color: Colors.black)),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: GreenShareCard(
+              dottedBorder: true,
               child:
               Padding(
                 padding: const EdgeInsets.all(8.0),
