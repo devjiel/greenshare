@@ -5,6 +5,7 @@ const kDarkGreen = Color(0xFF5A6558);
 const kBlack = Color(0xFF141514);
 const kWhite = Color(0xFFFFFFFF);
 
+const kMaxPadding = 48.0;
 const kDefaultPadding = 24.0;
 const kSmallPadding = 8.0;
 

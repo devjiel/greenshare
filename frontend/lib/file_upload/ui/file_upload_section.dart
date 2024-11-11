@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:greenshare/l10n/localization.dart';
+import 'package:greenshare/theme.dart';
 import 'package:greenshare/ui/widgets/card.dart';
 
 class FileUploadSection extends StatelessWidget {
@@ -6,32 +8,42 @@ class FileUploadSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: GreenShareCard(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: GreenShareCard(
               child: ElevatedButton(
                 onPressed: () {},
                 child: const Text('Click me', style: TextStyle(color: Colors.black)),
               ),
             ),
           ),
-        ),
-        Expanded(
-          child: GreenShareCard(
-            dottedBorder: true,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Click me', style: TextStyle(color: Colors.black)),
+          const SizedBox(width: kMaxPadding),
+          Expanded(
+            child: GreenShareCard(
+              dottedBorder: true,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      context.localization.importFile,
+                      style: context.bodyLarge,
+                    ),
+                    Text(
+                      context.localization.fileMaxSize(50),
+                      style: context.bodySmall,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

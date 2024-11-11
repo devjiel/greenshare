@@ -54,19 +54,22 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            const Expanded(
-              child: Header(),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: const FileUploadSection(),
-            ),
-            const Expanded(
-              child: Footer(),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            children: [
+              const Expanded(
+                child: Header(),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: const FileUploadSection(),
+              ),
+              const Expanded(
+                child: Footer(),
+              ),
+            ],
+          ),
         ),
       ),
     );

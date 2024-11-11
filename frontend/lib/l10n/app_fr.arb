@@ -1,3 +1,4 @@
 {
-  "greeting": "Bonjour {userName}"
+  "importFile": "Importer un fichier",
+  "fileMaxSize": "Taille maximale: {maxFileSize} Mo"
 }
