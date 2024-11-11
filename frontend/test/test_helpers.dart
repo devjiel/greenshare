@@ -8,20 +8,20 @@ final locales = ['en', 'fr'];
 
 extension WidgetTesterExtension on WidgetTester {
 
-  Future<void> pumpWidgetInDesktopMode(Widget widget, String locale) async {
+  Future<void> pumpWidgetInDesktopMode({required Widget widget, String? locale}) async {
     view.physicalSize = const Size(1920, 1080);
     view.devicePixelRatio = 1.0;
     view.platformDispatcher.textScaleFactorTestValue = 1.0;
 
-    await pumpWidgetWithLocale(widget, locale);
+    await pumpWidgetWithLocale(widget, locale ?? 'en');
   }
 
-  Future<void> pumpWidgetInPhoneMode(Widget widget, String locale) async {
+  Future<void> pumpWidgetInPhoneMode({required Widget widget, String? locale}) async {
     view.physicalSize = const Size(500, 900);
     view.devicePixelRatio = 1.0;
     view.platformDispatcher.textScaleFactorTestValue = 0.5;
 
-    await pumpWidgetWithLocale(widget, locale);
+    await pumpWidgetWithLocale(widget, locale ?? 'en');
   }
 
   Future<void> pumpWidgetWithLocale(Widget widget, String locale) async {

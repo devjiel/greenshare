@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:greenshare/config/injectable.dart';
+import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_cubit.dart';
 import 'package:greenshare/ecological_data/ui/ecological_data_section.dart';
 import 'package:greenshare/file_upload/ui/blocs/available_files_cubit.dart';
 import 'package:greenshare/file_upload/ui/file_upload_section.dart';
@@ -74,7 +75,10 @@ class HomePage extends StatelessWidget {
               SizedBox(height: MediaQuery.of(context).size.height * 0.025),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.3,
-                child: const EcologicalDataSection(),
+                child: BlocProvider(
+                  create: (context) => getIt<CarbonReductionCubit>()..loadCarbonReduction(),
+                  child: const EcologicalDataSection(),
+                ),
               ),
               const Expanded(
                 child: Footer(),
