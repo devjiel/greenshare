@@ -1,0 +1,62 @@
+# Flutter
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.dart_tool/
+.build/
+.macos/
+windows/
+linux/
+web/
+.idea/
+*.iml
+*.apk
+*.ipa
+*.app.dSYM
+
+# Android
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/.gradle/
+android/captures/
+android/app/src/debug/
+android/app/src/profile/
+android/app/src/main/obj/
+android/app/src/main/gen/
+android/app/src/main/jniLibs/
+android/app/build/
+android/gradle/wrapper/gradle-wrapper.properties
+android/local.properties
+android/.idea/
+
+# iOS
+ios/Flutter/.generated/
+ios/.generated/
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework/
+ios/Flutter/Flutter.podspec
+ios/Flutter/App.framework/
+ios/Flutter/Flutter.podspec.json
+ios/Flutter/Generated.xcconfig
+ios/Flutter/Flutter.podspec
+ios/.dart_tool/
+ios/Runner.xcworkspace/
+ios/Pods/
+ios/Podfile.lock
+ios/Podfile
+ios/Flutter/Flutter.framework/
+ios/Flutter/App.framework/
+
+# Dart
+*.log
+*.lock
+pubspec.lock
+
+# VS Code
+.vscode/
+
+# Build output directories
+build/
+
