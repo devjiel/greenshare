@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greenshare/file_upload/ui/widgets/file_widget.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
 import 'package:greenshare/ui/widgets/card.dart';
@@ -14,10 +15,19 @@ class FileUploadSection extends StatelessWidget {
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.3,
-            child: GreenShareCard(
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Click me', style: TextStyle(color: Colors.black)),
+            child: const GreenShareCard(
+              child: Padding(
+                padding: EdgeInsets.all(kDefaultPadding),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      FileWidget(),
+                      FileWidget(),
+                      FileWidget(),
+                      FileWidget(),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
