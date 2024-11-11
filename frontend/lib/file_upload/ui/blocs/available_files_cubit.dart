@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -36,32 +37,47 @@ class AvailableFilesCubit extends Cubit<AvailableFilesState> {
   }
 }
 
-abstract class AvailableFilesState {}
+abstract class AvailableFilesState extends Equatable {}
 
-class AvailableFilesInitial extends AvailableFilesState {}
+class AvailableFilesInitial extends AvailableFilesState {
+  @override
+  List<Object?> get props => [];
+}
 
-class AvailableFilesLoading extends AvailableFilesState {}
+class AvailableFilesLoading extends AvailableFilesState {
+  @override
+  List<Object?> get props => [];
+}
 
 class AvailableFilesLoaded extends AvailableFilesState {
   final List<FileState> files;
 
   AvailableFilesLoaded(this.files);
+
+  @override
+  List<Object?> get props => [files];
 }
 
 class AvailableFilesError extends AvailableFilesState {
   final String message;
 
   AvailableFilesError(this.message);
+
+  @override
+  List<Object?> get props => [message];
 }
 
-class FileState {
+class FileState extends Equatable {
   final String name;
   final double size;
   final DateTime expirationDate;
 
-  FileState({
+  const FileState({
     required this.name,
     required this.size,
     required this.expirationDate,
   });
+
+  @override
+  List<Object?> get props => [name, size, expirationDate];
 }
