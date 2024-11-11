@@ -50,7 +50,7 @@ const kBaseTextStyle = TextStyle(
 final kTextTheme = TextTheme(
   titleLarge: kBaseTextStyle.copyWith(
     fontSize: 24.0,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.normal,
   ),
   titleSmall: kBaseTextStyle.copyWith(
     fontSize: 24.0,
