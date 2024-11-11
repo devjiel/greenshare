@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:greenshare/config/injectable.dart';
-import 'package:greenshare/file_upload/ui/file_upload_page.dart';
+import 'package:greenshare/file_upload/ui/file_upload_section.dart';
 import 'package:greenshare/theme.dart';
+import 'package:greenshare/ui/footer.dart';
+import 'package:greenshare/ui/header.dart';
 import 'package:injectable/injectable.dart';
 
 void main() {
@@ -50,8 +52,23 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: FileUploadPage(),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            const Expanded(
+              child: Header(),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: const FileUploadSection(),
+            ),
+            const Expanded(
+              child: Footer(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
