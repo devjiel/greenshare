@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:greenshare/ecological_data/ui/widgets/carbon_footprint_reduction_widget.dart';
-import 'package:greenshare/file_upload/ui/widgets/file_widget.dart';
-import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
 import 'package:greenshare/ui/widgets/card.dart';
 

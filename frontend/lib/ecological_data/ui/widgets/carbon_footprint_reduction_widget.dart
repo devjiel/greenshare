@@ -41,7 +41,7 @@ class CarbonFootprintReductionWidget extends StatelessWidget {
                         "0.7",
                         style: context.titleLarge?.copyWith(
                           color: kBlack,
-                          fontSize: 64.0,
+                          fontSize: 56.0,
                         ),
                       ),
                     ],
