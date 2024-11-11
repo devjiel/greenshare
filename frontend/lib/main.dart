@@ -67,16 +67,16 @@ class HomePage extends StatelessWidget {
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
-                child: BlocProvider(
-                  create: (context) => getIt<AvailableFilesCubit>()..loadFiles(),
+                child: BlocProvider.value(
+                  value: getIt<AvailableFilesCubit>()..loadFiles(),
                   child: const FileUploadSection(),
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.025),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.3,
-                child: BlocProvider(
-                  create: (context) => getIt<CarbonReductionCubit>()..loadCarbonReduction(),
+                child: BlocProvider.value(
+                  value: getIt<CarbonReductionCubit>()..loadCarbonReduction(),
                   child: const EcologicalDataSection(),
                 ),
               ),
