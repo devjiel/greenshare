@@ -19,6 +19,7 @@ import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart'
     as _i853;
 import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart'
     as _i351;
+import 'package:greenshare/user/repositories/users_repository.dart' as _i398;
 import 'package:injectable/injectable.dart' as _i526;
 
 const String _test = 'test';
@@ -41,8 +42,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => firebaseInjectableModule.fireService,
       preResolve: true,
     );
-    gh.singleton<_i853.CarbonReductionBloc>(() => _i853.CarbonReductionBloc());
     gh.singleton<_i351.AvailableFilesBloc>(() => _i351.AvailableFilesBloc());
+    gh.singleton<_i853.CarbonReductionBloc>(() => _i853.CarbonReductionBloc());
     gh.lazySingleton<_i345.FirebaseDatabase>(
       () => firebaseInjectableModule.firebaseDatabase,
       instanceName: 'firebaseDatabase',
@@ -55,6 +56,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i632.DevConfig(),
       registerFor: {_dev},
     );
+    gh.lazySingleton<_i398.UsersRepository>(() => _i398.UsersRepository(
+        gh<_i345.FirebaseDatabase>(instanceName: 'firebaseDatabase')));
     gh.factory<_i632.IConfig>(
       () => _i632.ProdConfig(),
       registerFor: {_prod},

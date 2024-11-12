@@ -8,6 +8,7 @@
 windows/
 linux/
 web/
+generated/
 .idea/
 *.iml
 *.apk
