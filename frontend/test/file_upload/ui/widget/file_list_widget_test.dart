@@ -36,7 +36,7 @@ void main() {
     });
 
     testGoldens("Desktop FileList widget - valid case - no file available", (WidgetTester tester) async {
-      when(() => availableFilesBloc.state).thenReturn(AvailableFilesLoaded([]));
+      when(() => availableFilesBloc.state).thenReturn(AvailableFilesLoaded(const []));
 
       await tester.pumpWidgetInPhoneMode(
         widget: BlocProvider<AvailableFilesBloc>.value(

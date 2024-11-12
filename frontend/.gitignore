@@ -40,14 +40,10 @@ ios/Flutter/Flutter.podspec
 ios/Flutter/App.framework/
 ios/Flutter/Flutter.podspec.json
 ios/Flutter/Generated.xcconfig
-ios/Flutter/Flutter.podspec
 ios/.dart_tool/
 ios/Runner.xcworkspace/
-ios/Pods/
 ios/Podfile.lock
 ios/Podfile
-ios/Flutter/Flutter.framework/
-ios/Flutter/App.framework/
 
 # Dart
 *.log
