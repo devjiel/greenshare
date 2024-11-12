@@ -5,6 +5,6 @@ import '../business/services/firebase_service.dart';
 @module
 abstract class AppModule {
 
-  // @preResolve
-  // Future<FirebaseService> get fireService => FirebaseService.init();
+  @preResolve
+  Future<FirebaseService> get fireService => FirebaseService.init();
 }

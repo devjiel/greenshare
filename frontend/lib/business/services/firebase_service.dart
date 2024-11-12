@@ -1,6 +1,4 @@
-// TODO
-
-/*import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import '../../config/firebase/firebase_options.dart';
 
 class FirebaseService {
@@ -10,4 +8,4 @@ class FirebaseService {
     );
     return FirebaseService();
   }
-}*/
+}
