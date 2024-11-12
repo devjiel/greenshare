@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greenshare/ecological_data/ui/models/carbon_reduction_view_model.dart';
 import 'package:injectable/injectable.dart';
 
-part 'models/carbon_reduction_view_model.dart';
 part 'carbon_reduction_event.dart';
 part 'carbon_reduction_state.dart';
 

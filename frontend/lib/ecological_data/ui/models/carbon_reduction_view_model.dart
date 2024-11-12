@@ -1,4 +1,4 @@
-part of '../carbon_reduction_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 class CarbonReductionViewModel extends Equatable {
   final double value;

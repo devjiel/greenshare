@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
+import 'package:greenshare/ecological_data/ui/models/carbon_reduction_view_model.dart';
 import 'package:greenshare/ecological_data/ui/widgets/carbon_footprint_reduction_widget.dart';
 import 'package:mocktail/mocktail.dart';
 

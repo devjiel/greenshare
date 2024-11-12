@@ -1,4 +1,4 @@
-part of '../available_files_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 class FileViewModel extends Equatable {
   final String name;

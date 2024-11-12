@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
 import 'package:greenshare/file_upload/ui/widgets/file_list_widget.dart';
 import 'package:mocktail/mocktail.dart';
 

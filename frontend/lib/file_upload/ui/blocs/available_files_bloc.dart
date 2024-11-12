@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
 import 'package:injectable/injectable.dart';
 
-part 'models/file_view_model.dart';
 part 'available_files_event.dart';
 part 'available_files_state.dart';
 

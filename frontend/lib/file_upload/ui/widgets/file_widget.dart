@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
 
