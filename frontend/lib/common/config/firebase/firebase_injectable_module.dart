@@ -14,7 +14,13 @@ abstract class FirebaseInjectableModule {
 
   @lazySingleton
   @Named('firebaseDatabase')
-  FirebaseDatabase get firebaseDatabase => FirebaseDatabase.instanceFor(app: Firebase.app());
+  FirebaseDatabase get firebaseDatabase {
+    final database = FirebaseDatabase.instanceFor(app: Firebase.app());
+    if (getIt<IConfig>().useEmulator) {
+      database.useDatabaseEmulator('localhost', 9000);
+    }
+    return database;
+  }
 
   @lazySingleton
   FirebaseAuth get firebaseAuth {

@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
           create: (_) => getIt<CarbonReductionBloc>()..add(LoadCarbonReductionEvent()),
         ),
         BlocProvider<UserBloc>(
-          create: (_) => getIt<UserBloc>()..add(const StartListeningUser('1')),
+          create: (_) => getIt<UserBloc>()..add(const StartListeningUser('d9ae6ea2-98c5-451f-856b-2c09cf2d9c4b')),
         ),
       ],
       child: Scaffold(
