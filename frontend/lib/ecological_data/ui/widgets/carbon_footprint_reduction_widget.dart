@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_cubit.dart';
+import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
 
@@ -34,7 +34,7 @@ class CarbonFootprintReductionWidget extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: BlocBuilder<CarbonReductionCubit, CarbonReductionState>(builder: (context, state) {
+              child: BlocBuilder<CarbonReductionBloc, CarbonReductionState>(builder: (context, state) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

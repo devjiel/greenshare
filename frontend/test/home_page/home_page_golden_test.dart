@@ -2,45 +2,45 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:greenshare/config/injectable.dart';
-import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_cubit.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files_cubit.dart';
+import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
 import 'package:greenshare/main.dart';
 
 import '../test_helpers.dart';
 
-class MockAvailableFilesCubit extends MockBloc<AvailableFilesCubit, AvailableFilesState> implements AvailableFilesCubit {}
+class MockAvailableFilesBloc extends MockBloc<AvailableFilesEvent, AvailableFilesState> implements AvailableFilesBloc {}
 
-class MockCarbonReductionCubit extends MockBloc<CarbonReductionCubit, CarbonReductionState> implements CarbonReductionCubit {}
+class MockCarbonReductionBloc extends MockBloc<CarbonReductionEvent, CarbonReductionState> implements CarbonReductionBloc {}
 
 void main() {
-  final availableFilesCubit = MockAvailableFilesCubit();
-  final carbonReductionCubit = MockCarbonReductionCubit();
+  final availableFilesBloc = MockAvailableFilesBloc();
+  final carbonReductionBloc = MockCarbonReductionBloc();
 
   setUpAll(() async {
     await loadAppFonts();
 
     whenListen(
-      availableFilesCubit,
+      availableFilesBloc,
       Stream.fromIterable([
         AvailableFilesLoaded([
-          FileState(name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 11)),
-          FileState(name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11)),
-          FileState(name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 11)),
+          FileViewModel(name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 11)),
+          FileViewModel(name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11)),
+          FileViewModel(name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 11)),
         ]),
       ]),
       initialState: AvailableFilesInitial(),
     );
 
     whenListen(
-      carbonReductionCubit,
+      carbonReductionBloc,
       Stream.fromIterable([
-        CarbonReductionStateLoaded(const CarbonReduction(value: 0.7, unit: 'tons')),
+        CarbonReductionStateLoaded(const CarbonReductionViewModel(value: 0.7, unit: 'tons')),
       ]),
       initialState: CarbonReductionStateLoading(),
     );
 
-    getIt.registerLazySingleton<AvailableFilesCubit>(() => availableFilesCubit);
-    getIt.registerLazySingleton<CarbonReductionCubit>(() => carbonReductionCubit);
+    getIt.registerLazySingleton<AvailableFilesBloc>(() => availableFilesBloc);
+    getIt.registerLazySingleton<CarbonReductionBloc>(() => carbonReductionBloc);
   });
 
   group("HomePage page goldens", () {

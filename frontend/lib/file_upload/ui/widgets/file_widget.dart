@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files_cubit.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
 
 class FileWidget extends StatelessWidget {
   const FileWidget({super.key, required this.file});
 
-  final FileState file;
+  final FileViewModel file;
 
   @override
   Widget build(BuildContext context) {

@@ -1,23 +1,23 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files_cubit.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
 
 void main() {
-  group('AvailableFilesCubit', () {
-    late AvailableFilesCubit availableFilesCubit;
+  group('AvailableFilesBloc', () {
+    late AvailableFilesBloc availableFilesBloc;
 
     setUp(() {
-      availableFilesCubit = AvailableFilesCubit();
+      availableFilesBloc = AvailableFilesBloc();
     });
 
     tearDown(() {
-      availableFilesCubit.close();
+      availableFilesBloc.close();
     });
 
-    blocTest<AvailableFilesCubit, AvailableFilesState>(
+    blocTest<AvailableFilesBloc, AvailableFilesState>(
       'emits [AvailableFilesLoading, AvailableFilesLoaded] when loadFiles is called',
-      build: () => availableFilesCubit,
-      act: (cubit) => cubit.loadFiles(),
+      build: () => availableFilesBloc,
+      act: (bloc) => bloc.add(LoadAvailableFilesEvent()),
       wait: const Duration(seconds: 3),
       expect: () => [
         AvailableFilesLoading(),
@@ -29,15 +29,6 @@ void main() {
             .having((state) => state.files[1].size, 'size', 2.5)
             .having((state) => state.files[2].name, 'name', 'file3.pdf')
             .having((state) => state.files[2].size, 'size', 3.7),
-      ],
-    );
-
-    blocTest<AvailableFilesCubit, AvailableFilesState>(
-      'emits [AvailableFilesError] when showError is called',
-      build: () => availableFilesCubit,
-      act: (cubit) => cubit.showError('An error occurred'),
-      expect: () => [
-        AvailableFilesError('An error occurred'),
       ],
     );
   });

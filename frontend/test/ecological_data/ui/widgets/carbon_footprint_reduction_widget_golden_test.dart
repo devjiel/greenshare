@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_cubit.dart';
+import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
 import 'package:greenshare/ecological_data/ui/widgets/carbon_footprint_reduction_widget.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../test_helpers.dart';
 
-class MockCarbonReductionCubit extends MockBloc<CarbonReductionCubit, CarbonReductionState> implements CarbonReductionCubit {}
+class MockCarbonReductionBloc extends MockBloc<CarbonReductionEvent, CarbonReductionState> implements CarbonReductionBloc {}
 
 void main() {
-  final carbonReductionCubit = MockCarbonReductionCubit();
+  final carbonReductionBloc = MockCarbonReductionBloc();
 
   setUpAll(() async {
     await loadAppFonts();
@@ -20,11 +20,11 @@ void main() {
 
   group("CarbonFootprintReductionWidget goldens", () {
     testGoldens("Desktop CarbonFootprintReduction widget - valid case", (WidgetTester tester) async {
-      when(() => carbonReductionCubit.state).thenReturn(CarbonReductionStateLoaded(const CarbonReduction(value: 0.7, unit: 'tons')));
+      when(() => carbonReductionBloc.state).thenReturn(CarbonReductionStateLoaded(const CarbonReductionViewModel(value: 0.7, unit: 'tons')));
 
       await tester.pumpWidgetInPhoneMode(
-        widget: BlocProvider<CarbonReductionCubit>.value(
-          value: carbonReductionCubit,
+        widget: BlocProvider<CarbonReductionBloc>.value(
+          value: carbonReductionBloc,
           child: const CarbonFootprintReductionWidget(),
         ),
       );
@@ -33,11 +33,11 @@ void main() {
     });
 
     testGoldens("Desktop CarbonFootprintReduction widget - error case", (WidgetTester tester) async {
-      when(() => carbonReductionCubit.state).thenReturn(CarbonReductionStateError('An error occurred'));
+      when(() => carbonReductionBloc.state).thenReturn(CarbonReductionStateError('An error occurred'));
 
       await tester.pumpWidgetInPhoneMode(
-        widget: BlocProvider<CarbonReductionCubit>.value(
-          value: carbonReductionCubit,
+        widget: BlocProvider<CarbonReductionBloc>.value(
+          value: carbonReductionBloc,
           child: const CarbonFootprintReductionWidget(),
         ),
       );
