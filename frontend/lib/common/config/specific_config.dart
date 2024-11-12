@@ -1,14 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class IConfig {
-  String get databaseUrl => 'https://sophrology-default-rtdb.europe-west1.firebasedatabase.app/';
+  bool get useEmulator => false;
 }
 
 @Injectable(as: IConfig, env: [Environment.dev])
 class DevConfig extends IConfig {
 
   @override
-  String get databaseUrl => 'https://sophrology-default-rtdb.europe-west1.firebasedatabase.app/';
+  bool get useEmulator => kDebugMode;
 
 }
 

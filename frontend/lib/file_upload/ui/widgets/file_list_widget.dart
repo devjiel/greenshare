@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greenshare/common/ui/widgets/loading_widget.dart';
 import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
 import 'package:greenshare/file_upload/ui/widgets/file_widget.dart';
 import 'package:greenshare/l10n/localization.dart';
@@ -31,7 +32,7 @@ class FileListWidget extends StatelessWidget {
                       return const SizedBox(
                         width: kDefaultPadding,
                         height: kDefaultPadding,
-                        child: CircularProgressIndicator(),
+                        child: LoadingWidget(),
                       );
                     } else if (state is AvailableFilesError) {
                       return Text(

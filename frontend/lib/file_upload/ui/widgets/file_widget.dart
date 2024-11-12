@@ -37,6 +37,13 @@ class FileWidget extends StatelessWidget {
                     "-",
                     style: context.labelSmall,
                   ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4.0),
+                    child: Icon(
+                      Icons.timelapse_outlined,
+                      size: 12.0,
+                    ),
+                  ),
                   Text(
                     // How to have only one parameter?
                     context.localization.fileExpirationDate(file.expirationDate, file.expirationDate),

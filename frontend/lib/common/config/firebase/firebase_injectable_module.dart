@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:greenshare/common/business/services/firebase_service.dart';
@@ -13,5 +14,14 @@ abstract class FirebaseInjectableModule {
 
   @lazySingleton
   @Named('firebaseDatabase')
-  FirebaseDatabase get firebaseDatabase => FirebaseDatabase.instanceFor(app: Firebase.app(), databaseURL: getIt<IConfig>().databaseUrl);
+  FirebaseDatabase get firebaseDatabase => FirebaseDatabase.instanceFor(app: Firebase.app());
+
+  @lazySingleton
+  FirebaseAuth get firebaseAuth {
+    final auth = FirebaseAuth.instanceFor(app: Firebase.app());
+    if (getIt<IConfig>().useEmulator) {
+      auth.useAuthEmulator('localhost', 9099);
+    }
+    return auth;
+  }
 }

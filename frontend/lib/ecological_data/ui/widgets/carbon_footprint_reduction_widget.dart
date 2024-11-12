@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greenshare/common/ui/widgets/loading_widget.dart';
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
@@ -67,14 +68,7 @@ class CarbonFootprintReductionWidget extends StatelessWidget {
                         ],
                       ),
                     ] else if (state is CarbonReductionStateLoading) ...[
-                      // TODO create a widget
-                      const SizedBox(
-                        width: kDefaultPadding,
-                        height: kDefaultPadding,
-                        child: CircularProgressIndicator(
-                          color: kBlack,
-                        ),
-                      ),
+                      const LoadingWidget(color: kBlack),
                     ] else if (state is CarbonReductionStateError) ...[
                       Text(
                         'Error: ${state.message}',

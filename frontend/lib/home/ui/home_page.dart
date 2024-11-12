@@ -7,40 +7,50 @@ import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
 import 'package:greenshare/file_upload/ui/file_upload_section.dart';
 import 'package:greenshare/home/ui/footer.dart';
 import 'package:greenshare/home/ui/header.dart';
+import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(
-            children: [
-              const Expanded(
-                child: Header(),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: BlocProvider.value(
-                  value: getIt<AvailableFilesBloc>()..add(LoadAvailableFilesEvent()),
-                  child: const FileUploadSection(),
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.025),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.3,
-                child: BlocProvider.value(
-                  value: getIt<CarbonReductionBloc>()..add(LoadCarbonReductionEvent()),
-                  child: const EcologicalDataSection(),
-                ),
-              ),
-              const Expanded(
-                child: Footer(),
-              ),
-            ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AvailableFilesBloc>(
+          create: (_) => getIt<AvailableFilesBloc>()..add(LoadAvailableFilesEvent()),
+        ),
+        BlocProvider<CarbonReductionBloc>(
+          create: (_) => getIt<CarbonReductionBloc>()..add(LoadCarbonReductionEvent()),
+        ),
+        BlocProvider<UserBloc>(
+          create: (_) => getIt<UserBloc>()..add(const StartListeningUser('1')),
+        ),
+      ],
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+              return Column(
+                children: [
+                  const Expanded(
+                    child: Header(),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    child: const FileUploadSection(),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.025),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    child: const EcologicalDataSection(),
+                  ),
+                  const Expanded(
+                    child: Footer(),
+                  ),
+                ],
+              );
+            }),
           ),
         ),
       ),
