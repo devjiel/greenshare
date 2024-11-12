@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:greenshare/common/business/services/firebase_service.dart';
 import 'package:injectable/injectable.dart';
 import '../injectable.dart';
@@ -29,5 +30,14 @@ abstract class FirebaseInjectableModule {
       auth.useAuthEmulator('localhost', 9099);
     }
     return auth;
+  }
+
+  @lazySingleton
+  FirebaseStorage get firebaseStorage {
+    final storage = FirebaseStorage.instanceFor(app: Firebase.app());
+    if (getIt<IConfig>().useEmulator) {
+      storage.useStorageEmulator('localhost', 9199);
+    }
+    return storage;
   }
 }

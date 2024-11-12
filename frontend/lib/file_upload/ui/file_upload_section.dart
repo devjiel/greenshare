@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/common/ui/widgets/card.dart';
 import 'package:greenshare/file_upload/ui/widgets/file_list_widget.dart';
 import 'package:greenshare/l10n/localization.dart';
@@ -52,10 +54,14 @@ class FileUploadSection extends StatelessWidget {
                               final fileBytes = result.files.first.bytes;
                               final fileName = result.files.first.name;
 
-                              print('File name: $fileName');
-
                               // upload file
-                              //await FirebaseStorage.instance.ref('uploads/$fileName').putData(fileBytes);
+                              if (fileBytes != null) {
+                                final uploadTask = getIt<FirebaseStorage>().ref('user-uid/$fileName').putData(fileBytes);
+                                uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
+                                  print('Progress: ${(snapshot.bytesTransferred / snapshot.totalBytes) * 100} %');
+                                });
+                                await uploadTask;
+                              }
                             }
                           },
                         ),

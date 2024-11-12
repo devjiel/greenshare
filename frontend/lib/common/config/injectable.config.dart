@@ -10,6 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:firebase_database/firebase_database.dart' as _i345;
+import 'package:firebase_storage/firebase_storage.dart' as _i457;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:greenshare/authentication/repositories/authentication_repository.dart'
     as _i763;
@@ -50,6 +51,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i853.CarbonReductionBloc>(() => _i853.CarbonReductionBloc());
     gh.lazySingleton<_i59.FirebaseAuth>(
         () => firebaseInjectableModule.firebaseAuth);
+    gh.lazySingleton<_i457.FirebaseStorage>(
+        () => firebaseInjectableModule.firebaseStorage);
     gh.lazySingleton<_i345.FirebaseDatabase>(
       () => firebaseInjectableModule.firebaseDatabase,
       instanceName: 'firebaseDatabase',
