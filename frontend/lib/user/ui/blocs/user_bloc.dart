@@ -56,12 +56,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     _UserChanged event,
     Emitter<UserState> emit,
   ) {
-    print('UserBloc: User changed: ${event.user}');
     emit(UserState.loaded(UserViewModel.fromEntity(event.user)));
   }
 
   void _onError(_UserError event, Emitter<UserState> emit) {
-    print('UserBloc: Error: ${event.errorType}');
     emit(UserState.error(event.errorType));
   }
 }
