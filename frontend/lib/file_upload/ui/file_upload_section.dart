@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greenshare/file_upload/ui/widgets/file_list_widget.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
-import 'package:greenshare/ui/widgets/card.dart';
+import 'package:greenshare/common/ui/widgets/card.dart';
 
 class FileUploadSection extends StatelessWidget {
   const FileUploadSection({super.key});

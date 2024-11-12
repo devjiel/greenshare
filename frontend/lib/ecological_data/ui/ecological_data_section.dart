@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:greenshare/ecological_data/ui/widgets/carbon_footprint_reduction_widget.dart';
 import 'package:greenshare/theme.dart';
-import 'package:greenshare/ui/widgets/card.dart';
+import 'package:greenshare/common/ui/widgets/card.dart';
 
 class EcologicalDataSection extends StatelessWidget {
   const EcologicalDataSection({super.key});

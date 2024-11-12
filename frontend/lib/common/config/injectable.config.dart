@@ -10,19 +10,19 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:firebase_database/firebase_database.dart' as _i345;
 import 'package:get_it/get_it.dart' as _i174;
-import 'package:greenshare/business/services/firebase_service.dart' as _i188;
-import 'package:greenshare/config/app_injectable.dart' as _i748;
-import 'package:greenshare/config/firebase/firebase_injectable_module.dart'
-    as _i173;
-import 'package:greenshare/config/specific_config.dart' as _i398;
+import 'package:greenshare/common/business/services/firebase_service.dart'
+    as _i875;
+import 'package:greenshare/common/config/firebase/firebase_injectable_module.dart'
+    as _i752;
+import 'package:greenshare/common/config/specific_config.dart' as _i632;
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart'
     as _i853;
 import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart'
     as _i351;
 import 'package:injectable/injectable.dart' as _i526;
 
-const String _dev = 'dev';
 const String _test = 'test';
+const String _dev = 'dev';
 const String _prod = 'prod';
 
 extension GetItInjectableX on _i174.GetIt {
@@ -36,34 +36,31 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    final appModule = _$AppModule();
     final firebaseInjectableModule = _$FirebaseInjectableModule();
-    await gh.factoryAsync<_i188.FirebaseService>(
-      () => appModule.fireService,
+    await gh.factoryAsync<_i875.FirebaseService>(
+      () => firebaseInjectableModule.fireService,
       preResolve: true,
     );
     gh.singleton<_i853.CarbonReductionBloc>(() => _i853.CarbonReductionBloc());
     gh.singleton<_i351.AvailableFilesBloc>(() => _i351.AvailableFilesBloc());
-    gh.factory<_i398.IConfig>(
-      () => _i398.DevConfig(),
-      registerFor: {_dev},
-    );
     gh.lazySingleton<_i345.FirebaseDatabase>(
       () => firebaseInjectableModule.firebaseDatabase,
       instanceName: 'firebaseDatabase',
     );
-    gh.factory<_i398.IConfig>(
-      () => _i398.TestConfig(),
+    gh.factory<_i632.IConfig>(
+      () => _i632.TestConfig(),
       registerFor: {_test},
     );
-    gh.factory<_i398.IConfig>(
-      () => _i398.ProdConfig(),
+    gh.factory<_i632.IConfig>(
+      () => _i632.DevConfig(),
+      registerFor: {_dev},
+    );
+    gh.factory<_i632.IConfig>(
+      () => _i632.ProdConfig(),
       registerFor: {_prod},
     );
     return this;
   }
 }
 
-class _$AppModule extends _i748.AppModule {}
-
-class _$FirebaseInjectableModule extends _i173.FirebaseInjectableModule {}
+class _$FirebaseInjectableModule extends _i752.FirebaseInjectableModule {}
