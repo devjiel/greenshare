@@ -41,13 +41,12 @@ class FileUploadSection extends StatelessWidget {
             Expanded(
               child: Stack(
                 children: [
-                  // TODO: https://pub.dev/packages/flutter_dropzone
                   (kIsWeb) ? DropzoneView(
                     operation: DragOperation.copy,
                     onCreated: (ctrl) => controller = ctrl,
                     onDropFile: (file) async {
                       final fileBytes = await controller.getFileData(file);
-                      fileUploadBloc.add(UploadFile('user-uid', file.name, fileBytes));
+                      fileUploadBloc.add(UploadFile('user-uid', file.name, fileBytes)); // TODO get user uid
                     },
                   ) : const SizedBox.shrink(),
                   GreenShareCard(
@@ -68,7 +67,7 @@ class FileUploadSection extends StatelessWidget {
                                 final fileName = result.files.first.name;
 
                                 if (fileBytes != null) {
-                                  fileUploadBloc.add(UploadFile('user-uid', fileName, fileBytes));
+                                  fileUploadBloc.add(UploadFile('user-uid', fileName, fileBytes)); // TODO get user uid
                                 }
                               }
                             },
