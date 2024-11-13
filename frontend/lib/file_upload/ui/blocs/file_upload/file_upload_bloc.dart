@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:greenshare/file_upload/repositories/storage_repository.dart';
@@ -24,7 +25,7 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
   Future<void> _onUploadFile(UploadFile event, Emitter<FileUploadState> emit) async {
     final result = _storageRepository.uploadFile(event.path, event.fileName, event.bytes);
     result.fold(
-      (error) => emit(FileUploadFailure(error.message)),
+      (error) => add(UploadFailure(error.message)),
       (uploadTask) {
         emit(const FileUploadInProgress(0));
 
@@ -36,7 +37,9 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
             add(UploadFailure(error.toString()));
           })
           ..onDone(() {
-            add(const UploadSuccess());
+            if (uploadTask.snapshot.state == TaskState.success) {
+              add(const UploadSuccess());
+            }
           });
       },
     );

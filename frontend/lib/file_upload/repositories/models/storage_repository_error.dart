@@ -1,4 +1,6 @@
-class StorageRepositoryError {
+import 'package:equatable/equatable.dart';
+
+class StorageRepositoryError extends Equatable {
 
   const StorageRepositoryError._({
     required this.message,
@@ -11,4 +13,7 @@ class StorageRepositoryError {
       message: message,
     );
   }
+
+  @override
+  List<Object?> get props => [message];
 }
