@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
@@ -14,6 +15,7 @@ class FileUploadSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fileUploadBloc = context.read<FileUploadBloc>();
+    late final DropzoneViewController controller;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -30,12 +32,14 @@ class FileUploadSection extends StatelessWidget {
             child: Stack(
               children: [
                 // TODO: https://pub.dev/packages/flutter_dropzone
-                DropzoneView(
+                (kIsWeb) ? DropzoneView(
                   operation: DragOperation.copy,
-                  onDropFile: (file) {
-                    print('Received file: ${file.name}');
+                  onCreated: (ctrl) => controller = ctrl,
+                  onDropFile: (file) async {
+                    final fileBytes = await controller.getFileData(file);
+                    fileUploadBloc.add(UploadFile('user-uid', file.name, fileBytes));
                   },
-                ),
+                ) : const SizedBox.shrink(),
                 GreenShareCard(
                   dottedBorder: true,
                   child: Center(
@@ -46,8 +50,7 @@ class FileUploadSection extends StatelessWidget {
                           icon: const Icon(Icons.cloud_upload),
                           iconSize: 48,
                           onPressed: () async {
-                            // TODO https://github.com/miguelpruivo/flutter_file_picker/wiki/Setup
-                            // TODO https://pub.dev/packages/file_picker
+                            // TODO https://github.com/miguelpruivo/flutter_file_picker/wiki/Setup -> need to add permission for android and ios
                             final result = await FilePicker.platform.pickFiles(type: FileType.any, allowMultiple: false);
 
                             if (result != null && result.files.isNotEmpty) {

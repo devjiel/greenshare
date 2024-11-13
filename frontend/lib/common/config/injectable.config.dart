@@ -51,8 +51,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => firebaseInjectableModule.fireService,
       preResolve: true,
     );
-    gh.singleton<_i853.CarbonReductionBloc>(() => _i853.CarbonReductionBloc());
     gh.singleton<_i306.AvailableFilesBloc>(() => _i306.AvailableFilesBloc());
+    gh.singleton<_i853.CarbonReductionBloc>(() => _i853.CarbonReductionBloc());
     gh.lazySingleton<_i59.FirebaseAuth>(
         () => firebaseInjectableModule.firebaseAuth);
     gh.lazySingleton<_i457.FirebaseStorage>(

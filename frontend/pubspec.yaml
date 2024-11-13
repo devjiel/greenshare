@@ -53,6 +53,7 @@ dev_dependencies:
   mocktail: ^1.0.4
   bloc_test: ^9.1.7
   firebase_database_mocks: ^0.7.0
+  firebase_storage_mocks: ^0.7.0
 
 flutter:
 

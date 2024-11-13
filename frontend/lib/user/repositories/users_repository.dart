@@ -6,7 +6,10 @@ import 'package:greenshare/user/repositories/models/models.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class UsersRepository {
+  // TODO rework Either pattern -> finally Future.error or Stream.onError working pretty well
   Stream<Either<UserRepositoryError, UserEntityModel>> listenUserByUid(String userId);
+
+  Future<void> addFileToAvailableFiles(String userId, AvailableFileEntityModel file);
 }
 
 @LazySingleton(as: UsersRepository)
@@ -32,4 +35,13 @@ class FirebaseUsersRepository implements UsersRepository {
           return Left<UserRepositoryError, UserEntityModel>(UserRepositoryError.technicalError("Error getting user by id: $e"));
         }
       });
+
+  @override
+  Future<void> addFileToAvailableFiles(String userId, AvailableFileEntityModel file) async {
+    try {
+      await _database.ref().child('users').child(userId).child('availableFiles').push().set(file.toJson());
+    } catch (e) {
+      return Future.error('Error adding file to available files: $e');
+    }
+  }
 }

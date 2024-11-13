@@ -22,8 +22,9 @@ void main() {
 
   group('UsersRepository', () {
     group('listenUserByUid', () {
+      MockFirebaseDatabase.instance.ref().set(fakeData);
+
       test('should return user when user exists', () async {
-        MockFirebaseDatabase.instance.ref().set(fakeData);
 
         final userStream = repository.listenUserByUid('test-uid');
 
@@ -31,13 +32,38 @@ void main() {
       });
 
       test('should throw exception when user does not exist', () async {
-        MockFirebaseDatabase.instance.ref().set(fakeData);
 
         final userStream = repository.listenUserByUid('fake-uid');
 
         expect(userStream, emits(isA<Left<UserRepositoryError, UserEntityModel>>().having((either) => either.left.errorType, 'errorType', UsersRepositoryErrorType.userNotFound)));
       });
 
+    });
+
+    group('addAvailableFile', () {
+      test('should add file to available files', () async {
+
+        const file = AvailableFileEntityModel(
+          name: 'file',
+          url: 'url',
+        );
+
+        await repository.addFileToAvailableFiles('test-uid', file)
+          .onError((error, stackTrace) {
+            fail('Error adding file to available files: $error');
+          });
+
+      });
+
+      test('should add file to available files fails on missing user', () async {
+        const file = AvailableFileEntityModel(
+          name: 'file',
+          url: 'url',
+        );
+
+        // TODO add a new mock to simulate the error
+
+      });
     });
   });
 }
