@@ -7,13 +7,13 @@ import 'package:greenshare/home/ui/home_page.dart';
 import 'package:greenshare/theme.dart';
 import 'package:injectable/injectable.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (kDebugMode) {
-    configureDependencies(Environment.dev);
+    await configureDependencies(Environment.dev);
   } else {
-    configureDependencies(Environment.prod);
+    await configureDependencies(Environment.prod);
   }
 
   runApp(const GreenShareApp());

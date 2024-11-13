@@ -5,9 +5,9 @@ import 'injectable.config.dart';
 GetIt getIt = GetIt.instance;
 
 @InjectableInit()
-void configureDependencies(String environment) {
+Future<void> configureDependencies(String environment) async {
   if (environment == Environment.test) {
     getIt.allowReassignment = true;
   }
-  getIt.init(environment: environment);
+  await getIt.init(environment: environment);
 }
