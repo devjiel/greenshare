@@ -17,9 +17,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AvailableFilesBloc>(
-          create: (_) => getIt<AvailableFilesBloc>()..add(LoadAvailableFilesEvent()),
-        ),
         BlocProvider<CarbonReductionBloc>(
           create: (_) => getIt<CarbonReductionBloc>()..add(LoadCarbonReductionEvent()),
         ),
@@ -39,8 +36,11 @@ class HomePage extends StatelessWidget {
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.5,
-                    child: BlocProvider.value(
-                      value: getIt<FileUploadBloc>(),
+                    child: MultiBlocProvider(
+                      providers: [
+                        BlocProvider<AvailableFilesBloc>.value(value: getIt<AvailableFilesBloc>()),
+                        BlocProvider<FileUploadBloc>.value(value: getIt<FileUploadBloc>())
+                      ],
                       child: const FileUploadSection(),
                     ),
                   ),

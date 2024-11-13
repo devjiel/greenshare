@@ -7,13 +7,8 @@ class AvailableFilesInitial extends AvailableFilesState {
   List<Object?> get props => [];
 }
 
-class AvailableFilesLoading extends AvailableFilesState {
-  @override
-  List<Object?> get props => [];
-}
-
 class AvailableFilesLoaded extends AvailableFilesState {
-  final List<FileViewModel> files;
+  final List<AvailableFileViewModel> files;
 
   AvailableFilesLoaded(this.files);
 

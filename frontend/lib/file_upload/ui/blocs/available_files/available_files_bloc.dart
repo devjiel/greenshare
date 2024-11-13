@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
+import 'package:greenshare/user/ui/models/available_file_view_model.dart';
 import 'package:injectable/injectable.dart';
 
 part 'available_files_event.dart';
@@ -10,32 +10,10 @@ part 'available_files_state.dart';
 class AvailableFilesBloc extends Bloc<AvailableFilesEvent, AvailableFilesState> {
 
   AvailableFilesBloc() : super(AvailableFilesInitial()) {
-    on<LoadAvailableFilesEvent>((event, emit) => _loadFiles(emit));
+    on<LoadAvailableFilesEvent>((event, emit) => _loadFiles(event, emit));
   }
 
-  void _loadFiles(Emitter<AvailableFilesState> emit) async {
-    emit(AvailableFilesLoading());
-    // Simulate a delay for loading files
-    await Future.delayed(const Duration(seconds: 2), () {
-      // Simulate loaded files
-      final files = [
-        FileViewModel(
-          name: 'file1.pdf',
-          size: 1.2,
-          expirationDate: DateTime.now().add(const Duration(days: 30)),
-        ),
-        FileViewModel(
-          name: 'file2.pdf',
-          size: 2.5,
-          expirationDate: DateTime.now().add(const Duration(days: 15)),
-        ),
-        FileViewModel(
-          name: 'file3.pdf',
-          size: 3.7,
-          expirationDate: DateTime.now().add(const Duration(days: 45)),
-        ),
-      ];
-      emit(AvailableFilesLoaded(files));
-    });
+  void _loadFiles(LoadAvailableFilesEvent event, Emitter<AvailableFilesState> emit) async {
+    emit(AvailableFilesLoaded(event.files ?? []));
   }
 }

@@ -7,4 +7,8 @@ abstract class AvailableFilesEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoadAvailableFilesEvent extends AvailableFilesEvent {}
+class LoadAvailableFilesEvent extends AvailableFilesEvent {
+  const LoadAvailableFilesEvent({this.files});
+
+  final List<AvailableFileViewModel>? files;
+}
