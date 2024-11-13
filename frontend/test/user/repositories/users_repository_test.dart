@@ -11,9 +11,16 @@ void main() {
     'users': {
       'test-uid': {
         'uid': 'test-uid',
-      },
+        'availableFiles': [
+          {
+            'name': 'filename',
+            'url': 'url',
+          }
+        ],
+      }
     }
   };
+
   late FirebaseUsersRepository repository;
 
   setUp(() {
@@ -25,34 +32,36 @@ void main() {
       MockFirebaseDatabase.instance.ref().set(fakeData);
 
       test('should return user when user exists', () async {
-
         final userStream = repository.listenUserByUid('test-uid');
 
-        expect(userStream, emits(isA<Right<UserRepositoryError, UserEntityModel>>().having((either) => either.right.uid, 'uid', 'test-uid')));
+        expect(
+            userStream,
+            emits(isA<Right<UserRepositoryError, UserEntityModel>>().having((either) => either.right.uid, 'uid', 'test-uid').having(
+                (either) => either.right.availableFiles,
+                'users\'s available files',
+                [const AvailableFileEntityModel(name: 'filename', url: 'url')])));
       });
 
       test('should throw exception when user does not exist', () async {
-
         final userStream = repository.listenUserByUid('fake-uid');
 
-        expect(userStream, emits(isA<Left<UserRepositoryError, UserEntityModel>>().having((either) => either.left.errorType, 'errorType', UsersRepositoryErrorType.userNotFound)));
+        expect(
+            userStream,
+            emits(isA<Left<UserRepositoryError, UserEntityModel>>()
+                .having((either) => either.left.errorType, 'errorType', UsersRepositoryErrorType.userNotFound)));
       });
-
     });
 
     group('addAvailableFile', () {
       test('should add file to available files', () async {
-
         const file = AvailableFileEntityModel(
           name: 'file',
           url: 'url',
         );
 
-        await repository.addFileToAvailableFiles('test-uid', file)
-          .onError((error, stackTrace) {
-            fail('Error adding file to available files: $error');
-          });
-
+        await repository.addFileToAvailableFiles('test-uid', file).onError((error, stackTrace) {
+          fail('Error adding file to available files: $error');
+        });
       });
 
       test('should add file to available files fails on missing user', () async {
@@ -61,8 +70,7 @@ void main() {
           url: 'url',
         );
 
-        // TODO add a new mock to simulate the error
-
+// TODO add a new mock to simulate the error
       });
     });
   });
