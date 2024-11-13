@@ -5,6 +5,7 @@ import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
 import 'package:greenshare/ecological_data/ui/models/carbon_reduction_view_model.dart';
 import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
 import 'package:greenshare/home/ui/home_page.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
@@ -19,9 +20,12 @@ class MockCarbonReductionBloc extends MockBloc<CarbonReductionEvent, CarbonReduc
 
 class MockUserBloc extends MockBloc<UserEvent, UserState> implements UserBloc {}
 
+class MockFileUploadBloc extends MockBloc<FileUploadEvent, FileUploadState> implements FileUploadBloc {}
+
 void main() {
   final availableFilesBloc = MockAvailableFilesBloc();
   final carbonReductionBloc = MockCarbonReductionBloc();
+  final fileUploadBloc = MockFileUploadBloc();
   final userBloc = MockUserBloc();
 
   setUpAll(() async {
@@ -49,6 +53,7 @@ void main() {
     when(() => userBloc.state).thenReturn(const UserStateLoaded(UserViewModel(uid: 'test-uid')));
 
     getIt.registerLazySingleton<UserBloc>(() => userBloc);
+    getIt.registerLazySingleton<FileUploadBloc>(() => fileUploadBloc);
     getIt.registerLazySingleton<AvailableFilesBloc>(() => availableFilesBloc);
     getIt.registerLazySingleton<CarbonReductionBloc>(() => carbonReductionBloc);
   });
