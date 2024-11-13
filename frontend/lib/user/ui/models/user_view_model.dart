@@ -9,7 +9,7 @@ class UserViewModel extends Equatable {
   final List<AvailableFileViewModel>? files;
 
   @override
-  List<Object> get props => [uid];
+  List<Object?> get props => [uid, files];
 
   static UserViewModel fromEntity(UserEntityModel user) {
     return UserViewModel(

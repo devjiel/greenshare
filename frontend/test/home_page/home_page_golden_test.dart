@@ -52,6 +52,8 @@ void main() {
     );
     when(() => userBloc.state).thenReturn(const UserStateLoaded(UserViewModel(uid: 'test-uid')));
 
+    whenListen(fileUploadBloc, Stream.fromIterable([const FileUploadInitial()]), initialState: const FileUploadInitial());
+
     getIt.registerLazySingleton<UserBloc>(() => userBloc);
     getIt.registerLazySingleton<FileUploadBloc>(() => fileUploadBloc);
     getIt.registerLazySingleton<AvailableFilesBloc>(() => availableFilesBloc);

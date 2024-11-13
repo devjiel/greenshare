@@ -13,6 +13,12 @@ final class StartListeningUser extends UserEvent {
   final String userUid;
 }
 
+final class AddAvailableFile extends UserEvent {
+  const AddAvailableFile({required this.name});
+
+  final String name;
+}
+
 final class _UserChanged extends UserEvent {
   const _UserChanged(this.user);
 

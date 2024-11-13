@@ -55,7 +55,7 @@ void main() {
         when(() => usersRepository.listenUserByUid('userUid')).thenAnswer((_) => Stream.value(Left(UserRepositoryError.technicalError('technical error'))));
       },
       act: (bloc) => bloc.add(const StartListeningUser('userUid')),
-      expect: () => [const UserStateLoading(), isA<UserStateError>().having((state) => state.errorType, 'error type', UserErrorType.technicalError)],
+      expect: () => [const UserStateLoading(), isA<UserStateError>().having((state) => state.errorType, 'error type', UserErrorType.errorWhileRetrievingUser)],
       verify: (_) {
         verify(() => usersRepository.listenUserByUid('userUid')).called(1);
       },

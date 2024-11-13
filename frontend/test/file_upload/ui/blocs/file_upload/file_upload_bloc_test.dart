@@ -13,6 +13,7 @@ class MockStorageRepository extends Mock implements StorageRepository {}
 
 class UploadTaskMock extends Mock implements UploadTask {}
 class TaskSnapshotMock extends Mock implements TaskSnapshot {}
+class ReferenceMock extends Mock implements Reference {}
 
 void main() {
   group('AvailableFilesBloc', () {
@@ -47,6 +48,9 @@ void main() {
         });
         var doneTaskSnapshot = TaskSnapshotMock();
         when(() => doneTaskSnapshot.state).thenReturn(TaskState.success);
+        var referenceMock = ReferenceMock();
+        when(() => referenceMock.name).thenReturn('file1.pdf');
+        when(() => doneTaskSnapshot.ref).thenReturn(referenceMock);
         when(() => uploadTaskMock.snapshot).thenReturn(doneTaskSnapshot);
         when(() => storageRepository.uploadFile(any(), any(), any())).thenReturn(Right(uploadTaskMock));
       },
@@ -55,7 +59,7 @@ void main() {
         const FileUploadInProgress(0.0),
         const FileUploadInProgress(0.5),
         const FileUploadInProgress(1.0),
-        const FileUploadSuccess(),
+        const FileUploadSuccess('file1.pdf'),
       ],
     );
 

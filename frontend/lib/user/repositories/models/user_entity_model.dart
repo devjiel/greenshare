@@ -8,7 +8,7 @@ part '../../../generated/user/repositories/models/user_entity_model.g.dart';
 class UserEntityModel with _$UserEntityModel {
   const factory UserEntityModel({
     required String uid,
-    List<AvailableFileEntityModel>? availableFiles,
+    @JsonKey(name: 'available_files') List<AvailableFileEntityModel>? availableFiles,
   }) = _UserEntityModel;
 
   factory UserEntityModel.fromJson(Map<String, Object?> json)

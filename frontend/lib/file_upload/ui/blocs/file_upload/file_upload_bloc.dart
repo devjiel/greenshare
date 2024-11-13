@@ -11,11 +11,11 @@ part 'file_upload_event.dart';
 
 part 'file_upload_state.dart';
 
-@injectable
+@lazySingleton
 class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
   final StorageRepository _storageRepository;
 
-  FileUploadBloc(this._storageRepository) : super(FileUploadInitial()) {
+  FileUploadBloc(this._storageRepository) : super(const FileUploadInitial()) {
     on<UploadFile>(_onUploadFile);
     on<UploadProgress>(_onUploadProgress);
     on<UploadFailure>(_onUploadFailure);
@@ -38,7 +38,7 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
           })
           ..onDone(() {
             if (uploadTask.snapshot.state == TaskState.success) {
-              add(const UploadSuccess());
+              add(UploadSuccess(uploadTask.snapshot.ref.name));
             }
           });
       },
@@ -50,7 +50,7 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
   }
 
   FutureOr<void> _onUploadSuccess(UploadSuccess event, Emitter<FileUploadState> emit) {
-    emit(const FileUploadSuccess());
+    emit(FileUploadSuccess(event.filename));
   }
 
   FutureOr<void> _onUploadProgress(UploadProgress event, Emitter<FileUploadState> emit) {

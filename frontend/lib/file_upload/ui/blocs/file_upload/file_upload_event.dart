@@ -37,5 +37,7 @@ class UploadFailure extends FileUploadEvent {
 }
 
 class UploadSuccess extends FileUploadEvent {
-  const UploadSuccess();
+  const UploadSuccess(this.filename);
+
+  final String filename;
 }

@@ -17,16 +17,28 @@ class FileUploadSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fileUploadBloc = context.read<FileUploadBloc>();
-    final availableFileBloc = context.read<AvailableFilesBloc>();
     late final DropzoneViewController controller;
 
-    return BlocListener<UserBloc, UserState>(
-      listener: (context, state) {
-        if (state is UserStateLoaded) {
-          availableFileBloc.add(LoadAvailableFilesEvent(files: state.user.files));
-        }
-        // TODO handle other states ?
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<UserBloc, UserState>(
+          listener: (context, state) {
+            final availableFileBloc = context.read<AvailableFilesBloc>();
+            if (state is UserStateLoaded) {
+              availableFileBloc.add(LoadAvailableFilesEvent(files: state.user.files));
+            }
+            // TODO handle other states ?
+          },
+        ),
+        BlocListener<FileUploadBloc, FileUploadState>(
+          listener: (context, state) {
+            final userBloc = context.read<UserBloc>();
+            if (state is FileUploadSuccess) {
+              userBloc.add(AddAvailableFile(name: state.filename));
+            }
+          },
+        ),
+      ],
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -41,14 +53,16 @@ class FileUploadSection extends StatelessWidget {
             Expanded(
               child: Stack(
                 children: [
-                  (kIsWeb) ? DropzoneView(
-                    operation: DragOperation.copy,
-                    onCreated: (ctrl) => controller = ctrl,
-                    onDropFile: (file) async {
-                      final fileBytes = await controller.getFileData(file);
-                      fileUploadBloc.add(UploadFile('user-uid', file.name, fileBytes)); // TODO get user uid
-                    },
-                  ) : const SizedBox.shrink(),
+                  (kIsWeb)
+                      ? DropzoneView(
+                          operation: DragOperation.copy,
+                          onCreated: (ctrl) => controller = ctrl,
+                          onDropFile: (file) async {
+                            final fileBytes = await controller.getFileData(file);
+                            fileUploadBloc.add(UploadFile('user-uid', file.name, fileBytes)); // TODO get user uid
+                          },
+                        )
+                      : const SizedBox.shrink(),
                   GreenShareCard(
                     dottedBorder: true,
                     child: Center(

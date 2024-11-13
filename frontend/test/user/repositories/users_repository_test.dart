@@ -11,7 +11,7 @@ void main() {
     'users': {
       'test-uid': {
         'uid': 'test-uid',
-        'availableFiles': [
+        'available_files': [
           {
             'name': 'filename',
             'url': 'url',

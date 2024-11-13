@@ -47,5 +47,6 @@ class UserStateError extends UserState {
 
 enum UserErrorType {
   userNotFound,
-  technicalError,
+  errorWhileRetrievingUser,
+  errorWhileAddingFile,
 }

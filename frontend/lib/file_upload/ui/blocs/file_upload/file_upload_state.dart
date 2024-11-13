@@ -7,7 +7,9 @@ abstract class FileUploadState extends Equatable {
   List<Object> get props => [];
 }
 
-class FileUploadInitial extends FileUploadState {}
+class FileUploadInitial extends FileUploadState {
+  const FileUploadInitial();
+}
 
 class FileUploadInProgress extends FileUploadState {
   final double progress;
@@ -19,7 +21,9 @@ class FileUploadInProgress extends FileUploadState {
 }
 
 class FileUploadSuccess extends FileUploadState {
-  const FileUploadSuccess();
+  const FileUploadSuccess(this.filename);
+
+  final String filename;
 }
 
 class FileUploadFailure extends FileUploadState {

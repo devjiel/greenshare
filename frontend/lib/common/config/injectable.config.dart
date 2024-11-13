@@ -79,7 +79,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i632.ProdConfig(),
       registerFor: {_prod},
     );
-    gh.factory<_i21.FileUploadBloc>(
+    gh.lazySingleton<_i21.FileUploadBloc>(
         () => _i21.FileUploadBloc(gh<_i576.StorageRepository>()));
     gh.lazySingleton<_i814.UserBloc>(
         () => _i814.UserBloc(userRepository: gh<_i398.UsersRepository>()));
