@@ -14,6 +14,8 @@ void main() {
         'available_files': [
           {
             'name': 'filename',
+            'size': 1.0,
+            'expirationDate': '2024-11-11',
             'url': 'url',
           }
         ],
@@ -36,10 +38,16 @@ void main() {
 
         expect(
             userStream,
-            emits(isA<Right<UserRepositoryError, UserEntityModel>>().having((either) => either.right.uid, 'uid', 'test-uid').having(
-                (either) => either.right.availableFiles,
-                'users\'s available files',
-                [const AvailableFileEntityModel(name: 'filename', url: 'url')])));
+            emits(isA<Right<UserRepositoryError, UserEntityModel>>()
+                .having((either) => either.right.uid, 'uid', 'test-uid')
+                .having((either) => either.right.availableFiles, 'users\'s available files', [
+              AvailableFileEntityModel(
+                name: 'filename',
+                size: 1.0,
+                expirationDate: DateTime(2024, 11, 11),
+                url: 'url',
+              )
+            ])));
       });
 
       test('should throw exception when user does not exist', () async {
@@ -54,8 +62,10 @@ void main() {
 
     group('addAvailableFile', () {
       test('should add file to available files', () async {
-        const file = AvailableFileEntityModel(
+        final file = AvailableFileEntityModel(
           name: 'file',
+          size: 1.0,
+          expirationDate: DateTime(2024, 11, 11),
           url: 'url',
         );
 
@@ -65,8 +75,10 @@ void main() {
       });
 
       test('should add file to available files fails on missing user', () async {
-        const file = AvailableFileEntityModel(
+        final file = AvailableFileEntityModel(
           name: 'file',
+          size: 1.0,
+          expirationDate: DateTime(2024, 11, 11),
           url: 'url',
         );
 

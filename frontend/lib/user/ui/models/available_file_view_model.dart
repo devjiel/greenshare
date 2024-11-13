@@ -18,8 +18,8 @@ class AvailableFileViewModel extends Equatable {
   static fromEntity(AvailableFileEntityModel file) {
     return AvailableFileViewModel(
       name: file.name,
-      size: 0.0, // TODO
-      expirationDate: DateTime.now().add(const Duration(days: 1)), // TODO
+      size: file.size,
+      expirationDate: file.expirationDate,
     );
   }
 }

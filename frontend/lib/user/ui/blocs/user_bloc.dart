@@ -58,8 +58,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
 
     final user = (state as UserStateLoaded).user;
-    _userRepository.addFileToAvailableFiles(user.uid, AvailableFileEntityModel(name: event.name, url: 'url' /*TODO*/)).onError((error, stackTrace) {
-      emit(const UserStateError(UserErrorType.errorWhileAddingFile));
+    _userRepository
+        .addFileToAvailableFiles(
+            user.uid,
+            AvailableFileEntityModel(
+              name: event.name,
+              size: event.size,
+              expirationDate: event.expirationDate,
+              url: event.url,
+            ))
+        .onError((error, stackTrace) {
+      emit(const UserStateError(UserErrorType.errorWhileAddingFile)); // TODO this on error seems to cause emit after event handler completed
     });
   }
 

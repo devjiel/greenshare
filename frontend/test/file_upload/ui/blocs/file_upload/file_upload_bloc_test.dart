@@ -46,11 +46,14 @@ void main() {
             taskSnapshotMock2,
           ]);
         });
-        var doneTaskSnapshot = TaskSnapshotMock();
-        when(() => doneTaskSnapshot.state).thenReturn(TaskState.success);
-        var referenceMock = ReferenceMock();
+
+        final referenceMock = ReferenceMock();
         when(() => referenceMock.name).thenReturn('file1.pdf');
+        when(() => referenceMock.getDownloadURL()).thenAnswer((_) async => 'url');
+        final doneTaskSnapshot = TaskSnapshotMock();
         when(() => doneTaskSnapshot.ref).thenReturn(referenceMock);
+        when(() => doneTaskSnapshot.state).thenReturn(TaskState.success);
+        when(() => doneTaskSnapshot.totalBytes).thenReturn(2);
         when(() => uploadTaskMock.snapshot).thenReturn(doneTaskSnapshot);
         when(() => storageRepository.uploadFile(any(), any(), any())).thenReturn(Right(uploadTaskMock));
       },
@@ -59,7 +62,7 @@ void main() {
         const FileUploadInProgress(0.0),
         const FileUploadInProgress(0.5),
         const FileUploadInProgress(1.0),
-        const FileUploadSuccess('file1.pdf'),
+        const FileUploadSuccess('file1.pdf', 2.0, 'url'),
       ],
     );
 

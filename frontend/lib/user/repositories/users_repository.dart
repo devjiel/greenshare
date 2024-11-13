@@ -40,7 +40,7 @@ class FirebaseUsersRepository implements UsersRepository {
   Future<void> addFileToAvailableFiles(String userId, AvailableFileEntityModel file) async {
     try {
       await _database.ref().child('users').child(userId).child('available_files').once().then((DatabaseEvent event) async {
-        final existingFiles = jsonDecode(jsonEncode(event.snapshot.value));
+        final existingFiles = jsonDecode(jsonEncode(event.snapshot.value)) ?? [];
 
         await _database.ref().child('users').child(userId).update({'available_files': [...existingFiles, file.toJson()]});
       });

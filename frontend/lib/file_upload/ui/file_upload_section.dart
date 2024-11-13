@@ -34,7 +34,12 @@ class FileUploadSection extends StatelessWidget {
           listener: (context, state) {
             final userBloc = context.read<UserBloc>();
             if (state is FileUploadSuccess) {
-              userBloc.add(AddAvailableFile(name: state.filename));
+              userBloc.add(AddAvailableFile(
+                name: state.filename,
+                size: state.fileSize,
+                url: state.fileUrl,
+                expirationDate: DateTime.now().add(const Duration(days: 1)), // TODO get expiration date
+              ));
             }
           },
         ),

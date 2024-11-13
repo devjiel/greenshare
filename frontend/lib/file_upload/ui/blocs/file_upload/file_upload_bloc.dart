@@ -36,9 +36,13 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
           ..onError((error) {
             add(UploadFailure(error.toString()));
           })
-          ..onDone(() {
+          ..onDone(() async {
             if (uploadTask.snapshot.state == TaskState.success) {
-              add(UploadSuccess(uploadTask.snapshot.ref.name));
+              add(UploadSuccess(
+                uploadTask.snapshot.ref.name,
+                uploadTask.snapshot.totalBytes.toDouble(),
+                await uploadTask.snapshot.ref.getDownloadURL(),
+              ));
             }
           });
       },
@@ -50,7 +54,11 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
   }
 
   FutureOr<void> _onUploadSuccess(UploadSuccess event, Emitter<FileUploadState> emit) {
-    emit(FileUploadSuccess(event.filename));
+    emit(FileUploadSuccess(
+      event.filename,
+      event.fileSize,
+      event.fileUrl,
+    ));
   }
 
   FutureOr<void> _onUploadProgress(UploadProgress event, Emitter<FileUploadState> emit) {

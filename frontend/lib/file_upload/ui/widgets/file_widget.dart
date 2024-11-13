@@ -30,7 +30,7 @@ class FileWidget extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    context.localization.fileSize(file.size),
+                    context.localization.fileSize(file.size), // TODO size is in octets
                     style: context.labelSmall,
                   ),
                   Text(

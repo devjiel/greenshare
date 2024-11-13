@@ -7,6 +7,8 @@ part '../../../generated/user/repositories/models/available_file_entity_model.g.
 class AvailableFileEntityModel with _$AvailableFileEntityModel {
   const factory AvailableFileEntityModel({
     required String name,
+    required double size,
+    required DateTime expirationDate,
     required String url,
   }) = _AvailableFileEntityModel;
 

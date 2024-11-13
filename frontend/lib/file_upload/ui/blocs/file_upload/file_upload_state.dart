@@ -21,9 +21,11 @@ class FileUploadInProgress extends FileUploadState {
 }
 
 class FileUploadSuccess extends FileUploadState {
-  const FileUploadSuccess(this.filename);
+  const FileUploadSuccess(this.filename, this.fileSize, this.fileUrl);
 
   final String filename;
+  final double fileSize;
+  final String fileUrl;
 }
 
 class FileUploadFailure extends FileUploadState {
