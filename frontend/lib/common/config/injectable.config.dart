@@ -21,8 +21,12 @@ import 'package:greenshare/common/config/firebase/firebase_injectable_module.dar
 import 'package:greenshare/common/config/specific_config.dart' as _i632;
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart'
     as _i853;
-import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart'
-    as _i351;
+import 'package:greenshare/file_upload/repositories/storage_repository.dart'
+    as _i576;
+import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart'
+    as _i306;
+import 'package:greenshare/file_upload/ui/blocs/file_upload/file_upload_bloc.dart'
+    as _i21;
 import 'package:greenshare/user/repositories/users_repository.dart' as _i398;
 import 'package:greenshare/user/ui/blocs/user_bloc.dart' as _i814;
 import 'package:injectable/injectable.dart' as _i526;
@@ -47,8 +51,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => firebaseInjectableModule.fireService,
       preResolve: true,
     );
-    gh.singleton<_i351.AvailableFilesBloc>(() => _i351.AvailableFilesBloc());
     gh.singleton<_i853.CarbonReductionBloc>(() => _i853.CarbonReductionBloc());
+    gh.singleton<_i306.AvailableFilesBloc>(() => _i306.AvailableFilesBloc());
     gh.lazySingleton<_i59.FirebaseAuth>(
         () => firebaseInjectableModule.firebaseAuth);
     gh.lazySingleton<_i457.FirebaseStorage>(
@@ -57,6 +61,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => firebaseInjectableModule.firebaseDatabase,
       instanceName: 'firebaseDatabase',
     );
+    gh.lazySingleton<_i576.StorageRepository>(
+        () => _i576.FirebaseStorageRepository(gh<_i457.FirebaseStorage>()));
     gh.factory<_i632.IConfig>(
       () => _i632.TestConfig(),
       registerFor: {_test},
@@ -73,6 +79,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i632.ProdConfig(),
       registerFor: {_prod},
     );
+    gh.factory<_i21.FileUploadBloc>(
+        () => _i21.FileUploadBloc(gh<_i576.StorageRepository>()));
     gh.lazySingleton<_i814.UserBloc>(
         () => _i814.UserBloc(userRepository: gh<_i398.UsersRepository>()));
     return this;

@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
 import 'package:greenshare/ecological_data/ui/ecological_data_section.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/file_upload/ui/file_upload_section.dart';
 import 'package:greenshare/home/ui/footer.dart';
 import 'package:greenshare/home/ui/header.dart';
@@ -38,7 +39,10 @@ class HomePage extends StatelessWidget {
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.5,
-                    child: const FileUploadSection(),
+                    child: BlocProvider.value(
+                      value: getIt<FileUploadBloc>(),
+                      child: const FileUploadSection(),
+                    ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.025),
                   SizedBox(

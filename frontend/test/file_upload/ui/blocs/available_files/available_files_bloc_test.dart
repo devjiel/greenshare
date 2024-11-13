@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart';
 
 void main() {
   group('AvailableFilesBloc', () {

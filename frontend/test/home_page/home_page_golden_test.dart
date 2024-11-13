@@ -4,7 +4,7 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
 import 'package:greenshare/ecological_data/ui/models/carbon_reduction_view_model.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart';
 import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
 import 'package:greenshare/home/ui/home_page.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
