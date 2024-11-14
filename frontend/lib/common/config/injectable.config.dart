@@ -14,6 +14,8 @@ import 'package:firebase_storage/firebase_storage.dart' as _i457;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:greenshare/authentication/repositories/authentication_repository.dart'
     as _i763;
+import 'package:greenshare/authentication/ui/blocs/authentication_bloc.dart'
+    as _i337;
 import 'package:greenshare/common/business/services/firebase_service.dart'
     as _i875;
 import 'package:greenshare/common/config/firebase/firebase_injectable_module.dart'
@@ -71,10 +73,12 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i632.DevConfig(),
       registerFor: {_dev},
     );
+    gh.lazySingleton<_i763.AuthenticationRepository>(
+        () => _i763.FirebaseAuthenticationRepository(gh<_i59.FirebaseAuth>()));
     gh.lazySingleton<_i398.UsersRepository>(() => _i398.FirebaseUsersRepository(
         gh<_i345.FirebaseDatabase>(instanceName: 'firebaseDatabase')));
-    gh.lazySingleton<_i763.AuthenticationRepository>(
-        () => _i763.AuthenticationRepository(gh<_i59.FirebaseAuth>()));
+    gh.singleton<_i337.AuthenticationBloc>(() => _i337.AuthenticationBloc(
+        authenticationRepository: gh<_i763.AuthenticationRepository>()));
     gh.factory<_i632.IConfig>(
       () => _i632.ProdConfig(),
       registerFor: {_prod},

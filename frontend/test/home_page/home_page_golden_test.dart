@@ -64,7 +64,9 @@ void main() {
     for (var locale in locales) {
       testGoldens("Desktop HomePage page in $locale", (WidgetTester tester) async {
         await tester.pumpWidgetInDesktopMode(
-          widget: const HomePage(),
+          widget: const HomePage(
+            userUid: 'userUid',
+          ),
           locale: locale,
         );
         await tester.pump();

@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 part 'available_files_event.dart';
 part 'available_files_state.dart';
 
+// TODO: Transform it to Cubit? wait until database model is stable
 @singleton
 class AvailableFilesBloc extends Bloc<AvailableFilesEvent, AvailableFilesState> {
 

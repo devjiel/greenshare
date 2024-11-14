@@ -16,7 +16,7 @@ class CarbonReductionBloc extends Bloc<CarbonReductionEvent, CarbonReductionStat
   void _loadCarbonReduction(Emitter<CarbonReductionState> emit) async {
     emit(CarbonReductionStateLoading());
     await Future.delayed(const Duration(milliseconds: 500), () {
-      emit(CarbonReductionStateLoaded(const CarbonReductionViewModel(value: 0.7, unit: 'tons')));
+      emit(CarbonReductionStateLoaded(const CarbonReductionViewModel(value: 0.0, unit: 'tons')));
     });
   }
 }

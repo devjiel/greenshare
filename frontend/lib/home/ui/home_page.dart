@@ -11,7 +11,9 @@ import 'package:greenshare/home/ui/header.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required this.userUid});
+
+  final String userUid;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class HomePage extends StatelessWidget {
           create: (_) => getIt<CarbonReductionBloc>()..add(LoadCarbonReductionEvent()),
         ),
         BlocProvider<UserBloc>(
-          create: (_) => getIt<UserBloc>()..add(const StartListeningUser('d9ae6ea2-98c5-451f-856b-2c09cf2d9c4b')),
+          create: (_) => getIt<UserBloc>()..add(StartListeningUser(userUid)),
         ),
       ],
       child: Scaffold(

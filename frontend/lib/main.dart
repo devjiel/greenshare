@@ -1,9 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:greenshare/authentication/repositories/authentication_repository.dart';
+import 'package:greenshare/authentication/ui/blocs/authentication_bloc.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/home/ui/home_page.dart';
+import 'package:greenshare/router.dart';
 import 'package:greenshare/theme.dart';
 import 'package:injectable/injectable.dart';
 
@@ -16,7 +20,12 @@ void main() async {
     await configureDependencies(Environment.prod);
   }
 
-  runApp(const GreenShareApp());
+  runApp(
+    BlocProvider.value(
+      value: getIt<AuthenticationBloc>()..add(const AuthenticationSubscriptionRequested()),
+      child: const GreenShareApp(),
+    ),
+  );
 }
 
 class GreenShareApp extends StatefulWidget {
@@ -27,10 +36,9 @@ class GreenShareApp extends StatefulWidget {
 }
 
 class _GreenShareAppState extends State<GreenShareApp> {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'GreenShare',
       theme: kTheme,
       localizationsDelegates: const [
@@ -40,7 +48,7 @@ class _GreenShareAppState extends State<GreenShareApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const HomePage(),
+      routerConfig: GreenShareRouter.router(context),
     );
   }
 }
