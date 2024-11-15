@@ -2,17 +2,17 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_cubit.dart';
+import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
 import 'package:greenshare/file_upload/ui/widgets/file_list_widget.dart';
-import 'package:greenshare/user/ui/models/available_file_view_model.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../../test_helpers.dart';
 
-class MockAvailableFilesBloc extends MockBloc<AvailableFilesEvent, AvailableFilesState> implements AvailableFilesBloc {}
+class MockAvailableFilesCubit extends MockCubit<AvailableFilesState> implements AvailableFilesCubit {}
 
 void main() {
-  final availableFilesBloc = MockAvailableFilesBloc();
+  final availableFilesCubit = MockAvailableFilesCubit();
 
   setUpAll(() async {
     await loadAppFonts();
@@ -20,15 +20,15 @@ void main() {
 
   group("FileListWidget goldens", () {
     testGoldens("Desktop FileList widget - valid case", (WidgetTester tester) async {
-      when(() => availableFilesBloc.state).thenReturn(AvailableFilesLoaded([
-        AvailableFileViewModel(name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 11)),
-        AvailableFileViewModel(name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11)),
-        AvailableFileViewModel(name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 11)),
+      when(() => availableFilesCubit.state).thenReturn(AvailableFilesLoaded([
+        FileViewModel(name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file1.pdf'),
+        FileViewModel(name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file2.pdf'),
+        FileViewModel(name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file3.pdf'),
       ]));
 
       await tester.pumpWidgetInPhoneMode(
-        widget: BlocProvider<AvailableFilesBloc>.value(
-          value: availableFilesBloc,
+        widget: BlocProvider<AvailableFilesCubit>.value(
+          value: availableFilesCubit,
           child: const FileListWidget(),
         ),
       );
@@ -37,11 +37,11 @@ void main() {
     });
 
     testGoldens("Desktop FileList widget - valid case - no file available", (WidgetTester tester) async {
-      when(() => availableFilesBloc.state).thenReturn(AvailableFilesLoaded(const []));
+      when(() => availableFilesCubit.state).thenReturn(AvailableFilesLoaded(const []));
 
       await tester.pumpWidgetInPhoneMode(
-        widget: BlocProvider<AvailableFilesBloc>.value(
-          value: availableFilesBloc,
+        widget: BlocProvider<AvailableFilesCubit>.value(
+          value: availableFilesCubit,
           child: const FileListWidget(),
         ),
       );
@@ -50,11 +50,11 @@ void main() {
     });
 
     testGoldens("Desktop FileList widget - error case", (WidgetTester tester) async {
-      when(() => availableFilesBloc.state).thenReturn(AvailableFilesError('An error occurred'));
+      when(() => availableFilesCubit.state).thenReturn(AvailableFilesError('An error occurred'));
 
       await tester.pumpWidgetInPhoneMode(
-        widget: BlocProvider<AvailableFilesBloc>.value(
-          value: availableFilesBloc,
+        widget: BlocProvider<AvailableFilesCubit>.value(
+          value: availableFilesCubit,
           child: const FileListWidget(),
         ),
       );

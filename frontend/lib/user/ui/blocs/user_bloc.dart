@@ -61,12 +61,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     _userRepository
         .addFileToAvailableFiles(
             user.uid,
-            AvailableFileEntityModel(
-              name: event.name,
-              size: event.size,
-              expirationDate: event.expirationDate,
-              url: event.url,
-            ))
+            event.uid)
         .onError((error, stackTrace) {
       emit(const UserStateError(UserErrorType.errorWhileAddingFile)); // TODO this on error seems to cause emit after event handler completed
     });

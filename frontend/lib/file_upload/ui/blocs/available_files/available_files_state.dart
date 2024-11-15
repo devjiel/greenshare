@@ -1,4 +1,4 @@
-part of 'available_files_bloc.dart';
+part of 'available_files_cubit.dart';
 
 abstract class AvailableFilesState extends Equatable {}
 
@@ -8,7 +8,7 @@ class AvailableFilesInitial extends AvailableFilesState {
 }
 
 class AvailableFilesLoaded extends AvailableFilesState {
-  final List<AvailableFileViewModel> files;
+  final List<FileViewModel> files;
 
   AvailableFilesLoaded(this.files);
 

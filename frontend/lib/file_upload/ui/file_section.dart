@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:greenshare/common/ui/widgets/card.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/file_upload/ui/blocs/file_upload/file_upload_bloc.dart';
+import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
 import 'package:greenshare/file_upload/ui/widgets/file_list_widget.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
@@ -23,13 +25,17 @@ class FileSection extends StatelessWidget {
         BlocListener<FileUploadBloc, FileUploadState>(
           listener: (context, state) {
             final userBloc = context.read<UserBloc>();
+            final availableFilesCubit = context.read<AvailableFilesCubit>();
             if (state is FileUploadSuccess) {
-              userBloc.add(AddAvailableFile(
-                name: state.filename,
-                size: state.fileSize,
-                url: state.fileUrl,
-                expirationDate: DateTime.now().add(const Duration(days: 1)), // TODO get expiration date
-              ));
+              // Add file to available files
+              availableFilesCubit.addAvailableFile(
+                FileViewModel(
+                  name: state.filename,
+                  size: state.fileSize,
+                  expirationDate: DateTime.now().add(const Duration(days: 1)), // TODO get expiration date
+                  downloadUrl: state.fileUrl,
+                ),
+              ).then((fileUid) => userBloc.add(AddAvailableFile(uid: fileUid)));
             }
           },
         ),

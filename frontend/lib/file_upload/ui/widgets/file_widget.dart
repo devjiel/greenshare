@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
-import 'package:greenshare/user/ui/models/available_file_view_model.dart';
 
 class FileWidget extends StatelessWidget {
   const FileWidget({super.key, required this.file});
 
-  final AvailableFileViewModel file;
+  final FileViewModel file;
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +44,11 @@ class FileWidget extends StatelessWidget {
                       size: 12.0,
                     ),
                   ),
-                  Text(
-                    // How to have only one parameter?
-                    context.localization.fileExpirationDate(file.expirationDate, file.expirationDate),
+                  (file.expirationDate != null) ? Text(
+                    // TODO How to have only one parameter?
+                    context.localization.fileExpirationDate(file.expirationDate!, file.expirationDate!),
                     style: context.labelSmall,
-                  ),
+                  ) : const SizedBox.shrink(),
                 ],
               ),
             ],

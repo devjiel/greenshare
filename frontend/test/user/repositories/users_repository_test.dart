@@ -11,14 +11,7 @@ void main() {
     'users': {
       'test-uid': {
         'uid': 'test-uid',
-        'available_files': [
-          {
-            'name': 'filename',
-            'size': 1.0,
-            'expirationDate': '2024-11-11',
-            'url': 'url',
-          }
-        ],
+        'available_files': ['uid1', 'uid2', 'uid3'],
       }
     }
   };
@@ -40,14 +33,7 @@ void main() {
             userStream,
             emits(isA<Right<UserRepositoryError, UserEntityModel>>()
                 .having((either) => either.right.uid, 'uid', 'test-uid')
-                .having((either) => either.right.availableFiles, 'users\'s available files', [
-              AvailableFileEntityModel(
-                name: 'filename',
-                size: 1.0,
-                expirationDate: DateTime(2024, 11, 11),
-                url: 'url',
-              )
-            ])));
+                .having((either) => either.right.availableFiles, 'users\'s available files', ['uid1', 'uid2', 'uid3'])));
       });
 
       test('should throw exception when user does not exist', () async {
@@ -62,25 +48,14 @@ void main() {
 
     group('addAvailableFile', () {
       test('should add file to available files', () async {
-        final file = AvailableFileEntityModel(
-          name: 'file',
-          size: 1.0,
-          expirationDate: DateTime(2024, 11, 11),
-          url: 'url',
-        );
 
-        await repository.addFileToAvailableFiles('test-uid', file).onError((error, stackTrace) {
+        await repository.addFileToAvailableFiles('test-uid', 'uid1').onError((error, stackTrace) {
           fail('Error adding file to available files: $error');
         });
+
       });
 
       test('should add file to available files fails on missing user', () async {
-        final file = AvailableFileEntityModel(
-          name: 'file',
-          size: 1.0,
-          expirationDate: DateTime(2024, 11, 11),
-          url: 'url',
-        );
 
         // TODO add a new mock to simulate the error
       });

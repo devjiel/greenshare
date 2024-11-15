@@ -14,12 +14,9 @@ final class StartListeningUser extends UserEvent {
 }
 
 final class AddAvailableFile extends UserEvent {
-  const AddAvailableFile({required this.name, required this.size, required this.expirationDate, required this.url});
+  const AddAvailableFile({required this.uid});
 
-  final String name;
-  final double size;
-  final DateTime expirationDate;
-  final String url;
+  final String uid;
 }
 
 final class _UserChanged extends UserEvent {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/ecological_data/ui/ecological_data_section.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/file_upload/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/file_upload/ui/file_section.dart';
 import 'package:greenshare/home/ui/footer.dart';
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                       .height * 0.4,
                   child: MultiBlocProvider(
                     providers: [
-                      BlocProvider<AvailableFilesBloc>.value(value: getIt<AvailableFilesBloc>()),
+                      BlocProvider<AvailableFilesCubit>.value(value: getIt<AvailableFilesCubit>()),
                       BlocProvider<FileUploadBloc>.value(value: getIt<FileUploadBloc>())
                     ],
                     child: const FileSection(),

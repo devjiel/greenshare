@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -7,17 +5,17 @@ import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
 import 'package:greenshare/ecological_data/ui/models/carbon_reduction_view_model.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/file_upload/ui/blocs/file_upload/file_upload_bloc.dart';
+import 'package:greenshare/file_upload/ui/models/file_view_model.dart';
 import 'package:greenshare/home/ui/home_page.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
-import 'package:greenshare/user/ui/models/available_file_view_model.dart';
 import 'package:greenshare/user/ui/models/user_view_model.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../test_helpers.dart';
 
-class MockAvailableFilesBloc extends MockBloc<AvailableFilesEvent, AvailableFilesState> implements AvailableFilesBloc {}
+class MockAvailableFilesCubit extends MockCubit<AvailableFilesState> implements AvailableFilesCubit {}
 
 class MockCarbonReductionBloc extends MockBloc<CarbonReductionEvent, CarbonReductionState> implements CarbonReductionBloc {}
 
@@ -26,7 +24,7 @@ class MockUserBloc extends MockBloc<UserEvent, UserState> implements UserBloc {}
 class MockFileUploadBloc extends MockBloc<FileUploadEvent, FileUploadState> implements FileUploadBloc {}
 
 void main() {
-  final availableFilesBloc = MockAvailableFilesBloc();
+  final availableFilesCubit = MockAvailableFilesCubit();
   final carbonReductionBloc = MockCarbonReductionBloc();
   final fileUploadBloc = MockFileUploadBloc();
   final userBloc = MockUserBloc();
@@ -35,12 +33,12 @@ void main() {
     await loadAppFonts();
 
     whenListen(
-      availableFilesBloc,
+      availableFilesCubit,
       Stream.fromIterable([
         AvailableFilesLoaded([
-          AvailableFileViewModel(name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 11)),
-          AvailableFileViewModel(name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11)),
-          AvailableFileViewModel(name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 11)),
+          FileViewModel(name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file1.pdf'),
+          FileViewModel(name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file2.pdf'),
+          FileViewModel(name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file3.pdf'),
         ]),
       ]),
       initialState: AvailableFilesInitial(),
@@ -59,7 +57,7 @@ void main() {
 
     getIt.registerLazySingleton<UserBloc>(() => userBloc);
     getIt.registerLazySingleton<FileUploadBloc>(() => fileUploadBloc);
-    getIt.registerLazySingleton<AvailableFilesBloc>(() => availableFilesBloc);
+    getIt.registerLazySingleton<AvailableFilesCubit>(() => availableFilesCubit);
     getIt.registerLazySingleton<CarbonReductionBloc>(() => carbonReductionBloc);
   });
 

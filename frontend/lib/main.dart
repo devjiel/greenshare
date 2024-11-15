@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:go_router/go_router.dart';
 import 'package:greenshare/authentication/ui/blocs/authentication_bloc.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart';
+import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/router.dart';
 import 'package:greenshare/theme.dart';
@@ -59,7 +58,7 @@ class _GreenShareAppState extends State<GreenShareApp> {
         BlocListener<UserBloc, UserState>(
           listener: (context, state) {
             if (state is UserStateLoaded) {
-              getIt<AvailableFilesBloc>().add(LoadAvailableFilesEvent(files: state.user.files));
+              getIt<AvailableFilesCubit>().loadFiles(state.user.files);
             } else if (state is UserStateError) {
               context.read<AuthenticationBloc>().add(const AuthenticationLogoutRequested()); // TODO show an error ?
             }
