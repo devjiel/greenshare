@@ -15,6 +15,8 @@ class AvailableFilesBloc extends Bloc<AvailableFilesEvent, AvailableFilesState> 
   }
 
   void _loadFiles(LoadAvailableFilesEvent event, Emitter<AvailableFilesState> emit) async {
-    emit(AvailableFilesLoaded(event.files ?? []));
+    final files = event.files;
+    files?.sort((a, b) => b.expirationDate.compareTo(a.expirationDate));
+    emit(AvailableFilesLoaded(files ?? []));
   }
 }

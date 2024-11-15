@@ -29,16 +29,35 @@ final kTheme = ThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(kBorderRadius),
       side: const BorderSide(
-        color: kLightGreen,
+        color: kDarkGreen,
         width: 1,
       ),
     ),
+  ),
+  dividerTheme: const DividerThemeData(
+    color: kDarkGreen,
+    thickness: 0.5,
   ),
   scrollbarTheme: const ScrollbarThemeData(
     thumbColor: WidgetStatePropertyAll(kLightGreen),
     thickness: WidgetStatePropertyAll(4),
   ),
   iconTheme: const IconThemeData(color: kLightGreen),
+  tooltipTheme: TooltipThemeData(
+    textStyle: kTextTheme.labelLarge?.copyWith(fontWeight: FontWeight.normal),
+    decoration: BoxDecoration(
+      color: kDarkGreen,
+      borderRadius: BorderRadius.circular(4.0),
+    ),
+  ),
+  popupMenuTheme: PopupMenuThemeData(
+    position: PopupMenuPosition.under,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4.0),
+    ),
+    color: kDarkGreen,
+    textStyle: kTextTheme.bodyLarge,
+  ),
   colorScheme: ColorScheme.fromSwatch().copyWith(primary: kLightGreen, secondary: kDarkGreen),
   useMaterial3: true,
 );

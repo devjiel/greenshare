@@ -36,7 +36,7 @@ class CarbonFootprintReductionWidget extends StatelessWidget {
             ),
             Expanded(
               child: BlocBuilder<CarbonReductionBloc, CarbonReductionState>(builder: (context, state) {
-                return Column(
+                return Column( // TODO if height is not enough, switch to a row
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     if (state is CarbonReductionStateLoaded) ...[

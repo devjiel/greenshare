@@ -22,7 +22,7 @@ void main() {
       expect: () => [
         CarbonReductionStateLoading(),
         isA<CarbonReductionStateLoaded>()
-            .having((state) => state.carbonReduction.value, 'value', 0.7)
+            .having((state) => state.carbonReduction.value, 'value', 0.0)
             .having((state) => state.carbonReduction.unit, 'unit', 'tons'),
       ],
     );

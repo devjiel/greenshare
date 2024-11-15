@@ -21,29 +21,30 @@ class FileListWidget extends StatelessWidget {
               context.localization.availableDocuments,
               style: context.bodyLarge,
             ),
-            const SizedBox(height: 12.0),
-            Padding(
-              padding: const EdgeInsets.all(kSmallPadding),
-              child: SingleChildScrollView(
-                child: BlocBuilder<AvailableFilesBloc, AvailableFilesState>(
-                  builder: (context, state) {
-                    if (state is AvailableFilesError) {
-                      return Text(
-                        'Error: ${state.message}',
-                        style: context.bodySmall?.copyWith(color: kRed),
-                      );
-                    } else if (state is AvailableFilesLoaded) {
-                      if (state.files.isEmpty) {
-                        return Text(context.localization.noAvailableDocuments, style: context.bodySmall);
-                      } else {
-                        return Column(
-                          children: state.files.map((file) => FileWidget(file: file)).toList(),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(kSmallPadding),
+                child: SingleChildScrollView(
+                  child: BlocBuilder<AvailableFilesBloc, AvailableFilesState>(
+                    builder: (context, state) {
+                      if (state is AvailableFilesError) {
+                        return Text(
+                          'Error: ${state.message}',
+                          style: context.bodySmall?.copyWith(color: kRed),
                         );
+                      } else if (state is AvailableFilesLoaded) {
+                        if (state.files.isEmpty) {
+                          return Text(context.localization.noAvailableDocuments, style: context.bodySmall);
+                        } else {
+                          return Column(
+                            children: state.files.map((file) => FileWidget(file: file)).toList(),
+                          );
+                        }
+                      } else {
+                        return Container();
                       }
-                    } else {
-                      return Container();
-                    }
-                  },
+                    },
+                  ),
                 ),
               ),
             ),

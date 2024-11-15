@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:greenshare/authentication/repositories/authentication_repository.dart';
 import 'package:greenshare/common/config/injectable.dart';
+import 'package:greenshare/common/ui/widgets/loading_widget.dart';
+import 'package:greenshare/theme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,9 +22,21 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
-        child: Placeholder(),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const LoadingWidget(),
+              const SizedBox(width: kMaxPadding),
+              Text(
+                'Logging in...',
+                style: context.bodyLarge,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

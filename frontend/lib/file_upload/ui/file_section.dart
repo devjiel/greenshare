@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:greenshare/common/ui/widgets/card.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_bloc.dart';
 import 'package:greenshare/file_upload/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/file_upload/ui/widgets/file_list_widget.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 
-class FileUploadSection extends StatelessWidget {
-  const FileUploadSection({super.key});
+class FileSection extends StatelessWidget {
+  const FileSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +20,6 @@ class FileUploadSection extends StatelessWidget {
 
     return MultiBlocListener(
       listeners: [
-        BlocListener<UserBloc, UserState>(
-          listener: (context, state) {
-            final availableFileBloc = context.read<AvailableFilesBloc>();
-            if (state is UserStateLoaded) {
-              availableFileBloc.add(LoadAvailableFilesEvent(files: state.user.files));
-            }
-            // TODO handle other states ?
-          },
-        ),
         BlocListener<FileUploadBloc, FileUploadState>(
           listener: (context, state) {
             final userBloc = context.read<UserBloc>();
@@ -45,7 +35,7 @@ class FileUploadSection extends StatelessWidget {
         ),
       ],
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

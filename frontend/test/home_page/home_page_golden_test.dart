@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:greenshare/common/config/injectable.dart';
@@ -64,8 +67,16 @@ void main() {
     for (var locale in locales) {
       testGoldens("Desktop HomePage page in $locale", (WidgetTester tester) async {
         await tester.pumpWidgetInDesktopMode(
-          widget: const HomePage(
-            userUid: 'userUid',
+          widget: MultiBlocProvider(
+            providers: [
+              BlocProvider<UserBloc>.value(
+                value: userBloc,
+              ),
+              BlocProvider<CarbonReductionBloc>.value(
+                value: carbonReductionBloc,
+              ),
+            ],
+            child: const HomePage(),
           ),
           locale: locale,
         );

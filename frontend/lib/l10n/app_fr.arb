@@ -1,4 +1,5 @@
 {
+  "appName": "GreenShare",
   "importFile": "Importer un fichier",
   "fileMaxSize": "Taille maximale: {maxFileSize} Mo",
   "carbonFootprintReduction": "Réduction de l'empreinte carbone",
@@ -17,5 +18,6 @@
         "format": "Hms"
       }
     }
-  }
+  },
+  "logout": "Déconnexion"
 }
