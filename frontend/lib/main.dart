@@ -6,7 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:greenshare/authentication/ui/blocs/authentication_bloc.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_cubit.dart';
+import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/router.dart';
 import 'package:greenshare/theme.dart';

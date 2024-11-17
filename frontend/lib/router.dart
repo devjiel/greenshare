@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greenshare/authentication/ui/blocs/authentication_bloc.dart';
 import 'package:greenshare/authentication/ui/login_page.dart';
+import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/home/ui/home_page.dart';
+import 'package:greenshare/share/ui/bloc/share_links_cubit.dart';
+import 'package:greenshare/share/ui/share_page.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 
 class GreenShareRouter {
@@ -20,6 +23,13 @@ class GreenShareRouter {
           path: '/login',
           builder: (context, state) => const LoginPage(),
         ),
+        GoRoute(
+          path: '/share/:shareLinkUid',
+          builder: (context, state) => BlocProvider.value(
+            value: getIt<ShareLinksCubit>()..getShareLinkFiles(state.pathParameters['shareLinkUid']!),
+            child: SharePage(shareLinkUid: state.pathParameters['shareLinkUid']!),
+          ),
+        ),
       ],
       redirect: (BuildContext context, GoRouterState state) {
         // Unprotected routes
@@ -31,6 +41,9 @@ class GreenShareRouter {
           return '/login';
         }
         if (context.read<UserBloc>().state is UserStateLoaded) {
+          if (state.fullPath == '/share/:shareLinkUid') {
+            return '/share/${state.pathParameters['shareLinkUid']}';
+          }
           return '/home';
         } else {
           return null;

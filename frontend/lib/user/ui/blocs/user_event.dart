@@ -14,9 +14,9 @@ final class StartListeningUser extends UserEvent {
 }
 
 final class AddAvailableFile extends UserEvent {
-  const AddAvailableFile({required this.uid});
+  const AddAvailableFile({required this.fileUidList});
 
-  final String uid;
+  final List<String> fileUidList;
 }
 
 final class _UserChanged extends UserEvent {

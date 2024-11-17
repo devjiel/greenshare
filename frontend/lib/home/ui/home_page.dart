@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/ecological_data/ui/ecological_data_section.dart';
-import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_cubit.dart';
-import 'package:greenshare/file_upload/ui/blocs/file_upload/file_upload_bloc.dart';
-import 'package:greenshare/file_upload/ui/file_section.dart';
+import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
+import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
+import 'package:greenshare/files/ui/file_section.dart';
 import 'package:greenshare/home/ui/footer.dart';
 import 'package:greenshare/home/ui/header.dart';
+import 'package:greenshare/share/ui/bloc/share_links_cubit.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 
 class HomePage extends StatelessWidget {
@@ -32,7 +33,8 @@ class HomePage extends StatelessWidget {
                   child: MultiBlocProvider(
                     providers: [
                       BlocProvider<AvailableFilesCubit>.value(value: getIt<AvailableFilesCubit>()),
-                      BlocProvider<FileUploadBloc>.value(value: getIt<FileUploadBloc>())
+                      BlocProvider<FileUploadBloc>.value(value: getIt<FileUploadBloc>()),
+                      BlocProvider<ShareLinksCubit>.value(value: getIt<ShareLinksCubit>()),
                     ],
                     child: const FileSection(),
                   ),

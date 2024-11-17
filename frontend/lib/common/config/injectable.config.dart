@@ -23,14 +23,15 @@ import 'package:greenshare/common/config/firebase/firebase_injectable_module.dar
 import 'package:greenshare/common/config/specific_config.dart' as _i632;
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart'
     as _i853;
-import 'package:greenshare/file_upload/repositories/files_repository.dart'
-    as _i340;
-import 'package:greenshare/file_upload/repositories/storage_repository.dart'
-    as _i576;
-import 'package:greenshare/file_upload/ui/blocs/available_files/available_files_cubit.dart'
-    as _i63;
-import 'package:greenshare/file_upload/ui/blocs/file_upload/file_upload_bloc.dart'
-    as _i21;
+import 'package:greenshare/files/repositories/files_repository.dart' as _i846;
+import 'package:greenshare/files/repositories/storage_repository.dart' as _i923;
+import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart'
+    as _i501;
+import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart'
+    as _i548;
+import 'package:greenshare/share/repositories/share_links_repository.dart'
+    as _i44;
+import 'package:greenshare/share/ui/bloc/share_links_cubit.dart' as _i879;
 import 'package:greenshare/user/repositories/users_repository.dart' as _i398;
 import 'package:greenshare/user/ui/blocs/user_bloc.dart' as _i814;
 import 'package:injectable/injectable.dart' as _i526;
@@ -60,12 +61,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => firebaseInjectableModule.firebaseAuth);
     gh.lazySingleton<_i457.FirebaseStorage>(
         () => firebaseInjectableModule.firebaseStorage);
+    gh.lazySingleton<_i923.StorageRepository>(
+        () => _i923.FirebaseStorageRepository(gh<_i457.FirebaseStorage>()));
     gh.lazySingleton<_i345.FirebaseDatabase>(
       () => firebaseInjectableModule.firebaseDatabase,
       instanceName: 'firebaseDatabase',
     );
-    gh.lazySingleton<_i576.StorageRepository>(
-        () => _i576.FirebaseStorageRepository(gh<_i457.FirebaseStorage>()));
     gh.factory<_i632.IConfig>(
       () => _i632.TestConfig(),
       registerFor: {_test},
@@ -74,22 +75,27 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i632.DevConfig(),
       registerFor: {_dev},
     );
+    gh.lazySingleton<_i548.FileUploadBloc>(
+        () => _i548.FileUploadBloc(gh<_i923.StorageRepository>()));
     gh.lazySingleton<_i763.AuthenticationRepository>(
         () => _i763.FirebaseAuthenticationRepository(gh<_i59.FirebaseAuth>()));
+    gh.lazySingleton<_i846.FilesRepository>(() => _i846.FirebaseFilesRepository(
+        gh<_i345.FirebaseDatabase>(instanceName: 'firebaseDatabase')));
     gh.lazySingleton<_i398.UsersRepository>(() => _i398.FirebaseUsersRepository(
         gh<_i345.FirebaseDatabase>(instanceName: 'firebaseDatabase')));
     gh.singleton<_i337.AuthenticationBloc>(() => _i337.AuthenticationBloc(
         authenticationRepository: gh<_i763.AuthenticationRepository>()));
+    gh.lazySingleton<_i44.ShareLinksRepository>(() =>
+        _i44.FirebaseShareLinksRepository(
+            gh<_i345.FirebaseDatabase>(instanceName: 'firebaseDatabase')));
+    gh.singleton<_i501.AvailableFilesCubit>(
+        () => _i501.AvailableFilesCubit(gh<_i846.FilesRepository>()));
+    gh.singleton<_i879.ShareLinksCubit>(
+        () => _i879.ShareLinksCubit(gh<_i44.ShareLinksRepository>()));
     gh.factory<_i632.IConfig>(
       () => _i632.ProdConfig(),
       registerFor: {_prod},
     );
-    gh.lazySingleton<_i340.FilesRepository>(() => _i340.FirebaseFilesRepository(
-        gh<_i345.FirebaseDatabase>(instanceName: 'firebaseDatabase')));
-    gh.lazySingleton<_i21.FileUploadBloc>(
-        () => _i21.FileUploadBloc(gh<_i576.StorageRepository>()));
-    gh.singleton<_i63.AvailableFilesCubit>(
-        () => _i63.AvailableFilesCubit(gh<_i340.FilesRepository>()));
     gh.lazySingleton<_i814.UserBloc>(
         () => _i814.UserBloc(userRepository: gh<_i398.UsersRepository>()));
     return this;

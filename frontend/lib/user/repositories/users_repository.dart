@@ -9,7 +9,7 @@ abstract class UsersRepository {
   // TODO rework Either pattern -> finally Future.error or Stream.onError working pretty well
   Stream<Either<UserRepositoryError, UserEntityModel>> listenUserByUid(String userId);
 
-  Future<void> addFileToAvailableFiles(String userId, String fileUid);
+  Future<void> addFileToAvailableFiles(String userId, List<String> fileUid);
 }
 
 @LazySingleton(as: UsersRepository)
@@ -37,12 +37,12 @@ class FirebaseUsersRepository implements UsersRepository {
       });
 
   @override
-  Future<void> addFileToAvailableFiles(String userId, String fileUid) async {
+  Future<void> addFileToAvailableFiles(String userId, List<String> fileUid) async {
     try {
       await _database.ref().child('users').child(userId).child('available_files').once().then((DatabaseEvent event) async {
         final existingFiles = jsonDecode(jsonEncode(event.snapshot.value)) ?? []; // TODO try push
 
-        await _database.ref().child('users').child(userId).update({'available_files': [...existingFiles, fileUid]});
+        await _database.ref().child('users').child(userId).update({'available_files': [...existingFiles, ...fileUid]});
       });
     } catch (e) {
       return Future.error('Error adding file to available files: $e');

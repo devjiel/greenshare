@@ -49,7 +49,7 @@ void main() {
     group('addAvailableFile', () {
       test('should add file to available files', () async {
 
-        await repository.addFileToAvailableFiles('test-uid', 'uid1').onError((error, stackTrace) {
+        await repository.addFileToAvailableFiles('test-uid', ['uid1', 'uid2']).onError((error, stackTrace) {
           fail('Error adding file to available files: $error');
         });
 
