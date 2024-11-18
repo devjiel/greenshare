@@ -29,7 +29,7 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
     result.fold(
       (error) => add(UploadFailure(error.message)),
       (uploadTask) {
-        emit(const FileUploadInProgress(0));
+        emit(FileUploadInProgress(0, event.fileName));
 
         uploadTask.snapshotEvents.listen((snapshot) {
           final progress = snapshot.bytesTransferred / snapshot.totalBytes;
@@ -75,7 +75,11 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
     ));
   }
 
-  FutureOr<void> _onUploadProgress(UploadProgress event, Emitter<FileUploadState> emit) {
-    emit(FileUploadInProgress(event.progress));
+  Future<void> _onUploadProgress(UploadProgress event, Emitter<FileUploadState> emit) async {
+    if (state is! FileUploadInProgress) {
+      return;
+    }
+    final fileName = (state as FileUploadInProgress).filename;
+    emit(FileUploadInProgress(event.progress, fileName));
   }
 }

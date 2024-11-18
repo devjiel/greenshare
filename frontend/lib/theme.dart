@@ -58,6 +58,10 @@ final kTheme = ThemeData(
     color: kDarkGreen,
     textStyle: kTextTheme.bodyLarge,
   ),
+  progressIndicatorTheme: const ProgressIndicatorThemeData(
+    color: kLightGreen,
+    linearTrackColor: kDarkGreen,
+  ),
   colorScheme: ColorScheme.fromSwatch().copyWith(primary: kLightGreen, secondary: kDarkGreen),
   useMaterial3: true,
 );

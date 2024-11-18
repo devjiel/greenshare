@@ -12,9 +12,10 @@ class FileUploadInitial extends FileUploadState {
 }
 
 class FileUploadInProgress extends FileUploadState {
-  final double progress;
+  const FileUploadInProgress(this.progress, this.filename);
 
-  const FileUploadInProgress(this.progress);
+  final double progress;
+  final String filename;
 
   @override
   List<Object> get props => [progress];

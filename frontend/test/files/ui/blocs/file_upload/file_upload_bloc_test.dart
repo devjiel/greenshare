@@ -61,9 +61,9 @@ void main() {
         },
         act: (bloc) => bloc.add(UploadFile('path', 'file1.pdf', Uint8List(1))),
         expect: () => [
-          const FileUploadInProgress(0.0),
-          const FileUploadInProgress(0.5),
-          const FileUploadInProgress(1.0),
+          const FileUploadInProgress(0.0, 'file1.pdf'),
+          const FileUploadInProgress(0.5, 'file1.pdf'),
+          const FileUploadInProgress(1.0, 'file1.pdf'),
           const FileUploadSuccess('file1.pdf', 2.0, 'url', '/path/file1.pdf'),
         ],
       );
@@ -95,7 +95,7 @@ void main() {
         },
         act: (bloc) => bloc.add(UploadFile('path', 'file1.pdf', Uint8List(1))),
         expect: () => [
-          const FileUploadInProgress(0.0),
+          const FileUploadInProgress(0.0, 'file1.pdf'),
           const FileUploadFailure('Upload failed'),
         ],
       );

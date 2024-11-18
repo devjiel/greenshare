@@ -67,12 +67,12 @@ void main() {
       ],
     );
 
-    test('should get file uid when addAvailableFile is called', () async {
+    test('should get file uid when saveFile is called', () async {
       when(() => filesRepository.saveFile(any())).thenAnswer(
         (_) => Future.value('uid4'),
       );
 
-      final result = await availableFilesCubit.addAvailableFile(FileViewModel(
+      final result = await availableFilesCubit.saveFile(FileViewModel(
         uid: 'uid4',
         name: 'file4.pdf',
         size: 4.0,
@@ -88,12 +88,12 @@ void main() {
       verify(() => filesRepository.saveFile(any())).called(1);
     });
 
-    test('should success when deleteAvailableFile is called', () async {
+    test('should success when deleteFile is called', () async {
       when(() => filesRepository.deleteFile(any())).thenAnswer(
         (_) => Future.value(),
       );
 
-      await availableFilesCubit.deleteAvailableFile('uid4');
+      await availableFilesCubit.deleteFile('uid4');
 
       verify(() => filesRepository.deleteFile('uid4')).called(1);
 

@@ -29,9 +29,9 @@ class DeleteFile extends FileUploadEvent {
 }
 
 class UploadProgress extends FileUploadEvent {
-  final double progress;
-
   const UploadProgress(this.progress);
+
+  final double progress;
 
   @override
   List<Object> get props => [progress];

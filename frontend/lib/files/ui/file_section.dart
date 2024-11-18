@@ -4,6 +4,8 @@ import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.
 import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/files/ui/models/file_view_model.dart';
 import 'package:greenshare/files/ui/widgets/file_list/file_list_widget.dart';
+import 'package:greenshare/files/ui/widgets/file_upload/file_upload_in_progress_widget.dart';
+import 'package:greenshare/files/ui/widgets/file_upload/file_upload_success_widget.dart';
 import 'package:greenshare/files/ui/widgets/file_upload/file_upload_widget.dart';
 import 'package:greenshare/share/ui/bloc/share_links/share_links_bloc.dart';
 import 'package:greenshare/theme.dart';
@@ -25,7 +27,7 @@ class FileSection extends StatelessWidget {
             if (state is FileUploadSuccess) {
               // Add file to available files
               availableFilesCubit
-                  .addAvailableFile(
+                  .saveFile(
                     FileViewModel(
                       uid: const Uuid().v4(),
                       name: state.filename,
@@ -45,7 +47,7 @@ class FileSection extends StatelessWidget {
                     },
                   );
             } else if (state is FileDeleteSuccess) {
-              availableFilesCubit.deleteAvailableFile(state.fileUid);
+              availableFilesCubit.deleteFile(state.fileUid);
               userBloc.add(RemoveAvailableFile(fileUid: state.fileUid));
               // TODO remove available files of other users
             }
@@ -63,8 +65,20 @@ class FileSection extends StatelessWidget {
               child: const FileListWidget(),
             ),
             const SizedBox(width: kMaxPadding),
-            const Expanded(
-              child: FileUploadWidget(),
+            Expanded(
+              child: BlocBuilder<FileUploadBloc, FileUploadState>(
+                builder: (context, state) {
+                  if (state is FileUploadInitial) {
+                    return const FileUploadWidget();
+                  } else if (state is FileUploadInProgress) {
+                    return const FileUploadInProgressWidget();
+                  } else if (state is FileUploadSuccess) {
+                    return const FileUploadSuccessWidget();
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              ),
             ),
           ],
         ),
