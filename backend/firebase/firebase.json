@@ -7,7 +7,7 @@
       "port": 9099
     },
     "database": {
-      "port": 9000
+      "port": 44000
     },
     "storage": {
       "port": 9199

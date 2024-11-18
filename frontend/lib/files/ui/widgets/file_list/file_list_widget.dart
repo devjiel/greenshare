@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenshare/common/ui/widgets/card.dart';
 import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
-import 'package:greenshare/files/ui/widgets/file_widget.dart';
+import 'package:greenshare/files/ui/widgets/file_list/file_widget.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
 

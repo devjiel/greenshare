@@ -4,10 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/files/ui/models/file_view_model.dart';
-import 'package:greenshare/files/ui/widgets/file_list_widget.dart';
+import 'package:greenshare/files/ui/widgets/file_list/file_list_widget.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../../test_helpers.dart';
+import '../../../../test_helpers.dart';
 
 class MockAvailableFilesCubit extends MockCubit<AvailableFilesState> implements AvailableFilesCubit {}
 

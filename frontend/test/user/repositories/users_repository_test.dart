@@ -20,11 +20,11 @@ void main() {
 
   setUp(() {
     repository = FirebaseUsersRepository(firebaseDatabase);
+    MockFirebaseDatabase.instance.ref().set(fakeData);
   });
 
   group('UsersRepository', () {
     group('listenUserByUid', () {
-      MockFirebaseDatabase.instance.ref().set(fakeData);
 
       test('should return user when user exists', () async {
         final userStream = repository.listenUserByUid('test-uid');
