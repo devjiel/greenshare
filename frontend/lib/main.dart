@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:greenshare/authentication/ui/blocs/authentication_bloc.dart';
+import 'package:greenshare/authentication/ui/blocs/authentication/authentication_bloc.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/ecological_data/ui/blocs/carbon_reduction_bloc.dart';
 import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/router.dart';
+import 'package:greenshare/share/ui/bloc/current_share/current_share_cubit.dart';
 import 'package:greenshare/theme.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -27,6 +28,7 @@ void main() async {
       BlocProvider.value(value: getIt<AuthenticationBloc>()..add(const AuthenticationSubscriptionRequested())),
       BlocProvider.value(value: getIt<UserBloc>()),
       BlocProvider.value(value: getIt<CarbonReductionBloc>()),
+      BlocProvider.value(value: getIt<CurrentShareCubit>()),
     ], child: const GreenShareApp()),
   );
 }

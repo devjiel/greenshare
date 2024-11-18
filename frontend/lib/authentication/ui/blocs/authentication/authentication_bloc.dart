@@ -5,7 +5,6 @@ import 'package:greenshare/authentication/repositories/models/auth_user_entity_m
 import 'package:injectable/injectable.dart';
 
 part 'authentication_event.dart';
-
 part 'authentication_state.dart';
 
 @singleton

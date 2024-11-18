@@ -5,7 +5,7 @@ import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/files/ui/models/file_view_model.dart';
 import 'package:greenshare/files/ui/widgets/file_list_widget.dart';
 import 'package:greenshare/files/ui/widgets/file_upload_widget.dart';
-import 'package:greenshare/share/ui/bloc/share_links_cubit.dart';
+import 'package:greenshare/share/ui/bloc/share_links/share_links_bloc.dart';
 import 'package:greenshare/theme.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 
@@ -20,7 +20,7 @@ class FileSection extends StatelessWidget {
           listener: (context, state) {
             final userBloc = context.read<UserBloc>();
             final availableFilesCubit = context.read<AvailableFilesCubit>();
-            final shareLinksCubit = context.read<ShareLinksCubit>();
+            final shareLinksCubit = context.read<ShareLinksBloc>();
             if (state is FileUploadSuccess) {
               // Add file to available files
               availableFilesCubit
@@ -36,7 +36,7 @@ class FileSection extends StatelessWidget {
                     // Link file to user
                     (fileUid) {
                       userBloc.add(AddAvailableFile(fileUidList: [fileUid]));
-                      shareLinksCubit.createShareLink([fileUid]);
+                      shareLinksCubit.add(CreateShareLink([fileUid]));
                     },
                   );
             }

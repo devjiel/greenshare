@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greenshare/common/ui/widgets/loading_widget.dart';
-import 'package:greenshare/share/ui/bloc/share_links_cubit.dart';
+import 'package:greenshare/share/ui/bloc/share_links/share_links_bloc.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 
 class SharePage extends StatelessWidget {
@@ -12,7 +12,7 @@ class SharePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ShareLinksCubit, ShareLinksState>(
+    return BlocListener<ShareLinksBloc, ShareLinksState>(
       listener: (context, state) {
         if (state is ShareLinkLoaded) {
           final userBloc = context.read<UserBloc>();

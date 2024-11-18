@@ -19,5 +19,8 @@
       }
     }
   },
-  "logout": "Déconnexion"
+  "logout": "Déconnexion",
+  "login": "Connexion",
+  "email": "Email",
+  "password": "Mot de passe"
 }

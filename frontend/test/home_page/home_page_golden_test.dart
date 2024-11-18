@@ -9,6 +9,7 @@ import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.
 import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/files/ui/models/file_view_model.dart';
 import 'package:greenshare/home/ui/home_page.dart';
+import 'package:greenshare/share/ui/bloc/share_links/share_links_bloc.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 import 'package:greenshare/user/ui/models/user_view_model.dart';
 import 'package:mocktail/mocktail.dart';
@@ -23,11 +24,14 @@ class MockUserBloc extends MockBloc<UserEvent, UserState> implements UserBloc {}
 
 class MockFileUploadBloc extends MockBloc<FileUploadEvent, FileUploadState> implements FileUploadBloc {}
 
+class MockShareLinksBloc extends MockBloc<ShareLinksEvent, ShareLinksState> implements ShareLinksBloc {}
+
 void main() {
   final availableFilesCubit = MockAvailableFilesCubit();
   final carbonReductionBloc = MockCarbonReductionBloc();
   final fileUploadBloc = MockFileUploadBloc();
   final userBloc = MockUserBloc();
+  final shareLinksBloc = MockShareLinksBloc();
 
   setUpAll(() async {
     await loadAppFonts();
@@ -55,10 +59,13 @@ void main() {
 
     whenListen(fileUploadBloc, Stream.fromIterable([const FileUploadInitial()]), initialState: const FileUploadInitial());
 
+    when(() => shareLinksBloc.state).thenReturn(const ShareLinksInitial());
+
     getIt.registerLazySingleton<UserBloc>(() => userBloc);
     getIt.registerLazySingleton<FileUploadBloc>(() => fileUploadBloc);
     getIt.registerLazySingleton<AvailableFilesCubit>(() => availableFilesCubit);
     getIt.registerLazySingleton<CarbonReductionBloc>(() => carbonReductionBloc);
+    getIt.registerLazySingleton<ShareLinksBloc>(() => shareLinksBloc);
   });
 
   group("HomePage page goldens", () {

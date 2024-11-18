@@ -19,5 +19,8 @@
       }
     }
   },
-  "logout": "Logout"
+  "logout": "Logout",
+  "login": "Login",
+  "email": "Email",
+  "password": "Password"
 }

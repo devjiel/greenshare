@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:greenshare/authentication/ui/blocs/authentication_bloc.dart';
+import 'package:greenshare/authentication/ui/blocs/authentication/authentication_bloc.dart';
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';

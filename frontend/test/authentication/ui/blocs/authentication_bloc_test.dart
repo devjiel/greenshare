@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:greenshare/authentication/repositories/authentication_repository.dart';
 import 'package:greenshare/authentication/repositories/models/auth_user_entity_model.dart';
-import 'package:greenshare/authentication/ui/blocs/authentication_bloc.dart';
+import 'package:greenshare/authentication/ui/blocs/authentication/authentication_bloc.dart';
 import 'package:bloc_test/bloc_test.dart';
 
 class MockAuthenticationRepository extends Mock implements AuthenticationRepository {}
