@@ -60,7 +60,7 @@ class _GreenShareAppState extends State<GreenShareApp> {
         BlocListener<UserBloc, UserState>(
           listener: (context, state) {
             if (state is UserStateLoaded) {
-              getIt<AvailableFilesCubit>().loadFiles(state.user.files);
+              getIt<AvailableFilesCubit>().loadUserFiles(state.user);
             } else if (state is UserStateError) {
               context.read<AuthenticationBloc>().add(const AuthenticationLogoutRequested()); // TODO show an error ?
             }

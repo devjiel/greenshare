@@ -10,14 +10,14 @@ part 'share_links_state.dart';
 class ShareLinksBloc extends Bloc<ShareLinksEvent, ShareLinksState> {
   final ShareLinksRepository _repository;
 
-  ShareLinksBloc(this._repository) : super(ShareLinksInitial()) {
+  ShareLinksBloc(this._repository) : super(const ShareLinksInitial()) {
     on<CreateShareLink>(_onCreateShareLink);
     on<GetShareLinkFiles>(_onGetShareLinkFiles);
   }
 
   Future<void> _onCreateShareLink(CreateShareLink event, Emitter<ShareLinksState> emit) async {
     try {
-      emit(ShareLinksLoading());
+      emit(const ShareLinksLoading());
       final linkUid = await _repository.createLink(event.files);
       emit(ShareLinkCreated(_generateShareLink(linkUid)));
     } catch (e) {
@@ -27,7 +27,7 @@ class ShareLinksBloc extends Bloc<ShareLinksEvent, ShareLinksState> {
 
   Future<void> _onGetShareLinkFiles(GetShareLinkFiles event, Emitter<ShareLinksState> emit) async {
     try {
-      emit(ShareLinksLoading());
+      emit(const ShareLinksLoading());
       final shareLink = await _repository.getLink(event.linkUid);
       emit(ShareLinkLoaded(shareLink.fileUidList));
     } catch (e) {

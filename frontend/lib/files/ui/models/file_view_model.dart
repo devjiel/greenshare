@@ -8,6 +8,7 @@ class FileViewModel extends Equatable {
   final DateTime? expirationDate;
   final String downloadUrl;
   final String ownerUid;
+  final bool isOwnedByCurrentUser;
 
   const FileViewModel({
     required this.name,
@@ -15,18 +16,21 @@ class FileViewModel extends Equatable {
     required this.expirationDate,
     required this.downloadUrl,
     required this.ownerUid,
+    required this.isOwnedByCurrentUser,
   });
+
 
   @override
   List<Object?> get props => [name, size, expirationDate, downloadUrl, ownerUid];
 
-  static FileViewModel fromEntity(FileEntityModel file) {
+  static FileViewModel fromEntity(FileEntityModel file, String userUid) {
     return FileViewModel(
       name: file.name,
       size: file.size,
       expirationDate: file.expirationDate,
       downloadUrl: file.downloadUrl,
       ownerUid: file.ownerUid,
+      isOwnedByCurrentUser: file.ownerUid == userUid,
     );
   }
 }

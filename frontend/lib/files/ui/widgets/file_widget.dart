@@ -13,6 +13,7 @@ class FileWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: kSmallPadding),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Icon(
             Icons.insert_drive_file_rounded,
@@ -53,6 +54,16 @@ class FileWidget extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(width: 16.0),
+          (file.isOwnedByCurrentUser) ? IconButton(
+            onPressed: () {
+              // TODO delete file
+            },
+            icon: const Icon(
+              Icons.delete_rounded,
+              size: 16,
+            ),
+          ) : const SizedBox.shrink(),
         ],
       ),
     );

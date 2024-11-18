@@ -18,7 +18,7 @@ void main() {
   });
 
   test('initial state is ShareLinksInitial', () {
-    expect(shareLinksBloc.state, ShareLinksInitial());
+    expect(shareLinksBloc.state, const ShareLinksInitial());
   });
 
   blocTest<ShareLinksBloc, ShareLinksState>(
@@ -29,7 +29,7 @@ void main() {
     },
     act: (bloc) => bloc.add(const CreateShareLink(['file1', 'file2'])),
     expect: () => [
-      ShareLinksLoading(),
+      const ShareLinksLoading(),
       const ShareLinkCreated('/share/linkUid'),
     ],
   );
@@ -42,7 +42,7 @@ void main() {
     },
     act: (bloc) => bloc.add(const CreateShareLink(['file1', 'file2'])),
     expect: () => [
-      ShareLinksLoading(),
+      const ShareLinksLoading(),
       const ShareLinksError('Exception: error'),
     ],
   );
@@ -65,7 +65,7 @@ group('ShareLinksBloc - Retrieve', () {
     },
     act: (bloc) => bloc.add(const GetShareLinkFiles('linkUid')),
     expect: () => [
-      ShareLinksLoading(),
+      const ShareLinksLoading(),
       const ShareLinkLoaded(['file1', 'file2']),
     ],
   );
@@ -78,7 +78,7 @@ group('ShareLinksBloc - Retrieve', () {
     },
     act: (bloc) => bloc.add(const GetShareLinkFiles('linkUid')),
     expect: () => [
-      ShareLinksLoading(),
+      const ShareLinksLoading(),
       const ShareLinksError('Exception: error'),
     ],
   );
