@@ -18,17 +18,22 @@ class FileUploadSuccessWidget extends StatelessWidget {
           child: BlocBuilder<FileUploadBloc, FileUploadState>(builder: (context, state) {
             if (state is FileUploadSuccess) {
               return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const FileUploadStepperWidget(
                     activeStep: 2,
                   ),
-                  const SizedBox(height: kDefaultPadding),
-                  const _ExpirationRadioGroup(),
-                  const SizedBox(height: kDefaultPadding),
-                  const Spacer(),
+                  const Flexible(
+                    flex: 2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _ExpirationRadioGroup(),
+                      ],
+                    ),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       ElevatedButton(
                         onPressed: () {
