@@ -6,7 +6,10 @@ import 'package:greenshare/files/repositories/models/storage_repository_error.da
 import 'package:injectable/injectable.dart';
 
 abstract class StorageRepository {
+  // TODO UploadTask should be abstracted
   Either<StorageRepositoryError, UploadTask> uploadFile(String path, String fileName, Uint8List bytes);
+
+  Future<void> removeFile(String path);
 }
 
 @LazySingleton(as: StorageRepository)
@@ -24,6 +27,15 @@ class FirebaseStorageRepository implements StorageRepository {
       return Right<StorageRepositoryError, UploadTask>(uploadTask);
     } catch (e) {
       return Left<StorageRepositoryError, UploadTask>(StorageRepositoryError.technicalError("Error uploading file: $e"));
+    }
+  }
+
+  @override
+  Future<void> removeFile(String path) {
+    try {
+      return _storage.ref().child(path).delete();
+    } catch (e) {
+      throw StorageRepositoryError.technicalError("Error deleting file: $e");
     }
   }
 }
