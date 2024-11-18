@@ -25,5 +25,7 @@
   "password": "Mot de passe",
   "upload": "Télécharger",
   "configureExpiration": "Configurer l'expiration",
-  "share": "Partager"
+  "share": "Partager",
+  "setExpirationDate": "Définir la date d'expiration",
+  "deleteWhenContactDownloadIt": "Supprimer quand le contact le télécharge"
 }

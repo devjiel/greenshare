@@ -25,5 +25,7 @@
   "password": "Password",
   "upload": "Upload",
   "configureExpiration": "Configure expiration",
-  "share": "Share"
+  "share": "Share",
+  "setExpirationDate": "Set expiration date",
+  "deleteWhenContactDownloadIt": "Delete when contact download it"
 }

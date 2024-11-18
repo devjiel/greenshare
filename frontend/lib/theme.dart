@@ -62,6 +62,14 @@ final kTheme = ThemeData(
     color: kLightGreen,
     linearTrackColor: kDarkGreen,
   ),
+  radioTheme: RadioThemeData(
+    fillColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.disabled)) {
+        return kDarkGreen;
+      }
+      return kLightGreen;
+    }),
+  ),
   colorScheme: ColorScheme.fromSwatch().copyWith(primary: kLightGreen, secondary: kDarkGreen),
   useMaterial3: true,
 );
