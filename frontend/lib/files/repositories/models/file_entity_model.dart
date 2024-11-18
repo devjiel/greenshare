@@ -9,9 +9,10 @@ class FileEntityModel with _$FileEntityModel {
     required String uid,
     required String name,
     required double size,
-    DateTime? expirationDate,
     required String downloadUrl,
+    required String path,
     required String ownerUid,
+    DateTime? expirationDate,
   }) = _FileEntityModel;
 
   factory FileEntityModel.fromJson(Map<String, Object?> json)

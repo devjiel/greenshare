@@ -19,6 +19,12 @@ final class AddAvailableFile extends UserEvent {
   final List<String> fileUidList;
 }
 
+final class RemoveAvailableFile extends UserEvent {
+  const RemoveAvailableFile({required this.fileUid});
+
+  final String fileUid;
+}
+
 final class _UserChanged extends UserEvent {
   const _UserChanged(this.user);
 

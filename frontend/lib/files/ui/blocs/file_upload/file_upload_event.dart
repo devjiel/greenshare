@@ -18,6 +18,16 @@ class UploadFile extends FileUploadEvent {
   List<Object> get props => [path, fileName, bytes];
 }
 
+class DeleteFile extends FileUploadEvent {
+  const DeleteFile(this.fileUid, this.path);
+
+  final String fileUid;
+  final String path;
+
+  @override
+  List<Object> get props => [fileUid, path];
+}
+
 class UploadProgress extends FileUploadEvent {
   final double progress;
 
@@ -37,9 +47,13 @@ class UploadFailure extends FileUploadEvent {
 }
 
 class UploadSuccess extends FileUploadEvent {
-  const UploadSuccess(this.filename, this.fileSize, this.fileUrl);
+  const UploadSuccess(this.filename, this.fileSize, this.fileUrl, this.filePath);
 
   final String filename;
   final double fileSize;
   final String fileUrl;
+  final String filePath;
+
+  @override
+  List<Object> get props => [filename, fileSize, fileUrl, filePath];
 }

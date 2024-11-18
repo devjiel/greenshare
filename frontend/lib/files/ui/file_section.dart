@@ -32,6 +32,7 @@ class FileSection extends StatelessWidget {
                       size: state.fileSize,
                       expirationDate: DateTime.now().add(const Duration(days: 1)), // TODO get expiration date
                       downloadUrl: state.fileUrl,
+                      path: state.filePath,
                       ownerUid: (userBloc.state as UserStateLoaded).user.uid, // TODO user bloc state should be checked
                       isOwnedByCurrentUser: true,
                     ),
@@ -43,6 +44,10 @@ class FileSection extends StatelessWidget {
                       shareLinksCubit.add(CreateShareLink([fileUid]));
                     },
                   );
+            } else if (state is FileDeleteSuccess) {
+              availableFilesCubit.deleteAvailableFile(state.fileUid);
+              userBloc.add(RemoveAvailableFile(fileUid: state.fileUid));
+              // TODO remove available files of other users
             }
           },
         ),

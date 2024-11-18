@@ -44,7 +44,7 @@ class AvailableFilesCubit extends Cubit<AvailableFilesState> {
     return _filesRepository.saveFile(file.toEntity()); // TODO handle error
   }
 
-  Future<void> deleteAvailableFile(FileViewModel file) async {
-    await _filesRepository.deleteFile(file.uid); // TODO handle error
+  Future<void> deleteAvailableFile(String fileUid) async {
+    await _filesRepository.deleteFile(fileUid); // TODO handle error
   }
 }

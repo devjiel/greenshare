@@ -19,16 +19,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         super(const UserStateInitial()) {
     on<StartListeningUser>(_onStartListeningUser);
     on<AddAvailableFile>(_onAddAvailableFile);
+    on<RemoveAvailableFile>(_onRemoveAvailableFile);
     on<_UserChanged>(_onUserChanged);
     on<_UserError>(_onError);
   }
 
   final UsersRepository _userRepository;
-  late StreamSubscription<UserEvent> _userSubscription;
+  StreamSubscription<UserEvent>? _userSubscription;
 
   @override
   Future<void> close() {
-    _userSubscription.cancel();
+    _userSubscription?.cancel();
     return super.close();
   }
 
@@ -52,9 +53,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }).listen((event) => add(event));
   }
 
-  FutureOr<void> _onAddAvailableFile(AddAvailableFile event, Emitter<UserState> emit) {
+  Future<void> _onAddAvailableFile(AddAvailableFile event, Emitter<UserState> emit) async {
     if (state is! UserStateLoaded) {
       emit(const UserStateError(UserErrorType.errorWhileAddingFile));
+      return;
     }
 
     final user = (state as UserStateLoaded).user;
@@ -64,6 +66,22 @@ class UserBloc extends Bloc<UserEvent, UserState> {
             event.fileUidList)
         .onError((error, stackTrace) {
       emit(const UserStateError(UserErrorType.errorWhileAddingFile)); // TODO this on error seems to cause emit after event handler completed
+    });
+  }
+
+  Future<void> _onRemoveAvailableFile(RemoveAvailableFile event, Emitter<UserState> emit) async {
+    if (state is! UserStateLoaded) {
+      emit(const UserStateError(UserErrorType.errorWhileRemovingFile));
+      return;
+    }
+
+    final user = (state as UserStateLoaded).user;
+    _userRepository
+        .removeFileFromAvailableFiles(
+            user.uid,
+            event.fileUid)
+        .onError((error, stackTrace) {
+      emit(const UserStateError(UserErrorType.errorWhileRemovingFile)); // TODO this on error seems to cause emit after event handler completed
     });
   }
 

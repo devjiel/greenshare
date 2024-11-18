@@ -7,6 +7,7 @@ class FileViewModel extends Equatable {
   final double size;
   final DateTime? expirationDate;
   final String downloadUrl;
+  final String path;
   final String ownerUid; // TODO not needed in view model - have name or email instead
   final bool isOwnedByCurrentUser;
 
@@ -16,6 +17,7 @@ class FileViewModel extends Equatable {
     required this.size,
     required this.expirationDate,
     required this.downloadUrl,
+    required this.path,
     required this.ownerUid,
     required this.isOwnedByCurrentUser,
   });
@@ -31,6 +33,7 @@ class FileViewModel extends Equatable {
       size: file.size,
       expirationDate: file.expirationDate,
       downloadUrl: file.downloadUrl,
+      path: file.path,
       ownerUid: file.ownerUid,
       isOwnedByCurrentUser: file.ownerUid == userUid,
     );
@@ -45,6 +48,7 @@ extension AvailableFileViewModelExtension on FileViewModel {
       size: size,
       expirationDate: expirationDate,
       downloadUrl: downloadUrl,
+      path: path,
       ownerUid: ownerUid,
     );
   }

@@ -17,12 +17,14 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
 
   FileUploadBloc(this._storageRepository) : super(const FileUploadInitial()) {
     on<UploadFile>(_onUploadFile);
+    on<DeleteFile>(_onDeleteFile);
     on<UploadProgress>(_onUploadProgress);
     on<UploadFailure>(_onUploadFailure);
     on<UploadSuccess>(_onUploadSuccess);
   }
 
   Future<void> _onUploadFile(UploadFile event, Emitter<FileUploadState> emit) async {
+    // TODO limit file size
     final result = _storageRepository.uploadFile(event.path, event.fileName, event.bytes);
     result.fold(
       (error) => add(UploadFailure(error.message)),
@@ -42,11 +44,22 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
                 uploadTask.snapshot.ref.name,
                 uploadTask.snapshot.totalBytes.toDouble(),
                 await uploadTask.snapshot.ref.getDownloadURL(),
+                uploadTask.snapshot.ref.fullPath,
               ));
             }
           });
       },
     );
+  }
+
+  Future<void> _onDeleteFile(DeleteFile event, Emitter<FileUploadState> emit) async {
+    try {
+      await _storageRepository.removeFile(event.path);
+    } catch (e) {
+      emit(FileDeleteFailure(e.toString()));
+      return;
+    }
+    emit(FileDeleteSuccess(event.fileUid));
   }
 
   FutureOr<void> _onUploadFailure(UploadFailure event, Emitter<FileUploadState> emit) {
@@ -58,6 +71,7 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
       event.filename,
       event.fileSize,
       event.fileUrl,
+      event.filePath,
     ));
   }
 

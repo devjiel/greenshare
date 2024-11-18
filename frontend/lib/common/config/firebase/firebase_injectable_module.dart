@@ -18,7 +18,7 @@ abstract class FirebaseInjectableModule {
   FirebaseDatabase get firebaseDatabase {
     final database = FirebaseDatabase.instanceFor(app: Firebase.app());
     if (getIt<IConfig>().useEmulator) {
-      database.useDatabaseEmulator('localhost', 9000);
+      database.useDatabaseEmulator('localhost', 44000);
     }
     return database;
   }

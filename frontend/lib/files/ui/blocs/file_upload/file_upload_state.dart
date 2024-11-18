@@ -21,17 +21,39 @@ class FileUploadInProgress extends FileUploadState {
 }
 
 class FileUploadSuccess extends FileUploadState {
-  const FileUploadSuccess(this.filename, this.fileSize, this.fileUrl);
+  const FileUploadSuccess(this.filename, this.fileSize, this.fileUrl, this.filePath);
 
   final String filename;
   final double fileSize;
   final String fileUrl;
+  final String filePath;
+
+  @override
+  List<Object> get props => [filename, fileSize, fileUrl, filePath];
+}
+
+class FileDeleteSuccess extends FileUploadState {
+  const FileDeleteSuccess(this.fileUid);
+
+  final String fileUid;
+
+  @override
+  List<Object> get props => [fileUid];
 }
 
 class FileUploadFailure extends FileUploadState {
   final String error;
 
   const FileUploadFailure(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
+class FileDeleteFailure extends FileUploadState { // TODO should we mix two use case?
+  final String error;
+
+  const FileDeleteFailure(this.error);
 
   @override
   List<Object> get props => [error];

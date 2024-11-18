@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/files/ui/models/file_view_model.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
@@ -57,7 +59,7 @@ class FileWidget extends StatelessWidget {
           const SizedBox(width: 16.0),
           (file.isOwnedByCurrentUser) ? IconButton(
             onPressed: () {
-              // TODO delete file
+              context.read<FileUploadBloc>().add(DeleteFile(file.uid, file.path));
             },
             icon: const Icon(
               Icons.delete_rounded,
