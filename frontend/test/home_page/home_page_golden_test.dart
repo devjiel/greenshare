@@ -40,9 +40,9 @@ void main() {
       availableFilesCubit,
       Stream.fromIterable([
         AvailableFilesLoaded([
-          FileViewModel(name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file1.pdf', ownerUid: 'ownerUid#1', isOwnedByCurrentUser: true),
-          FileViewModel(name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file2.pdf', ownerUid: 'ownerUid#2', isOwnedByCurrentUser: false),
-          FileViewModel(name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file3.pdf', ownerUid: 'ownerUid#3', isOwnedByCurrentUser: false),
+          FileViewModel(uid: 'uid1', name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file1.pdf', ownerUid: 'ownerUid#1', isOwnedByCurrentUser: true),
+          FileViewModel(uid: 'uid2', name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file2.pdf', ownerUid: 'ownerUid#2', isOwnedByCurrentUser: false),
+          FileViewModel(uid: 'uid3', name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'http://example.com/file3.pdf', ownerUid: 'ownerUid#3', isOwnedByCurrentUser: false),
         ]),
       ]),
       initialState: AvailableFilesInitial(),

@@ -8,6 +8,8 @@ abstract class FilesRepository {
   Future<List<FileEntityModel>> getFiles(List<String> fileIds);
 
   Future<String> saveFile(FileEntityModel file);
+
+  Future<void> deleteFile(String fileId);
 }
 
 @LazySingleton(as: FilesRepository)
@@ -38,6 +40,15 @@ class FirebaseFilesRepository implements FilesRepository {
   Future<String> saveFile(FileEntityModel file) {
     try {
       return _database.ref().child('files').child(file.uid).set(file.toJson()).then((_) => file.uid);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  @override
+  Future<void> deleteFile(String fileId) {
+    try {
+      return _database.ref().child('files').child(fileId).remove();
     } catch (e) {
       return Future.error(e);
     }

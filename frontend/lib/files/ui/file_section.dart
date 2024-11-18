@@ -8,6 +8,7 @@ import 'package:greenshare/files/ui/widgets/file_upload_widget.dart';
 import 'package:greenshare/share/ui/bloc/share_links/share_links_bloc.dart';
 import 'package:greenshare/theme.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
+import 'package:uuid/uuid.dart';
 
 class FileSection extends StatelessWidget {
   const FileSection({super.key});
@@ -26,6 +27,7 @@ class FileSection extends StatelessWidget {
               availableFilesCubit
                   .addAvailableFile(
                     FileViewModel(
+                      uid: const Uuid().v4(),
                       name: state.filename,
                       size: state.fileSize,
                       expirationDate: DateTime.now().add(const Duration(days: 1)), // TODO get expiration date

@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:greenshare/files/repositories/files_repository.dart';
 import 'package:greenshare/files/repositories/models/file_entity_model.dart';
 import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
+import 'package:greenshare/files/ui/models/file_view_model.dart';
 import 'package:greenshare/user/ui/models/user_view_model.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -13,8 +14,9 @@ void main() {
     late AvailableFilesCubit availableFilesCubit;
     final filesRepository = MockFilesRepository();
 
-    setUp(() {
+    setUpAll(() {
       availableFilesCubit = AvailableFilesCubit(filesRepository);
+      registerFallbackValue(const FileEntityModel(uid: '', name: '', size: 0.0, expirationDate: null, downloadUrl: '', ownerUid: ''));
     });
 
     tearDown(() {
@@ -26,9 +28,12 @@ void main() {
       build: () {
         when(() => filesRepository.getFiles(['uid1', 'uid2', 'uid3'])).thenAnswer(
           (_) => Future.value([
-            FileEntityModel(uid: 'uid1', name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 12), downloadUrl: 'url1', ownerUid: 'ownerUid#1'),
-            FileEntityModel(uid: 'uid2', name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'url2', ownerUid: 'ownerUid#2'),
-            FileEntityModel(uid: 'uid3', name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 13), downloadUrl: 'url3', ownerUid: 'ownerUid#3'),
+            FileEntityModel(
+                uid: 'uid1', name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 12), downloadUrl: 'url1', ownerUid: 'ownerUid#1'),
+            FileEntityModel(
+                uid: 'uid2', name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'url2', ownerUid: 'ownerUid#2'),
+            FileEntityModel(
+                uid: 'uid3', name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 13), downloadUrl: 'url3', ownerUid: 'ownerUid#3'),
           ]),
         );
         return availableFilesCubit;
@@ -58,5 +63,44 @@ void main() {
             .having((state) => state.files[2].isOwnedByCurrentUser, 'file 3 is not owned by user', false),
       ],
     );
+
+    test('should get file uid when addAvailableFile is called', () async {
+      when(() => filesRepository.saveFile(any())).thenAnswer(
+        (_) => Future.value('uid4'),
+      );
+
+      final result = await availableFilesCubit.addAvailableFile(FileViewModel(
+        uid: 'uid4',
+        name: 'file4.pdf',
+        size: 4.0,
+        expirationDate: DateTime(2024, 11, 14),
+        downloadUrl: 'url4',
+        ownerUid: 'ownerUid#4',
+        isOwnedByCurrentUser: true,
+      ));
+
+      expect(result, 'uid4');
+
+      verify(() => filesRepository.saveFile(any())).called(1);
+    });
+
+    test('should success when deleteAvailableFile is called', () async {
+      when(() => filesRepository.deleteFile(any())).thenAnswer(
+        (_) => Future.value(),
+      );
+
+      await availableFilesCubit.deleteAvailableFile(FileViewModel(
+        uid: 'uid4',
+        name: 'file4.pdf',
+        size: 4.0,
+        expirationDate: DateTime(2024, 11, 14),
+        downloadUrl: 'url4',
+        ownerUid: 'ownerUid#4',
+        isOwnedByCurrentUser: true,
+      ));
+
+      verify(() => filesRepository.deleteFile('uid4')).called(1);
+
+    });
   });
 }

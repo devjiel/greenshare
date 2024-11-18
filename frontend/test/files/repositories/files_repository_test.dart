@@ -84,5 +84,20 @@ void main() {
         expect(savedFile.snapshot.value, isNotNull);
       });
     });
+
+    group('deleteFile', () {
+      MockFirebaseDatabase.instance.ref().set(fakeData);
+
+      test('should delete file successfully', () async {
+        try {
+          await repository.deleteFile('file2');
+        } catch (e) {
+          fail('Error deleting file: $e');
+        }
+
+        final deletedFile = await firebaseDatabase.ref().child('files').child('file2').once();
+        expect(deletedFile.snapshot.value, isNull);
+      });
+    });
   });
 }
