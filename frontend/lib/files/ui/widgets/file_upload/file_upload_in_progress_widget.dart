@@ -12,38 +12,45 @@ class FileUploadInProgressWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GreenShareCard(
       child: Center(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.3,
-          child: BlocBuilder<FileUploadBloc, FileUploadState>(
-            builder: (context, state) {
-              if (state is FileUploadInProgress) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const FileUploadStepperWidget(),
-                    const SizedBox(height: kDefaultPadding),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.insert_drive_file_rounded),
-                        const SizedBox(width: 8),
-                        Text(
-                          state.filename,
-                          style: context.bodyLarge,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: kDefaultPadding),
-                    LinearProgressIndicator(
-                      borderRadius: BorderRadius.circular(8),
-                      value: state.progress,
-                    ),
-                  ],
-                );
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.3,
+            child: BlocBuilder<FileUploadBloc, FileUploadState>(
+              builder: (context, state) {
+                if (state is FileUploadInProgress) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const FileUploadStepperWidget(),
+                      const SizedBox(height: kDefaultPadding * 1.5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.insert_drive_file_rounded,
+                            size: 32.0,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            state.filename,
+                            style: context.bodyLarge,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: kDefaultPadding),
+                      LinearProgressIndicator(
+                        borderRadius: BorderRadius.circular(8),
+                        value: state.progress,
+                      ),
+                      const Spacer(),
+                    ],
+                  );
+                }
+                return const SizedBox.shrink(); // TODO handle this case
               }
-              return const SizedBox.shrink(); // TODO handle this case
-            }
+            ),
           ),
         ),
       ),

@@ -108,7 +108,7 @@ final kButtonStyle = ButtonStyle(
   ),
   shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
   elevation: const WidgetStatePropertyAll(6),
-  minimumSize: const WidgetStatePropertyAll(Size(350, 50)),
+  minimumSize: const WidgetStatePropertyAll(Size(150, 50)),
 );
 
 extension BuildContextHelper on BuildContext {

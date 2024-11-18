@@ -25,9 +25,15 @@ class FileWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                file.name,
-                style: context.labelLarge,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.18, // TODO fix the layout to be responsive
+                child: Text(
+                  file.name,
+                  style: context.labelLarge,
+                  softWrap: false,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               const SizedBox(height: 2.0),
               Row(

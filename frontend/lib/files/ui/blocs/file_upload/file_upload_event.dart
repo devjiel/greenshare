@@ -57,3 +57,7 @@ class UploadSuccess extends FileUploadEvent {
   @override
   List<Object> get props => [filename, fileSize, fileUrl, filePath];
 }
+
+class UploadReset extends FileUploadEvent {
+  const UploadReset();
+}

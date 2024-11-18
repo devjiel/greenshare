@@ -15,19 +15,19 @@ class FileUploadStepperWidget extends StatelessWidget {
         _FileUploadStepperStepWidget(
           index: 1,
           text: context.localization.upload,
-          state: activeStep >= 1 ? StepState.done : activeStep == 1 ? StepState.active : StepState.inactive,
+          state: activeStep > 1 ? StepState.done : activeStep == 1 ? StepState.active : StepState.inactive,
         ),
         const SizedBox(width: kDefaultPadding),
         _FileUploadStepperStepWidget(
           index: 2,
           text: context.localization.configureExpiration,
-          state: activeStep >= 2 ? StepState.done : activeStep >= 1 ? StepState.active : StepState.inactive,
+          state: activeStep > 2 ? StepState.done : activeStep > 1 ? StepState.active : StepState.inactive,
         ),
         const SizedBox(width: kDefaultPadding),
         _FileUploadStepperStepWidget(
           index: 3,
           text: context.localization.share,
-          state: activeStep >= 3 ? StepState.done : activeStep >= 2 ? StepState.active : StepState.inactive,
+          state: activeStep > 3 ? StepState.done : activeStep > 2 ? StepState.active : StepState.inactive,
         ),
       ],
     );

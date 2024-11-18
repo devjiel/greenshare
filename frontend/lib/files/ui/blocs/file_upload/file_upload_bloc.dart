@@ -21,6 +21,7 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
     on<UploadProgress>(_onUploadProgress);
     on<UploadFailure>(_onUploadFailure);
     on<UploadSuccess>(_onUploadSuccess);
+    on<UploadReset>(_onUploadReset);
   }
 
   Future<void> _onUploadFile(UploadFile event, Emitter<FileUploadState> emit) async {
@@ -81,5 +82,9 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
     }
     final fileName = (state as FileUploadInProgress).filename;
     emit(FileUploadInProgress(event.progress, fileName));
+  }
+
+  Future<void> _onUploadReset(UploadReset event, Emitter<FileUploadState> emit) async {
+    emit(const FileUploadInitial());
   }
 }

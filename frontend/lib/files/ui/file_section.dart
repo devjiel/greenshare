@@ -69,14 +69,12 @@ class FileSection extends StatelessWidget {
             Expanded(
               child: BlocBuilder<FileUploadBloc, FileUploadState>(
                 builder: (context, state) {
-                  if (state is FileUploadInitial) {
-                    return const FileUploadStepperWidget();
-                  } else if (state is FileUploadInProgress) {
+                  if (state is FileUploadInProgress) {
                     return const FileUploadInProgressWidget();
                   } else if (state is FileUploadSuccess) {
                     return const FileUploadSuccessWidget();
                   } else {
-                    return const SizedBox.shrink();
+                    return const FileUploadWidget();
                   }
                 },
               ),
