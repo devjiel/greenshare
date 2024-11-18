@@ -25,9 +25,9 @@ void main() {
       build: () {
         when(() => filesRepository.getFiles(['uid1', 'uid2', 'uid3'])).thenAnswer(
           (_) => Future.value([
-            FileEntityModel(uid: 'uid1', name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 12), downloadUrl: 'url1'),
-            FileEntityModel(uid: 'uid2', name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'url2'),
-            FileEntityModel(uid: 'uid3', name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 13), downloadUrl: 'url3'),
+            FileEntityModel(uid: 'uid1', name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 12), downloadUrl: 'url1', ownerUid: 'ownerUid#1'),
+            FileEntityModel(uid: 'uid2', name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'url2', ownerUid: 'ownerUid#2'),
+            FileEntityModel(uid: 'uid3', name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 13), downloadUrl: 'url3', ownerUid: 'ownerUid#3'),
           ]),
         );
         return availableFilesCubit;
@@ -41,14 +41,17 @@ void main() {
             .having((state) => state.files[0].size, 'file 1 size', 3.7)
             .having((state) => state.files[0].expirationDate, 'file 1 expiration date', DateTime(2024, 11, 13))
             .having((state) => state.files[0].downloadUrl, 'file 1 download url', 'url3')
+            .having((state) => state.files[0].ownerUid, 'file 1 owner uid', 'ownerUid#3')
             .having((state) => state.files[1].name, 'file 2 name', 'file1.pdf')
             .having((state) => state.files[1].size, 'file 2size', 1.2)
             .having((state) => state.files[1].expirationDate, 'file 2 expiration date', DateTime(2024, 11, 12))
             .having((state) => state.files[1].downloadUrl, 'file 2 download url', 'url1')
+            .having((state) => state.files[1].ownerUid, 'file 2 owner uid', 'ownerUid#1')
             .having((state) => state.files[2].name, 'file 3 name', 'file2.pdf')
             .having((state) => state.files[2].size, 'file 3 size', 2.5)
             .having((state) => state.files[2].expirationDate, 'file 3 expiration date', DateTime(2024, 11, 11))
-            .having((state) => state.files[2].downloadUrl, 'file 3 download url', 'url2'),
+            .having((state) => state.files[2].downloadUrl, 'file 3 download url', 'url2')
+            .having((state) => state.files[2].ownerUid, 'file 3 owner uid', 'ownerUid#2'),
       ],
     );
   });

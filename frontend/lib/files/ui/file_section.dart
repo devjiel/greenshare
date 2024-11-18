@@ -30,6 +30,7 @@ class FileSection extends StatelessWidget {
                       size: state.fileSize,
                       expirationDate: DateTime.now().add(const Duration(days: 1)), // TODO get expiration date
                       downloadUrl: state.fileUrl,
+                      ownerUid: (userBloc.state as UserStateLoaded).user.uid, // TODO user bloc state should be checked
                     ),
                   )
                   .then(

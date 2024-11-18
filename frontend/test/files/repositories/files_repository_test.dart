@@ -14,6 +14,7 @@ void main() {
         'size': 1.2,
         'expirationDate': '2024-11-12',
         'downloadUrl': 'url',
+        'ownerUid': 'ownerUid',
       },
       'file2': {
         'uid': 'file2',
@@ -21,6 +22,7 @@ void main() {
         'size': 2.5,
         'expirationDate': '2024-11-11',
         'downloadUrl': 'url',
+        'ownerUid': 'ownerUid',
       },
     }
   };
@@ -69,7 +71,7 @@ void main() {
       MockFirebaseDatabase.instance.ref().set(fakeData);
 
       test('should save file successfully', () async {
-        final file = FileEntityModel(uid: 'file2', name: 'file2', size: 1.2, expirationDate: DateTime(2024, 11, 12), downloadUrl: 'url');
+        final file = FileEntityModel(uid: 'file2', name: 'file2', size: 1.2, expirationDate: DateTime(2024, 11, 12), downloadUrl: 'url', ownerUid: 'ownerUid');
 
         try {
           final uid = await repository.saveFile(file);
