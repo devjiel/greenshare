@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenshare/common/ui/widgets/card.dart';
 import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
+import 'package:greenshare/files/ui/widgets/file_upload/file_upload_stepper_widget.dart';
 import 'package:greenshare/theme.dart';
 
 class FileUploadInProgressWidget extends StatelessWidget {
@@ -18,7 +19,10 @@ class FileUploadInProgressWidget extends StatelessWidget {
               if (state is FileUploadInProgress) {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    const FileUploadStepperWidget(),
+                    const SizedBox(height: kDefaultPadding),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

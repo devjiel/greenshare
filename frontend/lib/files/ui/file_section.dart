@@ -5,6 +5,7 @@ import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/files/ui/models/file_view_model.dart';
 import 'package:greenshare/files/ui/widgets/file_list/file_list_widget.dart';
 import 'package:greenshare/files/ui/widgets/file_upload/file_upload_in_progress_widget.dart';
+import 'package:greenshare/files/ui/widgets/file_upload/file_upload_stepper_widget.dart';
 import 'package:greenshare/files/ui/widgets/file_upload/file_upload_success_widget.dart';
 import 'package:greenshare/files/ui/widgets/file_upload/file_upload_widget.dart';
 import 'package:greenshare/share/ui/bloc/share_links/share_links_bloc.dart';
@@ -69,7 +70,7 @@ class FileSection extends StatelessWidget {
               child: BlocBuilder<FileUploadBloc, FileUploadState>(
                 builder: (context, state) {
                   if (state is FileUploadInitial) {
-                    return const FileUploadWidget();
+                    return const FileUploadStepperWidget();
                   } else if (state is FileUploadInProgress) {
                     return const FileUploadInProgressWidget();
                   } else if (state is FileUploadSuccess) {

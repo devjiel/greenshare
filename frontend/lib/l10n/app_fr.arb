@@ -22,5 +22,8 @@
   "logout": "Déconnexion",
   "login": "Connexion",
   "email": "Email",
-  "password": "Mot de passe"
+  "password": "Mot de passe",
+  "upload": "Télécharger",
+  "configureExpiration": "Configurer l'expiration",
+  "share": "Partager"
 }

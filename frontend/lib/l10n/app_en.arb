@@ -22,5 +22,8 @@
   "logout": "Logout",
   "login": "Login",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "upload": "Upload",
+  "configureExpiration": "Configure expiration",
+  "share": "Share"
 }
