@@ -26,6 +26,9 @@
   "upload": "Upload",
   "configureExpiration": "Configure expiration",
   "share": "Share",
+  "shareWithLink": "Share with link",
   "setExpirationDate": "Set expiration date",
-  "deleteWhenContactDownloadIt": "Delete when contact download it"
+  "deleteWhenContactDownloadIt": "Delete when contact download it",
+  "next": "Next",
+  "done": "Done"
 }

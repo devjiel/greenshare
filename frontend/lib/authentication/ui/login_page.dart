@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     getIt<AuthenticationRepository>().loginWithEmailAndPassword(
                       email: (_emailController.text.isNotEmpty) ? _emailController.text : kDefaultEmail,
-                      password: (_passwordController.text.isNotEmpty) ? _emailController.text : kDefaultPassword,
+                      password: (_passwordController.text.isNotEmpty) ? _passwordController.text : kDefaultPassword,
                     );
                   },
                   child: Text(context.localization.login),

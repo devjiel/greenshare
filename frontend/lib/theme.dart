@@ -70,6 +70,22 @@ final kTheme = ThemeData(
       return kLightGreen;
     }),
   ),
+  canvasColor: kDarkGreen,
+  dropdownMenuTheme: DropdownMenuThemeData(
+    inputDecorationTheme: const InputDecorationTheme(
+      filled: false,
+      suffixIconColor: kDarkGreen,
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: kDarkGreen),
+      ),
+    ),
+    textStyle: kTextTheme.bodySmall,
+    menuStyle: const MenuStyle(
+      backgroundColor: WidgetStatePropertyAll(kLightGreen),
+      side: WidgetStatePropertyAll(BorderSide(color: kDarkGreen)),
+      visualDensity: VisualDensity.comfortable,
+    ),
+  ),
   colorScheme: ColorScheme.fromSwatch().copyWith(primary: kLightGreen, secondary: kDarkGreen),
   useMaterial3: true,
 );
@@ -114,7 +130,7 @@ final kButtonStyle = ButtonStyle(
   textStyle: WidgetStatePropertyAll(
     kTextTheme.bodyLarge?.copyWith(color: kBlack),
   ),
-  shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+  shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
   elevation: const WidgetStatePropertyAll(6),
   minimumSize: const WidgetStatePropertyAll(Size(150, 50)),
 );

@@ -64,7 +64,7 @@ void main() {
           const FileUploadInProgress(0.0, 'file1.pdf'),
           const FileUploadInProgress(0.5, 'file1.pdf'),
           const FileUploadInProgress(1.0, 'file1.pdf'),
-          const FileUploadSuccess('file1.pdf', 2.0, 'url', '/path/file1.pdf'),
+          const FileUploaded('file1.pdf', 2.0, 'url', '/path/file1.pdf'),
         ],
       );
 

@@ -13,6 +13,7 @@ class ShareLinksBloc extends Bloc<ShareLinksEvent, ShareLinksState> {
   ShareLinksBloc(this._repository) : super(const ShareLinksInitial()) {
     on<CreateShareLink>(_onCreateShareLink);
     on<GetShareLinkFiles>(_onGetShareLinkFiles);
+    on<ResetShareLink>((event, emit) => emit(const ShareLinksInitial()));
   }
 
   Future<void> _onCreateShareLink(CreateShareLink event, Emitter<ShareLinksState> emit) async {

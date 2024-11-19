@@ -34,6 +34,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   FutureOr<void> _onStartListeningUser(StartListeningUser event, Emitter<dynamic> emit) {
+    // TODO stop listening when logout ?
     emit(const UserStateLoading());
     _userSubscription = _userRepository
         .listenUserByUid(event.userUid)

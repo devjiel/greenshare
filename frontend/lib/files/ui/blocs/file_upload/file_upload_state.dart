@@ -4,7 +4,7 @@ abstract class FileUploadState extends Equatable {
   const FileUploadState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FileUploadInitial extends FileUploadState {
@@ -21,8 +21,8 @@ class FileUploadInProgress extends FileUploadState {
   List<Object> get props => [progress];
 }
 
-class FileUploadSuccess extends FileUploadState {
-  const FileUploadSuccess(this.filename, this.fileSize, this.fileUrl, this.filePath);
+class FileUploaded extends FileUploadState {
+  const FileUploaded(this.filename, this.fileSize, this.fileUrl, this.filePath);
 
   final String filename;
   final double fileSize;
@@ -30,7 +30,34 @@ class FileUploadSuccess extends FileUploadState {
   final String filePath;
 
   @override
-  List<Object> get props => [filename, fileSize, fileUrl, filePath];
+  List<Object?> get props => [filename, fileSize, fileUrl, filePath];
+}
+
+class FileRegistered extends FileUploadState {
+  const FileRegistered(this.filename, this.fileSize, this.fileUrl, this.filePath, this.fileUid);
+
+  final String fileUid;
+  final String filename;
+  final double fileSize;
+  final String fileUrl;
+  final String filePath;
+
+  @override
+  List<Object?> get props => [fileUid, filename, fileSize, fileUrl, filePath];
+}
+
+class FileUploadedWithExpiration extends FileUploadState {
+  const FileUploadedWithExpiration(this.filename, this.fileSize, this.fileUrl, this.filePath, this.fileUid, this.expirationDate);
+
+  final String fileUid;
+  final String filename;
+  final double fileSize;
+  final String fileUrl;
+  final String filePath;
+  final DateTime? expirationDate;
+
+  @override
+  List<Object?> get props => [filename, fileSize, fileUrl, filePath, expirationDate];
 }
 
 class FileDeleteSuccess extends FileUploadState {

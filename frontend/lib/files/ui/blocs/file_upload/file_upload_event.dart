@@ -4,7 +4,7 @@ abstract class FileUploadEvent extends Equatable {
   const FileUploadEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class UploadFile extends FileUploadEvent {
@@ -56,6 +56,24 @@ class UploadSuccess extends FileUploadEvent {
 
   @override
   List<Object> get props => [filename, fileSize, fileUrl, filePath];
+}
+
+class UploadFileRegistered extends FileUploadEvent {
+  const UploadFileRegistered(this.fileUid);
+
+  final String fileUid;
+
+  @override
+  List<Object> get props => [fileUid];
+}
+
+class UploadConfigureExpiration extends FileUploadEvent {
+  const UploadConfigureExpiration(this.expirationDate);
+
+  final DateTime? expirationDate;
+
+  @override
+  List<Object?> get props => [expirationDate];
 }
 
 class UploadReset extends FileUploadEvent {

@@ -26,6 +26,9 @@
   "upload": "Télécharger",
   "configureExpiration": "Configurer l'expiration",
   "share": "Partager",
+  "shareWithLink": "Partager avec un lien",
   "setExpirationDate": "Définir la date d'expiration",
-  "deleteWhenContactDownloadIt": "Supprimer quand le contact le télécharge"
+  "deleteWhenContactDownloadIt": "Supprimer quand le contact le télécharge",
+  "next": "Suivant",
+  "done": "Terminé"
 }

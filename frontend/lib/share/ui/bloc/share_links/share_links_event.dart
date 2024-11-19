@@ -24,3 +24,7 @@ class GetShareLinkFiles extends ShareLinksEvent {
   @override
   List<Object> get props => [linkUid];
 }
+
+class ResetShareLink extends ShareLinksEvent {
+  const ResetShareLink();
+}

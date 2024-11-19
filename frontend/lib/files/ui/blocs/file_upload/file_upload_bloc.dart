@@ -21,6 +21,8 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
     on<UploadProgress>(_onUploadProgress);
     on<UploadFailure>(_onUploadFailure);
     on<UploadSuccess>(_onUploadSuccess);
+    on<UploadFileRegistered>(_onUploadFileRegistered);
+    on<UploadConfigureExpiration>(_onUploadConfigureExpiration);
     on<UploadReset>(_onUploadReset);
   }
 
@@ -68,7 +70,7 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
   }
 
   FutureOr<void> _onUploadSuccess(UploadSuccess event, Emitter<FileUploadState> emit) {
-    emit(FileUploadSuccess(
+    emit(FileUploaded(
       event.filename,
       event.fileSize,
       event.fileUrl,
@@ -82,6 +84,39 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
     }
     final fileName = (state as FileUploadInProgress).filename;
     emit(FileUploadInProgress(event.progress, fileName));
+  }
+
+  Future<void> _onUploadFileRegistered(UploadFileRegistered event, Emitter<FileUploadState> emit) async {
+    if (state is! FileUploaded) {
+      add(const UploadFailure('File is not uploaded yet'));
+    }
+
+    final fileUploadState = state as FileUploaded;
+
+    emit(FileRegistered(
+      fileUploadState.filename,
+      fileUploadState.fileSize,
+      fileUploadState.fileUrl,
+      fileUploadState.filePath,
+      event.fileUid,
+    ));
+  }
+
+  Future<void> _onUploadConfigureExpiration(UploadConfigureExpiration event, Emitter<FileUploadState> emit) async {
+    if (state is! FileRegistered) {
+      add(const UploadFailure('File is not registered yet'));
+    }
+
+    final fileUploadState = state as FileRegistered;
+
+    emit(FileUploadedWithExpiration(
+      fileUploadState.filename,
+      fileUploadState.fileSize,
+      fileUploadState.fileUrl,
+      fileUploadState.filePath,
+      fileUploadState.fileUid,
+      event.expirationDate,
+    ));
   }
 
   Future<void> _onUploadReset(UploadReset event, Emitter<FileUploadState> emit) async {
