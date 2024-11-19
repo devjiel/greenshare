@@ -89,6 +89,7 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
   Future<void> _onUploadFileRegistered(UploadFileRegistered event, Emitter<FileUploadState> emit) async {
     if (state is! FileUploaded) {
       add(const UploadFailure('File is not uploaded yet'));
+      return;
     }
 
     final fileUploadState = state as FileUploaded;
@@ -105,6 +106,7 @@ class FileUploadBloc extends Bloc<FileUploadEvent, FileUploadState> {
   Future<void> _onUploadConfigureExpiration(UploadConfigureExpiration event, Emitter<FileUploadState> emit) async {
     if (state is! FileRegistered) {
       add(const UploadFailure('File is not registered yet'));
+      return;
     }
 
     final fileUploadState = state as FileRegistered;

@@ -101,6 +101,72 @@ void main() {
       );
     });
 
+    group('UploadConfigureExpiration', () {
+      blocTest<FileUploadBloc, FileUploadState>(
+        'emits [FileUploadedWithExpiration] when UploadConfigureExpiration is added',
+        build: () => fileUploadBloc,
+        seed: () => const FileRegistered(
+          'file1.pdf',
+          2.0,
+          'url',
+          '/path/file1.pdf',
+          'fileUid',
+        ),
+        act: (bloc) => bloc.add(UploadConfigureExpiration(DateTime(2024, 11, 19))),
+        expect: () => [
+          FileUploadedWithExpiration(
+            'file1.pdf',
+            2.0,
+            'url',
+            '/path/file1.pdf',
+            'fileUid',
+            DateTime(2024, 11, 19),
+          ),
+        ],
+      );
+
+      blocTest<FileUploadBloc, FileUploadState>(
+        'emits [FileUploadFailure] when UploadConfigureExpiration is added but state is not FileRegistered',
+        build: () => fileUploadBloc,
+        act: (bloc) => bloc.add(UploadConfigureExpiration(DateTime(2024, 11, 19))),
+        expect: () => [
+          const FileUploadFailure('File is not registered yet'),
+        ],
+      );
+    });
+
+    group('UploadFileRegistered', () {
+      blocTest<FileUploadBloc, FileUploadState>(
+        'emits [FileRegistered] when UploadFileRegistered is added and state is FileUploaded',
+        build: () => fileUploadBloc,
+        seed: () => const FileUploaded(
+          'file1.pdf',
+          2.0,
+          'url',
+          '/path/file1.pdf',
+        ),
+        act: (bloc) => bloc.add(const UploadFileRegistered('fileUid')),
+        expect: () => [
+          const FileRegistered(
+            'file1.pdf',
+            2.0,
+            'url',
+            '/path/file1.pdf',
+            'fileUid',
+          ),
+        ],
+      );
+
+      blocTest<FileUploadBloc, FileUploadState>(
+        'emits [FileUploadFailure] when UploadFileRegistered is added but state is not FileUploaded',
+        build: () => fileUploadBloc,
+        act: (bloc) => bloc.add(const UploadFileRegistered('fileUid')),
+        expect: () => [
+          const FileUploadFailure('File is not uploaded yet'),
+        ],
+      );
+    });
+
     group('DeleteFile', () {
       blocTest<FileUploadBloc, FileUploadState>(
         'emits [FileDeleteFailure] when delete file fails',
