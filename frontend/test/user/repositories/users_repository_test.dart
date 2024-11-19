@@ -46,6 +46,27 @@ void main() {
       });
     });
 
+    group('createUser', () {
+      test('should create user', () async {
+
+        final user = await repository.createUser('new-uid').onError((error, stackTrace) {
+          fail('Error creating user: $error');
+        });
+
+        expect(user.uid, 'new-uid');
+
+        final userStream = repository.listenUserByUid('new-uid');
+
+        expect(
+            userStream,
+            emits(isA<Right<UserRepositoryError, UserEntityModel>>()
+                .having((either) => either.right.uid, 'uid', 'new-uid')
+        ));
+      });
+
+      // TODO add fail test
+    });
+
     group('addAvailableFile', () {
       test('should add file to available files', () async {
 

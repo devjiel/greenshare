@@ -9,6 +9,8 @@ abstract class UsersRepository {
   // TODO rework Either pattern -> finally Future.error or Stream.onError working pretty well
   Stream<Either<UserRepositoryError, UserEntityModel>> listenUserByUid(String userId);
 
+  Future<UserEntityModel> createUser(String userUid);
+
   Future<void> addFileToAvailableFiles(String userId, List<String> fileUid);
 
   Future<void> removeFileFromAvailableFiles(String userId, String fileUid);
@@ -37,6 +39,21 @@ class FirebaseUsersRepository implements UsersRepository {
           return Left<UserRepositoryError, UserEntityModel>(UserRepositoryError.technicalError("Error getting user by id: $e"));
         }
       });
+
+  @override
+  Future<UserEntityModel> createUser(String userUid) async {
+    try {
+      final user = UserEntityModel(
+        uid: userUid,
+      );
+
+      await _database.ref().child('users').child(userUid).set(user.toJson());
+
+      return user;
+    } catch (e) {
+      return Future.error('Error creating user: $e');
+    }
+  }
 
   @override
   Future<void> addFileToAvailableFiles(String userId, List<String> fileUid) async {
