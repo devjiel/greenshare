@@ -1,15 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:greenshare/common/ui/widgets/card.dart';
 import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/files/ui/blocs/file_upload/expiration_configuration/expiration_configuration_cubit.dart';
 import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
-import 'package:greenshare/files/ui/models/file_view_model.dart';
-import 'package:greenshare/files/ui/widgets/file_list/file_list_widget.dart';
-import 'package:greenshare/files/ui/widgets/file_upload/file_upload_in_progress_widget.dart';
 import 'package:greenshare/files/ui/widgets/file_upload/file_upload_configure_expiration_widget.dart';
 import 'package:mocktail/mocktail.dart';
 

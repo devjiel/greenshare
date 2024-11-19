@@ -21,6 +21,7 @@ class FirebaseStorageRepository implements StorageRepository {
   @override
   Either<StorageRepositoryError, UploadTask> uploadFile(String path, String fileName, Uint8List bytes) {
     try {
+      // TODO set a comprehensive filename for the file (at download file name is userUID + name)
       final ref = _storage.ref().child(path).child(fileName);
       final uploadTask = ref.putData(bytes);
 
