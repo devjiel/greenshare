@@ -47,4 +47,8 @@ class AvailableFilesCubit extends Cubit<AvailableFilesState> {
   Future<void> deleteFile(String fileUid) async {
     await _filesRepository.deleteFile(fileUid); // TODO handle error
   }
+
+  Future<void> updateExpirationDate(String fileUid, DateTime expirationDate) async {
+    await _filesRepository.updateExpirationDate(fileUid, expirationDate); // TODO handle error
+  }
 }

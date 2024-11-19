@@ -45,7 +45,7 @@ class FileUploadConfigureShareWidget extends StatelessWidget {
                                     children: [
                                       (state is ShareLinkCreated)
                                           ? SelectableText(
-                                              state.linkUid, // TODO craft url
+                                              Uri.base.replace(fragment: state.linkUid).toString(), // TODO Deeplink URL ?,
                                               style: kTextTheme.bodySmall,
                                             )
                                           : const Spacer(),
@@ -57,7 +57,7 @@ class FileUploadConfigureShareWidget extends StatelessWidget {
                                               size: 16,
                                             ),
                                             onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: state.linkUid)); // TODO craft url
+                                              Clipboard.setData(ClipboardData(text: Uri.base.replace(fragment: state.linkUid).toString())); // TODO Deeplink URL ?,
                                             },
                                           );
                                         } else if (state is ShareLinksLoading) {

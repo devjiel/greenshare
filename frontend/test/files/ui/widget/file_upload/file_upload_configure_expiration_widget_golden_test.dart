@@ -19,9 +19,12 @@ class MockFileUploadBloc extends MockBloc<FileUploadEvent, FileUploadState> impl
 
 class MockConfigurationCubit extends MockCubit<ExpirationConfigurationState> implements ExpirationConfigurationCubit {}
 
+class MockAvailableFilesCubit extends MockCubit<AvailableFilesState> implements AvailableFilesCubit {}
+
 void main() {
   final fileUploadBloc = MockFileUploadBloc();
   final configurationCubit = MockConfigurationCubit();
+  final availableFilesCubit = MockAvailableFilesCubit();
 
   setUpAll(() async {
     await loadAppFonts();
@@ -32,6 +35,7 @@ void main() {
       when(() => fileUploadBloc.state)
           .thenReturn(const FileRegistered('document.doc', 1024, 'https://example.com/document.doc', 'path/to/document.doc', 'fileUid'));
       when(() => configurationCubit.state).thenReturn(const ExpirationConfigurationState(expirationType: FileExpirationType.delay));
+      when(() => availableFilesCubit.updateExpirationDate(any(), any())).thenAnswer((_) => Future.value());
 
       await tester.pumpWidgetInDesktopMode(
         widget: MultiBlocProvider(
@@ -41,6 +45,9 @@ void main() {
             ),
             BlocProvider<ExpirationConfigurationCubit>.value(
               value: configurationCubit,
+            ),
+            BlocProvider<AvailableFilesCubit>.value(
+              value: availableFilesCubit,
             ),
           ],
           child: const FileUploadConfigureExpirationWidget(),
@@ -54,6 +61,7 @@ void main() {
       when(() => fileUploadBloc.state)
           .thenReturn(const FileRegistered('document.doc', 1024, 'https://example.com/document.doc', 'path/to/document.doc', 'fileUid'));
       when(() => configurationCubit.state).thenReturn(const ExpirationConfigurationState(expirationType: FileExpirationType.atDownload));
+      when(() => availableFilesCubit.updateExpirationDate(any(), any())).thenAnswer((_) => Future.value());
 
       await tester.pumpWidgetInDesktopMode(
         widget: MultiBlocProvider(
@@ -63,6 +71,9 @@ void main() {
             ),
             BlocProvider<ExpirationConfigurationCubit>.value(
               value: configurationCubit,
+            ),
+            BlocProvider<AvailableFilesCubit>.value(
+              value: availableFilesCubit,
             ),
           ],
           child: const FileUploadConfigureExpirationWidget(),

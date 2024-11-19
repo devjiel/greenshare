@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database_mocks/firebase_database_mocks.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -36,8 +38,11 @@ void main() {
   });
 
   group('FilesRepository', () {
+
     group('getFiles', () {
-      MockFirebaseDatabase.instance.ref().set(fakeData);
+      setUp(() {
+        MockFirebaseDatabase.instance.ref().set(fakeData);
+      });
 
       test('should return list of files when files exist', () async {
         final files = await repository.getFiles(['file1', 'file2']);
@@ -70,7 +75,10 @@ void main() {
     });
 
     group('saveFile', () {
-      MockFirebaseDatabase.instance.ref().set(fakeData);
+
+      setUp(() {
+        MockFirebaseDatabase.instance.ref().set(fakeData);
+      });
 
       test('should save file successfully', () async {
         final file = FileEntityModel(uid: 'file2', name: 'file2', size: 1.2, expirationDate: DateTime(2024, 11, 12), downloadUrl: 'url', path: '/path/file2', ownerUid: 'ownerUid');
@@ -88,7 +96,10 @@ void main() {
     });
 
     group('deleteFile', () {
-      MockFirebaseDatabase.instance.ref().set(fakeData);
+
+      setUp(() {
+        MockFirebaseDatabase.instance.ref().set(fakeData);
+      });
 
       test('should delete file successfully', () async {
         try {
@@ -99,6 +110,26 @@ void main() {
 
         final deletedFile = await firebaseDatabase.ref().child('files').child('file2').once();
         expect(deletedFile.snapshot.value, isNull);
+      });
+    });
+
+    group('updateExpirationDate', () {
+
+
+      setUp(() {
+        MockFirebaseDatabase.instance.ref().set(fakeData);
+      });
+
+      test('should update expiration date successfully', () async {
+
+        try {
+          await repository.updateExpirationDate('file2', DateTime(2024, 12, 25));
+        } catch (e) {
+          fail('Error updating expiration date: $e');
+        }
+
+        final updatedFile = await firebaseDatabase.ref().child('files').child('file2').once();
+        expect(FileEntityModel.fromJson(jsonDecode(jsonEncode(updatedFile.snapshot.value!))).expirationDate, DateTime(2024, 12, 25));
       });
     });
   });

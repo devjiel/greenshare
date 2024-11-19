@@ -5,12 +5,10 @@ import 'package:greenshare/files/ui/blocs/file_upload/expiration_configuration/e
 import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/files/ui/models/file_view_model.dart';
 import 'package:greenshare/files/ui/widgets/file_list/file_list_widget.dart';
+import 'package:greenshare/files/ui/widgets/file_upload/file_upload_configure_expiration_widget.dart';
 import 'package:greenshare/files/ui/widgets/file_upload/file_upload_configure_share_widget.dart';
 import 'package:greenshare/files/ui/widgets/file_upload/file_upload_in_progress_widget.dart';
-import 'package:greenshare/files/ui/widgets/file_upload/file_upload_stepper_widget.dart';
-import 'package:greenshare/files/ui/widgets/file_upload/file_upload_configure_expiration_widget.dart';
 import 'package:greenshare/files/ui/widgets/file_upload/file_upload_widget.dart';
-import 'package:greenshare/share/ui/bloc/share_links/share_links_bloc.dart';
 import 'package:greenshare/theme.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 import 'package:uuid/uuid.dart';
@@ -35,21 +33,19 @@ class FileSection extends StatelessWidget {
                   name: state.filename,
                   size: state.fileSize,
                   expirationDate: DateTime.now().add(const Duration(days: 1)),
-                  // TODO add update expiration date
                   downloadUrl: state.fileUrl,
                   path: state.filePath,
                   ownerUid: (userBloc.state as UserStateLoaded).user.uid,
                   // TODO user bloc state should be checked
                   isOwnedByCurrentUser: true,
                 ),
-              )
-                  .then(
-                // Link file to user
+              ).then(
                 (fileUid) {
                   context.read<FileUploadBloc>().add(UploadFileRegistered(fileUid));
-                  userBloc.add(AddAvailableFile(fileUidList: [fileUid]));
                 },
               );
+            } else if (state is FileUploadedWithExpiration) {
+              userBloc.add(AddAvailableFile(fileUidList: [state.fileUid]));
             } else if (state is FileDeleteSuccess) {
               availableFilesCubit.deleteFile(state.fileUid);
               userBloc.add(RemoveAvailableFile(fileUid: state.fileUid));

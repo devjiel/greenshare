@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:greenshare/common/ui/widgets/card.dart';
 import 'package:greenshare/common/ui/widgets/loading_widget.dart';
+import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/files/ui/blocs/file_upload/expiration_configuration/expiration_configuration_cubit.dart';
 import 'package:greenshare/files/ui/blocs/file_upload/file_upload_bloc.dart';
 import 'package:greenshare/files/ui/widgets/file_upload/file_upload_stepper_widget.dart';
@@ -17,8 +18,8 @@ class FileUploadConfigureExpirationWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
-          child: BlocBuilder<FileUploadBloc, FileUploadState>(builder: (context, state) {
-            if (state is FileRegistered) {
+          child: BlocBuilder<FileUploadBloc, FileUploadState>(builder: (context, fileUploadState) {
+            if (fileUploadState is FileRegistered) {
               return Column(
                 children: [
                   const FileUploadStepperWidget(
@@ -37,20 +38,22 @@ class FileUploadConfigureExpirationWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      BlocBuilder<ExpirationConfigurationCubit, ExpirationConfigurationState>(builder: (context, state) {
+                      BlocBuilder<ExpirationConfigurationCubit, ExpirationConfigurationState>(
+                        builder: (context, expirationConfigurationState) {
                           return ElevatedButton(
                             onPressed: () {
-                              if (state.delay == null) {
+                              if (expirationConfigurationState.delay == null) {
                                 context.read<FileUploadBloc>().add(const UploadConfigureExpiration(null));
                                 return;
                               }
 
-                              final expirationDateTime = DateTime.now().add(state.delay!);
+                              final expirationDateTime = DateTime.now().add(expirationConfigurationState.delay!);
                               context.read<FileUploadBloc>().add(UploadConfigureExpiration(expirationDateTime));
+                              context.read<AvailableFilesCubit>().updateExpirationDate(fileUploadState.fileUid, expirationDateTime);
                             },
                             child: Text(context.localization.next, style: kTextTheme.bodyLarge?.copyWith(color: kBlack)),
                           );
-                        }
+                        },
                       ),
                     ],
                   ),
@@ -76,7 +79,6 @@ class _ExpirationRadioGroup extends StatefulWidget {
 
 class _ExpirationRadioGroupState extends State<_ExpirationRadioGroup> {
   final _kInitialDelay = 1;
-
 
   @override
   void initState() {

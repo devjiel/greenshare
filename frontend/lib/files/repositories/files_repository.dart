@@ -10,6 +10,8 @@ abstract class FilesRepository {
   Future<String> saveFile(FileEntityModel file);
 
   Future<void> deleteFile(String fileId);
+
+  Future<void> updateExpirationDate(String fileId, DateTime expirationDate);
 }
 
 @LazySingleton(as: FilesRepository)
@@ -49,6 +51,15 @@ class FirebaseFilesRepository implements FilesRepository {
   Future<void> deleteFile(String fileId) {
     try {
       return _database.ref().child('files').child(fileId).remove();
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  @override
+  Future<void> updateExpirationDate(String fileId, DateTime expirationDate) {
+    try {
+      return _database.ref().child('files').child(fileId).child('expirationDate').set(expirationDate.toIso8601String());
     } catch (e) {
       return Future.error(e);
     }

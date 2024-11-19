@@ -29,11 +29,29 @@ void main() {
         when(() => filesRepository.getFiles(['uid1', 'uid2', 'uid3'])).thenAnswer(
           (_) => Future.value([
             FileEntityModel(
-                uid: 'uid1', name: 'file1.pdf', size: 1.2, expirationDate: DateTime(2024, 11, 12), downloadUrl: 'url1', path: '/path/1', ownerUid: 'ownerUid#1'),
+                uid: 'uid1',
+                name: 'file1.pdf',
+                size: 1.2,
+                expirationDate: DateTime(2024, 11, 12),
+                downloadUrl: 'url1',
+                path: '/path/1',
+                ownerUid: 'ownerUid#1'),
             FileEntityModel(
-                uid: 'uid2', name: 'file2.pdf', size: 2.5, expirationDate: DateTime(2024, 11, 11), downloadUrl: 'url2', path: '/path/2', ownerUid: 'ownerUid#2'),
+                uid: 'uid2',
+                name: 'file2.pdf',
+                size: 2.5,
+                expirationDate: DateTime(2024, 11, 11),
+                downloadUrl: 'url2',
+                path: '/path/2',
+                ownerUid: 'ownerUid#2'),
             FileEntityModel(
-                uid: 'uid3', name: 'file3.pdf', size: 3.7, expirationDate: DateTime(2024, 11, 13), downloadUrl: 'url3', path: '/path/3', ownerUid: 'ownerUid#3'),
+                uid: 'uid3',
+                name: 'file3.pdf',
+                size: 3.7,
+                expirationDate: DateTime(2024, 11, 13),
+                downloadUrl: 'url3',
+                path: '/path/3',
+                ownerUid: 'ownerUid#3'),
           ]),
         );
         return availableFilesCubit;
@@ -96,7 +114,16 @@ void main() {
       await availableFilesCubit.deleteFile('uid4');
 
       verify(() => filesRepository.deleteFile('uid4')).called(1);
+    });
 
+    test('should call update expiration file when updateExpirationDate is called', () async {
+      when(() => filesRepository.updateExpirationDate(any(), any())).thenAnswer(
+        (_) => Future.value(),
+      );
+
+      await availableFilesCubit.updateExpirationDate('fileUid1', DateTime(2024, 11, 19));
+
+      verify(() => filesRepository.updateExpirationDate('fileUid1', DateTime(2024, 11, 19))).called(1);
     });
   });
 }
