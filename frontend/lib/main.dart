@@ -65,6 +65,7 @@ class _GreenShareAppState extends State<GreenShareApp> {
               if (state.errorType == UserErrorType.userNotFound) {
                 context.read<UserBloc>().add(CreateNewUser(context.read<AuthenticationBloc>().state.user.id));
               } else {
+                // TODO errors occurs here
                 context.read<AuthenticationBloc>().add(const AuthenticationLogoutRequested()); // TODO show an error ?
                 context.read<UserBloc>().add(const ResetUser());
               }

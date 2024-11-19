@@ -59,7 +59,7 @@ class FirebaseFilesRepository implements FilesRepository {
   @override
   Future<void> updateExpirationDate(String fileId, DateTime expirationDate) {
     try {
-      return _database.ref().child('files').child(fileId).child('expirationDate').set(expirationDate.toIso8601String());
+      return _database.ref().child('files').child(fileId).child('expiration_date').set(expirationDate.toIso8601String());
     } catch (e) {
       return Future.error(e);
     }
