@@ -69,6 +69,50 @@ void main() {
       );
     });
 
+    group('CreateNewUser', () {
+      blocTest<UserBloc, UserState>(
+        'emits [UserStateError] when CreateNewUser is called and repository encounters a technical error',
+        build: () => userBloc,
+        setUp: () {
+          when(() => usersRepository.createUser('userUid')).thenAnswer((_) => Future.error('technical error'));
+        },
+        act: (bloc) {
+          userBloc.add(const CreateNewUser('userUid'));
+        },
+        expect: () => [isA<UserStateError>().having((state) => state.errorType, 'error type', UserErrorType.errorCreatingUser)],
+        verify: (_) {
+          verify(() => usersRepository.createUser('userUid')).called(1);
+        },
+      );
+
+      blocTest<UserBloc, UserState>(
+        'emits [UserStateLoaded] when CreateNewUser is called and repository creates user successfully',
+        build: () => userBloc,
+        setUp: () {
+          when(() => usersRepository.createUser('userUid')).thenAnswer((_) => Future.value(const UserEntityModel(uid: 'userUid')));
+          when(() => usersRepository.listenUserByUid('userUid')).thenAnswer((_) => Stream.value(const Right(UserEntityModel(uid: 'userUid'))));
+        },
+        act: (bloc) {
+          userBloc.add(const CreateNewUser('userUid'));
+        },
+        expect: () => [const UserStateLoading(), isA<UserStateLoaded>().having((state) => state.user.uid, 'user uid', 'userUid')],
+        verify: (_) {
+          verify(() => usersRepository.createUser('userUid')).called(1);
+        },
+      );
+    });
+
+    group('ResetUser', () {
+      blocTest<UserBloc, UserState>(
+        'emits [UserStateInitial] when ResetUser is called',
+        build: () => userBloc,
+        act: (bloc) {
+          userBloc.add(const ResetUser());
+        },
+        expect: () => [const UserStateInitial()],
+      );
+    });
+
     group('AddAvailableFile', () {
       blocTest<UserBloc, UserState>(
         'emits [UserStateError] when AddAvailableFile is called and state is not UserStateLoaded',

@@ -49,5 +49,5 @@ enum UserErrorType {
   userNotFound,
   errorWhileRetrievingUser,
   errorWhileAddingFile,
-  errorWhileRemovingFile,
+  errorWhileRemovingFile, errorCreatingUser,
 }

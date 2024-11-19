@@ -34,5 +34,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     Emitter<AuthenticationState> emit,
   ) async {
     _authenticationRepository.logout();
+    emit(AuthenticationState(user: AuthUserEntityModel.empty));
   }
 }

@@ -62,7 +62,12 @@ class _GreenShareAppState extends State<GreenShareApp> {
             if (state is UserStateLoaded) {
               getIt<AvailableFilesCubit>().loadUserFiles(state.user);
             } else if (state is UserStateError) {
-              context.read<AuthenticationBloc>().add(const AuthenticationLogoutRequested()); // TODO show an error ?
+              if (state.errorType == UserErrorType.userNotFound) {
+                context.read<UserBloc>().add(CreateNewUser(context.read<AuthenticationBloc>().state.user.id));
+              } else {
+                context.read<AuthenticationBloc>().add(const AuthenticationLogoutRequested()); // TODO show an error ?
+                context.read<UserBloc>().add(const ResetUser());
+              }
             }
           },
         ),

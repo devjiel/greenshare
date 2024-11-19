@@ -18,10 +18,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   })  : _userRepository = userRepository,
         super(const UserStateInitial()) {
     on<StartListeningUser>(_onStartListeningUser);
+    on<CreateNewUser>(_onCreateNewUser);
     on<AddAvailableFile>(_onAddAvailableFile);
     on<RemoveAvailableFile>(_onRemoveAvailableFile);
     on<_UserChanged>(_onUserChanged);
     on<_UserError>(_onError);
+    on<ResetUser>((event, emit) {
+      emit(const UserStateInitial());
+      _userSubscription?.cancel();
+    });
   }
 
   final UsersRepository _userRepository;
@@ -33,7 +38,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     return super.close();
   }
 
-  FutureOr<void> _onStartListeningUser(StartListeningUser event, Emitter<dynamic> emit) {
+  Future<void> _onStartListeningUser(StartListeningUser event, Emitter<dynamic> emit) async {
     // TODO stop listening when logout ?
     emit(const UserStateLoading());
     _userSubscription = _userRepository
@@ -52,6 +57,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         .handleError((error) {
       add(const _UserError(UserErrorType.errorWhileRetrievingUser));
     }).listen((event) => add(event));
+  }
+
+  Future<void> _onCreateNewUser(CreateNewUser event, Emitter<UserState> emit) async {
+    _userRepository
+        .createUser(event.userUid)
+        .then((user) => add(StartListeningUser(user.uid)))
+        .onError((error, stackTrace) {
+      emit(const UserStateError(UserErrorType.errorCreatingUser));
+    });
   }
 
   Future<void> _onAddAvailableFile(AddAvailableFile event, Emitter<UserState> emit) async {

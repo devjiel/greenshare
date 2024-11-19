@@ -96,6 +96,7 @@ class FileUploadConfigureShareWidget extends StatelessWidget {
                     children: [
                       ElevatedButton(
                         onPressed: () {
+                          // TODO show popup if share link not created?
                           context.read<FileUploadBloc>().add(const UploadReset());
                           context.read<ShareLinksBloc>().add(const ResetShareLink());
                         },

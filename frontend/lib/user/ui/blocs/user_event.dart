@@ -13,6 +13,12 @@ final class StartListeningUser extends UserEvent {
   final String userUid;
 }
 
+final class CreateNewUser extends UserEvent {
+  const CreateNewUser(this.userUid);
+
+  final String userUid;
+}
+
 final class AddAvailableFile extends UserEvent {
   const AddAvailableFile({required this.fileUidList});
 
@@ -35,4 +41,8 @@ final class _UserError extends UserEvent {
   const _UserError(this.errorType);
 
   final UserErrorType errorType;
+}
+
+final class ResetUser extends UserEvent {
+  const ResetUser();
 }

@@ -3,6 +3,7 @@ import 'package:greenshare/authentication/ui/blocs/authentication/authentication
 import 'package:greenshare/common/config/injectable.dart';
 import 'package:greenshare/l10n/localization.dart';
 import 'package:greenshare/theme.dart';
+import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 import 'package:greenshare/user/ui/widget/user_avatar_widget.dart';
 
 class Header extends StatelessWidget {
@@ -20,6 +21,7 @@ class Header extends StatelessWidget {
               onSelected: (String result) {
                 if (result == 'logout') {
                   getIt<AuthenticationBloc>().add(const AuthenticationLogoutRequested());
+                  getIt<UserBloc>().add(const ResetUser());
                 }
               },
               itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
