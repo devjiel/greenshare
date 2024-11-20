@@ -9,7 +9,10 @@
     "files": {
       "$uid": {
         ".read": "auth != null",
-        ".write": "auth != null"
+        ".write": "auth != null",
+        ".indexOn": [
+          "expiration_date"
+        ]
       }
     },
     "shares": {

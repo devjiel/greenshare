@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:greenshare/common/ui/widgets/loading_widget.dart';
+import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/share/ui/bloc/share_links/share_links_bloc.dart';
 import 'package:greenshare/user/ui/blocs/user_bloc.dart';
 
@@ -16,7 +17,13 @@ class SharePage extends StatelessWidget {
       listener: (context, state) {
         if (state is ShareLinkLoaded) {
           final userBloc = context.read<UserBloc>();
-          userBloc.add(AddAvailableFile(fileUidList: state.fileUidList));
+          if (userBloc.state is UserStateLoaded) {
+            userBloc.add(AddAvailableFile(fileUidList: state.fileUidList));
+
+            for (final fileUid in state.fileUidList) {
+              context.read<AvailableFilesCubit>().addSharedWithUser(fileUid, (userBloc.state as UserStateLoaded).user.uid);
+            }
+          }
           context.pushReplacement('/home');
         }
       },

@@ -12,7 +12,8 @@ class FileEntityModel with _$FileEntityModel {
     @JsonKey(name: 'download_url') required String downloadUrl,
     required String path,
     @JsonKey(name: 'owner_uid') required String ownerUid,
-    @JsonKey(name: 'expiration_date')  DateTime? expirationDate,
+    @JsonKey(name: 'shared_with')  List<String>? sharedWith,
+    @JsonKey(name: 'expiration_date')  int? expirationDate,
   }) = _FileEntityModel;
 
   factory FileEntityModel.fromJson(Map<String, Object?> json)

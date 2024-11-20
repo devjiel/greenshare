@@ -32,7 +32,7 @@ void main() {
                 uid: 'uid1',
                 name: 'file1.pdf',
                 size: 1.2,
-                expirationDate: DateTime(2024, 11, 12),
+                expirationDate: DateTime(2024, 11, 12).millisecondsSinceEpoch,
                 downloadUrl: 'url1',
                 path: '/path/1',
                 ownerUid: 'ownerUid#1'),
@@ -40,7 +40,7 @@ void main() {
                 uid: 'uid2',
                 name: 'file2.pdf',
                 size: 2.5,
-                expirationDate: DateTime(2024, 11, 11),
+                expirationDate: DateTime(2024, 11, 11).millisecondsSinceEpoch,
                 downloadUrl: 'url2',
                 path: '/path/2',
                 ownerUid: 'ownerUid#2'),
@@ -48,7 +48,7 @@ void main() {
                 uid: 'uid3',
                 name: 'file3.pdf',
                 size: 3.7,
-                expirationDate: DateTime(2024, 11, 13),
+                expirationDate: DateTime(2024, 11, 13).millisecondsSinceEpoch,
                 downloadUrl: 'url3',
                 path: '/path/3',
                 ownerUid: 'ownerUid#3'),
@@ -123,7 +123,17 @@ void main() {
 
       await availableFilesCubit.updateExpirationDate('fileUid1', DateTime(2024, 11, 19));
 
-      verify(() => filesRepository.updateExpirationDate('fileUid1', DateTime(2024, 11, 19))).called(1);
+      verify(() => filesRepository.updateExpirationDate('fileUid1', DateTime(2024, 11, 19).millisecondsSinceEpoch)).called(1);
+    });
+
+    test('should add shared with user', () async {
+      when(() => filesRepository.addSharedWithUser(any(), any())).thenAnswer(
+        (_) => Future.value(),
+      );
+
+      await availableFilesCubit.addSharedWithUser('fileUid1', 'userUid1');
+
+      verify(() => filesRepository.addSharedWithUser('fileUid1', 'userUid1')).called(1);
     });
   });
 }

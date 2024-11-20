@@ -10,7 +10,7 @@ import 'package:injectable/injectable.dart';
 part 'available_files_state.dart';
 
 @singleton
-class AvailableFilesCubit extends Cubit<AvailableFilesState> {
+class AvailableFilesCubit extends Cubit<AvailableFilesState> { // TODO transform to bloc
 
   AvailableFilesCubit(FilesRepository filesRepository) : _filesRepository = filesRepository, super(AvailableFilesInitial());
 
@@ -49,6 +49,10 @@ class AvailableFilesCubit extends Cubit<AvailableFilesState> {
   }
 
   Future<void> updateExpirationDate(String fileUid, DateTime expirationDate) async {
-    await _filesRepository.updateExpirationDate(fileUid, expirationDate); // TODO handle error
+    await _filesRepository.updateExpirationDate(fileUid, expirationDate.millisecondsSinceEpoch); // TODO handle error
+  }
+
+  Future<void> addSharedWithUser(String fileUid, String userUid) async {
+    await _filesRepository.addSharedWithUser(fileUid, userUid); // TODO handle error
   }
 }

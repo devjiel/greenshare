@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:greenshare/authentication/ui/blocs/authentication/authentication_bloc.dart';
 import 'package:greenshare/authentication/ui/login_page.dart';
 import 'package:greenshare/common/config/injectable.dart';
+import 'package:greenshare/files/ui/blocs/available_files/available_files_cubit.dart';
 import 'package:greenshare/home/ui/home_page.dart';
 import 'package:greenshare/share/ui/bloc/current_share/current_share_cubit.dart';
 import 'package:greenshare/share/ui/bloc/share_links/share_links_bloc.dart';
@@ -26,10 +27,14 @@ class GreenShareRouter {
         ),
         GoRoute(
           path: '/share/:shareLinkUid',
-          builder: (context, state) => BlocProvider.value(
-            value: getIt<ShareLinksBloc>()..add(GetShareLinkFiles(state.pathParameters['shareLinkUid']!)),
-            child: SharePage(shareLinkUid: state.pathParameters['shareLinkUid']!),
-          ),
+          builder: (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider.value(value: getIt<ShareLinksBloc>()..add(GetShareLinkFiles(state.pathParameters['shareLinkUid']!))),
+                BlocProvider.value(value: getIt<AvailableFilesCubit>()),
+              ],
+              child: SharePage(
+                shareLinkUid: state.pathParameters['shareLinkUid']!,
+              )),
         ),
       ],
       redirect: (BuildContext context, GoRouterState state) {

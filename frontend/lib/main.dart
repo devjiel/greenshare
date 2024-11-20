@@ -68,6 +68,7 @@ class _GreenShareAppState extends State<GreenShareApp> {
                 // TODO errors occurs here
                 context.read<AuthenticationBloc>().add(const AuthenticationLogoutRequested()); // TODO show an error ?
                 context.read<UserBloc>().add(const ResetUser());
+                // TODO reset all other blocs
               }
             }
           },
