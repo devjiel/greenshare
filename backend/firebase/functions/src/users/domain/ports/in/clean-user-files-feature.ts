@@ -4,5 +4,5 @@ export interface CleanUserFilesResult {
 }
 
 export interface CleanUserFilesFeature {
-    removeFileReferences(fileUid: string): Promise<CleanUserFilesResult>;
+    removeFileReferences(userUidList: string[], fileUid: string): Promise<CleanUserFilesResult>;
 }

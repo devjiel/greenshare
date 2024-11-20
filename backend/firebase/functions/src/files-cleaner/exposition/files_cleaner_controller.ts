@@ -4,12 +4,7 @@ import { FilesService } from '../../files/domain/services/files-service';
 import { UsersService } from '../../users/domain/services/users-service';
 import { FirebaseFilesRepository } from '../../files/infrastructure/persistence/firebase-files-repository';
 import { FirebaseUsersRepository } from '../../users/infrastructure/persistence/firebase-users-repository';
-
-interface CleanResult {
-    deletedFiles: string[];
-    errors: string[];
-    totalCleaned: number;
-}
+import { CleanResult } from '../domain/ports/in/cleanup-orchestrator-feature';
 
 export class FileCleanerController {
     async clean(): Promise<CleanResult> {

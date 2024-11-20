@@ -7,6 +7,7 @@ export class FilesService implements CleanFilesFeature {
     async cleanExpiredFiles(): Promise<CleanResult> {
         const result: CleanResult = {
             deletedFiles: [],
+            fileLinkWithUser: {},
             errors: [],
             totalCleaned: 0
         };
@@ -18,6 +19,8 @@ export class FilesService implements CleanFilesFeature {
                 try {
                     await this.filesRepository.deleteFile(file.uid);
                     result.deletedFiles.push(file.uid);
+                    // TODO build a map of file links with users instead
+                    result.fileLinkWithUser[file.uid] = [file.owner_uid, ...file.shared_with];
                     result.totalCleaned++;
                 } catch (error) {
                     result.errors.push(`Failed to delete ${file.path}: ${error}`);

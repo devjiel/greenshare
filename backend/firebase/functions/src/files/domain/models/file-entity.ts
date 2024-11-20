@@ -5,5 +5,6 @@ export interface FileEntity {
     download_url: string;
     path: string;
     owner_uid: string;
+    shared_with: string[];
     expiration_date: number;
-} // TODO: file should have users in reference
+}

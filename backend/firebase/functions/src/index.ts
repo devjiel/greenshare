@@ -29,8 +29,14 @@ import { CleanResult } from "./files/domain/ports/in/clean-files-feature";
 
 admin.initializeApp();
 
+export interface FunctionResult {
+    deletedFiles: string[];
+    errors: string[];
+    totalCleaned: number;
+}
+
 export const cleanExpiredFiles = onRequest({ cors: true }, async (req, res) => {
-    let response: CleanResult = {
+    let response: FunctionResult = {
         deletedFiles: [],
         errors: [],
         totalCleaned: 0

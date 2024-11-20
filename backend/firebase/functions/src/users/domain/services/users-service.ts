@@ -5,21 +5,20 @@ import { UsersRepository } from "../ports/out/users-repository";
 export class UsersService implements CleanUserFilesFeature {
     constructor(private readonly usersRepository: UsersRepository) { }
 
-    async removeFileReferences(fileUid: string): Promise<CleanUserFilesResult> {
+    async removeFileReferences(userUidList: string[], fileUid: string): Promise<CleanUserFilesResult> {
         const result: CleanUserFilesResult = {
             updatedUsers: [],
             errors: []
         };
 
         try {
-            const users = await this.usersRepository.findUsersWithFile(fileUid);
 
-            for (const user of users) {
+            for (const userUid of userUidList) {
                 try {
-                    await this.usersRepository.removeFileFromUser(user.uid, fileUid);
-                    result.updatedUsers.push(user.uid);
+                    await this.usersRepository.removeFileFromUser(userUid, fileUid);
+                    result.updatedUsers.push(userUid);
                 } catch (error) {
-                    result.errors.push(`Failed to update user ${user.uid}: ${error}`);
+                    result.errors.push(`Failed to update user ${userUid}: ${error}`);
                 }
             }
         } catch (error) {
